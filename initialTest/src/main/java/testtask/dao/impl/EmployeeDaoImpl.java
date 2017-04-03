@@ -10,17 +10,28 @@ import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 
-    public Employee getById(Integer id) throws SQLException {
+    private Employee fillEmployeeWithFields(Employee employee, PreparedStatement preparedStatement) throws SQLException {
+        try (ResultSet rs = preparedStatement.executeQuery()) {
+            while (rs.next()) {
+                employee.setId(rs.getInt("id"));
+                employee.setName(rs.getString("name"));
+                employee.setEmail(rs.getString("email"));
+                employee.setSalary(rs.getInt("salary"));
+                employee.setBirthDate(rs.getDate("birth_date"));
+                employee.setDepartmentId(rs.getInt("department_id"));
+            }
+        }
+        return employee;
+    }
 
+    public Employee getById(Integer id) throws SQLException {
 
         Employee employee = new Employee();
         String sql = "SELECT * FROM employees WHERE id=?";
-        try(Connection connection = DatabaseConnection.getConnection()) {
-            try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-                //Connection connection = DatabaseConnection.getConnection();
-                //PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setInt(1, id);
-                ResultSet rs = preparedStatement.executeQuery();
+        try(Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            /*try (ResultSet rs = preparedStatement.executeQuery()) {
                 while (rs.next()) {
                     employee.setId(rs.getInt("id"));
                     employee.setName(rs.getString("name"));
@@ -29,16 +40,33 @@ public class EmployeeDaoImpl implements EmployeeDao {
                     employee.setBirthDate(rs.getDate("birth_date"));
                     employee.setDepartmentId(rs.getInt("department_id"));
                 }
-            }
+            }*/
+            employee = fillEmployeeWithFields(employee,preparedStatement);
         }
-
-        /*if (rs!=null)rs.close();
-        if (preparedStatement!=null)preparedStatement.close();
-        if (connection!=null)connection.close();*/
-
         return employee;
     }
 
+    @Override
+    public Employee getByEmail(String employeeEmail) throws SQLException {
+        Employee employee = new Employee();
+        String sql = "SELECT * FROM employees WHERE email=?";
+        try(Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, employeeEmail);
+                /*try (ResultSet rs = preparedStatement.executeQuery()) {
+                    while (rs.next()) {
+                        employee.setId(rs.getInt("id"));
+                        employee.setName(rs.getString("name"));
+                        employee.setEmail(rs.getString("email"));
+                        employee.setSalary(rs.getInt("salary"));
+                        employee.setBirthDate(rs.getDate("birth_date"));
+                        employee.setDepartmentId(rs.getInt("department_id"));
+                    }
+                }*/
+            employee = fillEmployeeWithFields(employee,preparedStatement);
+            }
+        return employee;
+    }
 
     public List<Employee> getAll( Integer departmentId) throws SQLException {
 
@@ -59,13 +87,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 employees.add(employee);
             }
         }
-        /*if (rs!=null)rs.close();
-        if (statement!=null)statement.close();
-        if (connection!=null)connection.close();*/
         return employees;
     }
-
-
 
     public void addEmpl(Employee employee) throws SQLException {
 
@@ -79,8 +102,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
             preparedStatement.setInt(5, employee.getDepartmentId());
             preparedStatement.executeUpdate();
         }
-        /*if (preparedStatement!=null)preparedStatement.close();
-        if (connection!=null)connection.close();*/
 
     }
 
@@ -92,8 +113,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         }
-        /*if (preparedStatement!=null)preparedStatement.close();
-        if (connection!=null)connection.close();*/
     }
 
     public void updateEmpl(Employee employee) throws SQLException {
@@ -105,15 +124,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setString(2, employee.getEmail());
             preparedStatement.setInt(3, employee.getSalary());
-            //java.sql.Date sqlDate = sqlDate
             preparedStatement.setDate(4, new java.sql.Date(employee.getBirthDate().getTime()));
             preparedStatement.setInt(5, employee.getDepartmentId());
             preparedStatement.setInt(6, employee.getId());
             preparedStatement.executeUpdate();
         }
-        /*if (preparedStatement!=null)preparedStatement.close();
-        if (connection!=null)connection.close();*/
-
     }
+
+
 
 }

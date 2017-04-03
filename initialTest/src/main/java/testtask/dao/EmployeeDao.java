@@ -17,6 +17,5 @@ public interface EmployeeDao {
 
         void updateEmpl(Employee employee)throws SQLException;
 
-
-
+        Employee getByEmail(String s)throws SQLException;
 }

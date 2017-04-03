@@ -3,6 +3,9 @@
 <html>
 <head>
     <title>Employee Data</title>
+    <style>
+        .error { color: red; font-size: 0.9em; font-weight: bold; }
+    </style>
 </head>
 <body>
 <form method="post" action="/employeeSave">
@@ -14,7 +17,7 @@
         <tr>
             <td>Email:</td>
             <td><input type="text" name="employeeEmail" value="${employee.email}"/></td>
-            <td> <span>${error.email}</span></td>
+            <td class="error">${errors.get("email")}</td>
         </tr>
         <tr>
             <td>Salary:</td>
