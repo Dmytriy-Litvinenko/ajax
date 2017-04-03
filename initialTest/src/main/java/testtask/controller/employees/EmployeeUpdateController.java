@@ -37,7 +37,12 @@ public class EmployeeUpdateController extends HttpServlet {
             request.setAttribute("departmentId", departmentId);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request,response);
         }catch (SQLException e){
-            throw new ServletException("Cannot update department from DB", e);
+            //throw new ServletException("Cannot update department from DB", e);
+            response.sendRedirect("/error");
+        }catch (RuntimeException e){
+            response.sendRedirect("/error");
+        } catch (Exception e){
+            response.sendRedirect("/error");
         }
     }
 }

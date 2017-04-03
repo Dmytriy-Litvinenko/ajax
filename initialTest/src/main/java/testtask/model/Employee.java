@@ -1,6 +1,9 @@
 package testtask.model;
 
 
+import net.sf.oval.constraint.Email;
+import net.sf.oval.constraint.NotNull;
+
 import java.util.Date;
 
 public class Employee {
@@ -9,13 +12,17 @@ public class Employee {
 
     private String name;
 
+
+    @Email(message = "Email incorrect")
     private String email;
 
+    @NotNull
     private Integer salary;
 
     private Date birthDate;
 
     //@Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Integer departmentId;
 
     public String getEmail() {

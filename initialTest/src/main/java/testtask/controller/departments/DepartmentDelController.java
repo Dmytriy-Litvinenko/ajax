@@ -20,9 +20,11 @@ public class DepartmentDelController extends HttpServlet {
             Integer departmentId = Integer.parseInt(request.getParameter("departmentId"));
             departmentDao.delDep(departmentId);
             response.sendRedirect("/departments");
-
         }catch (SQLException e){
-            throw new ServletException("Cannot delete department from DB", e);
+            //throw new ServletException("Cannot delete department from DB", e);
+            response.sendRedirect("/error");
+        }catch (Exception e){
+            response.sendRedirect("/error");
         }
 
     }

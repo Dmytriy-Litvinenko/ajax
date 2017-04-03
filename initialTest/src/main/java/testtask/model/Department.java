@@ -1,9 +1,17 @@
 package testtask.model;
 
+import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotEmpty;
+import net.sf.oval.constraint.NotNull;
+import testtask.util.validation.UniqueDepartmentName;
+
 public class Department {
 
     private Integer id;
 
+    @UniqueDepartmentName
+    @NotEmpty
+    @Length(max=20)
     private String name;
 
     public Integer getId() {

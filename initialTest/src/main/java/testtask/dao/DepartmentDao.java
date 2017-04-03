@@ -10,6 +10,8 @@ public interface DepartmentDao {
 
     Department getById(Integer id) throws SQLException;
 
+    Department getByName(String name) throws SQLException;
+
     List<Department> getAll() throws SQLException;
 
     void addDep(Department department)throws SQLException;

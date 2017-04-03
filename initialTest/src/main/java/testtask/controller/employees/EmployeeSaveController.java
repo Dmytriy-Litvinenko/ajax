@@ -3,6 +3,7 @@ package testtask.controller.employees;
 import testtask.dao.EmployeeDao;
 import testtask.dao.impl.EmployeeDaoImpl;
 import testtask.model.Employee;
+import testtask.util.validation.ValidationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 @WebServlet("/employeeSave")
 public class EmployeeSaveController extends HttpServlet {
@@ -46,13 +48,25 @@ public class EmployeeSaveController extends HttpServlet {
                 employee.setEmail(employeeEmail);
                 employee.setSalary(Integer.valueOf(employeeSalary));
                 employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
+                //employee.
                 employeeDao.updateEmpl(employee);
             }
             response.sendRedirect("/employees?departmentId="+departmentId);
         }catch (SQLException e) {
-            throw new ServletException("Cannot save employee to DB", e);
+            //throw new ServletException("Cannot save employee to DB", e);
+            response.sendRedirect("/error");
         } catch (ParseException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            response.sendRedirect("/error");
+        }/*catch (ValidationException exception){
+            Map<String,String> map = exception.getMapError();
+            request.setAttribute("error", map);
+            request.setAttribute("empl", employee);
+            request.getRequestDispatcher("WEB-INF/pages/empl/add.jsp").forward(request,response);
+        }*/catch (RuntimeException e){
+            response.sendRedirect("/error");
+        } catch (Exception e){
+            response.sendRedirect("/error");
         }
     }
 }

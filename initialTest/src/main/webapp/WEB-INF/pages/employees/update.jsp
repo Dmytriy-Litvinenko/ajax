@@ -14,6 +14,7 @@
         <tr>
             <td>Email:</td>
             <td><input type="text" name="employeeEmail" value="${employee.email}"/></td>
+            <td> <span>${error.email}</span></td>
         </tr>
         <tr>
             <td>Salary:</td>
@@ -22,7 +23,7 @@
         <tr>
             <td>Birth Date:</td>
             <td><input type="date" name="employeeBirthDate" value="${employee.birthDate}"/></td>
-
+            <td>${error.get("date")}</td>
         </tr>
         <tr>
             <td>

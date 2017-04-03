@@ -29,7 +29,10 @@ public class DepartmentUpdateController extends HttpServlet {
             request.setAttribute("department", department);
             request.getRequestDispatcher("WEB-INF/pages/departments/update.jsp").forward(request,response);
         }catch (SQLException e){
-            throw new ServletException("Cannot update department from DB", e);
+            //throw new ServletException("Cannot update department from DB", e);
+            response.sendRedirect("/error");
+        }catch (Exception e){
+            response.sendRedirect("/error");
         }
     }
 }
