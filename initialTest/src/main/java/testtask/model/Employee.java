@@ -15,6 +15,7 @@ public class Employee {
 
     private Date birthDate;
 
+    //@Temporal(TemporalType.TIMESTAMP)
     private Integer departmentId;
 
     public String getEmail() {

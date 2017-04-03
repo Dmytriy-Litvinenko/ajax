@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/**
- * Created by user on 31.03.17.
- */
 public class DepartmentSaveController  extends HttpServlet {
 
     private DepartmentDao departmentDao = new DepartmentDaoImpl();

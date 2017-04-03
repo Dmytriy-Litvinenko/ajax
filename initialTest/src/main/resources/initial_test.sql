@@ -8,7 +8,7 @@ CREATE TABLE employees(
   name VARCHAR(255),
   email VARCHAR(255),
   salary INT,
-  bith_date DATE,
+  birth_date DATE,
   department_id INT,
   FOREIGN KEY (department_id) REFERENCES departments (id)
 )
