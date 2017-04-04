@@ -2,13 +2,17 @@ package testtask.dao.impl;
 
 import testtask.dao.DatabaseConnection;
 import testtask.dao.DepartmentDao;
+import testtask.dao.EmployeeDao;
 import testtask.model.Department;
+import testtask.model.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentDaoImpl implements DepartmentDao {
+
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     @Override
     public Department getById(Integer id) throws SQLException {
@@ -79,6 +83,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public void delDep(Integer id) throws SQLException {
+
+        List<Employee> employees = employeeDao.getAll(id);
+        for (Employee employee:employees) {
+            employeeDao.delEmpl(employee.getId());
+        }
 
         String sql="DELETE FROM departments WHERE id=(?)";
         try(Connection connection = DatabaseConnection.getConnection();

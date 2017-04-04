@@ -32,16 +32,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
-            /*try (ResultSet rs = preparedStatement.executeQuery()) {
-                while (rs.next()) {
-                    employee.setId(rs.getInt("id"));
-                    employee.setName(rs.getString("name"));
-                    employee.setEmail(rs.getString("email"));
-                    employee.setSalary(rs.getInt("salary"));
-                    employee.setBirthDate(rs.getDate("birth_date"));
-                    employee.setDepartmentId(rs.getInt("department_id"));
-                }
-            }*/
             employee = fillEmployeeWithFields(employee,preparedStatement);
         }
         return employee;
@@ -53,17 +43,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         String sql = "SELECT * FROM employees WHERE email=?";
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, employeeEmail);
-                /*try (ResultSet rs = preparedStatement.executeQuery()) {
-                    while (rs.next()) {
-                        employee.setId(rs.getInt("id"));
-                        employee.setName(rs.getString("name"));
-                        employee.setEmail(rs.getString("email"));
-                        employee.setSalary(rs.getInt("salary"));
-                        employee.setBirthDate(rs.getDate("birth_date"));
-                        employee.setDepartmentId(rs.getInt("department_id"));
-                    }
-                }*/
+            preparedStatement.setString(1, employeeEmail);
             employee = fillEmployeeWithFields(employee,preparedStatement);
             }
         return employee;
