@@ -26,7 +26,6 @@ public class UniqueEmployeeEmailChecker extends AbstractAnnotationCheck<UniqueEm
             } else if(employeeFromDataBase.getId()==validatedEmployee.getId()){
                 return true;
             }
-
         }catch (SQLException e){
             e.printStackTrace();
         }

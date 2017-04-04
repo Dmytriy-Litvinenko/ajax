@@ -103,7 +103,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void updateEmpl(Employee employee) throws SQLException {
 
         String sql = "UPDATE employees SET name=(?), email=(?), salary =(?), birth_date = (?), department_id = (?) WHERE id=(?)";
-
         try(Connection connection = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement  = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, employee.getName());

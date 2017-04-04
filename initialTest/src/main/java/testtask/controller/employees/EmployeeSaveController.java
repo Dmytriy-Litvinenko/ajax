@@ -1,5 +1,6 @@
 package testtask.controller.employees;
 
+import net.sf.oval.constraint.DigitsCheck;
 import org.apache.commons.lang3.StringUtils;
 import testtask.dao.EmployeeDao;
 import testtask.dao.impl.EmployeeDaoImpl;
@@ -41,7 +42,8 @@ public class EmployeeSaveController extends HttpServlet {
                 employee.setName(employeeName);
                 employee.setDepartmentId(Integer.valueOf(departmentId));
                 employee.setEmail(employeeEmail);
-                if (StringUtils.isNumeric(employeeSalary)) employee.setSalary(Integer.valueOf(employeeSalary));
+                if(employeeSalary.equals(""))employee.setSalary(null);
+                else employee.setSalary(Integer.valueOf(employeeSalary));
                 if (!employeeBirthDate.equals(""))employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
                 validator.validate(employee);
                 employeeDao.addEmpl(employee);
@@ -49,25 +51,27 @@ public class EmployeeSaveController extends HttpServlet {
                 employee= employeeDao.getById(Integer.valueOf(employeeId));
                 employee.setName(employeeName);
                 employee.setEmail(employeeEmail);
-                if(!employeeSalary.equals(""))employee.setSalary(Integer.valueOf(employeeSalary));
+                if(employeeSalary.equals(""))employee.setSalary(null);
+                else employee.setSalary(Integer.valueOf(employeeSalary));
                 if (!employeeBirthDate.equals(""))employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
                 validator.validate(employee);
                 employeeDao.updateEmpl(employee);
             }
             response.sendRedirect("/employees?departmentId="+departmentId);
-        }catch (SQLException e) {
+        }/*catch (SQLException e) {
             //throw new ServletException("Cannot save employee to DB", e);
             response.sendRedirect("/error");
         } catch (ParseException e) {
             //e.printStackTrace();
             response.sendRedirect("/error");
-        }catch (ValidationException exception){
+        }*/catch (ValidationException exception){
             Map<String,String> map = exception.getMapError();
             request.setAttribute("errors", map);
             request.setAttribute("departmentId", departmentId);
             request.setAttribute("employee", employee);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request,response);
         }catch (Exception e){
+            //e.printStackTrace();
             response.sendRedirect("/error");
         }
     }

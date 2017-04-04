@@ -27,10 +27,10 @@ public class EmployeesAllController extends HttpServlet {
             request.setAttribute("departmentId", departmentId);
             RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/pages/employees/all.jsp");
             view.forward(request, response);
-        } catch (SQLException e) {
+        }/* catch (SQLException e) {
             //throw new ServletException("Cannot obtain employees from DB", e);
             response.sendRedirect("/error");
-        }catch (Exception e){
+        }*/catch (Exception e){
             response.sendRedirect("/error");
         }
     }

@@ -26,7 +26,6 @@ public class UniqueDepartmentNameChecker extends AbstractAnnotationCheck<UniqueD
             } else if(departmentFromDataBase.getId()==validatedDepartment.getId()){
                 return true;
             }
-
         }catch (SQLException e){
             e.printStackTrace();
         }

@@ -24,10 +24,10 @@ public class EmployeeDelController extends HttpServlet {
             Integer departmentId = employeeDao.getById(employeeId).getDepartmentId();
             employeeDao.delEmpl(employeeId);
             response.sendRedirect("/employees?departmentId="+departmentId);
-        }catch (SQLException e){
+        }/*catch (SQLException e){
             //throw new ServletException("Cannot delete department from DB", e);
             response.sendRedirect("/error");
-        }catch (Exception e){
+        }*/catch (Exception e){
             response.sendRedirect("/error");
         }
 

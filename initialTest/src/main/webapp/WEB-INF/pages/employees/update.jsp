@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>Salary:</td>
-            <td><input type="text" name="employeeSalary" value="${employee.salary}"/></td>
+            <td><input type="number" name="employeeSalary" value="${employee.salary}"/></td>
             <td class="error">${errors.get("salary")}</td>
         </tr>
         <tr>

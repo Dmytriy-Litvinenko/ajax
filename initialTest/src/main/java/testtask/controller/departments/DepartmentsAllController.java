@@ -26,10 +26,10 @@ public class DepartmentsAllController extends HttpServlet{
             request.setAttribute("dep", departments.get(0));
             RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/pages/departments/all.jsp");
             view.forward(request, response);
-        } catch (SQLException e) {
+        }/* catch (SQLException e) {
             //throw new ServletException("Cannot obtain departments from DB", e);
             response.sendRedirect("/error");
-        }catch (Exception e){
+        }*/catch (Exception e){
             response.sendRedirect("/error");
         }
     }

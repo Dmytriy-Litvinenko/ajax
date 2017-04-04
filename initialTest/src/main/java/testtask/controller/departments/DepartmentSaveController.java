@@ -42,10 +42,10 @@ public class DepartmentSaveController  extends HttpServlet {
                 departmentDao.updateDep(department);
             }
             response.sendRedirect("/departments");
-        }catch (SQLException e){
+        }/*catch (SQLException e){
             //throw new ServletException("Cannot save department from DB", e);
             response.sendRedirect("/error");
-        }catch (ValidationException exception){
+        }*/catch (ValidationException exception){
             Map<String,String> map = exception.getMapError();
             request.setAttribute("errors", map);
             request.setAttribute("department", department);

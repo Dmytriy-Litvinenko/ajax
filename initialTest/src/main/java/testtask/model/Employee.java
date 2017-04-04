@@ -1,9 +1,7 @@
 package testtask.model;
 
 
-import net.sf.oval.constraint.Email;
-import net.sf.oval.constraint.NotEmpty;
-import net.sf.oval.constraint.NotNull;
+import net.sf.oval.constraint.*;
 import testtask.util.validation.FullName;
 import testtask.util.validation.NotALetter;
 import testtask.util.validation.UniqueEmployeeEmail;
@@ -21,8 +19,8 @@ public class Employee {
     @UniqueEmployeeEmail
     private String email;
 
-    @NotNull
-    @NotALetter
+    @NotNull(message = "Salary cannot be empty")
+    @NotNegative(message = "Salary cannot be negative")
     private Integer salary;
 
     @NotNull(message = "date cannot have a null value!")

@@ -72,9 +72,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public void addDep(Department department) throws SQLException {
 
         String sql = "INSERT INTO departments(name) VALUES (?)";
-
         try(Connection connection = DatabaseConnection.getConnection();
-
         PreparedStatement preparedStatement  = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, department.getName());
             preparedStatement.executeUpdate();
@@ -88,7 +86,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
         for (Employee employee:employees) {
             employeeDao.delEmpl(employee.getId());
         }
-
         String sql="DELETE FROM departments WHERE id=(?)";
         try(Connection connection = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
