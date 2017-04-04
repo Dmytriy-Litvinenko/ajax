@@ -13,6 +13,7 @@
         <tr>
             <td>Name:</td>
             <td><input type="text" name="employeeName" value="${employee.name}"/></td>
+            <td class="error">${errors.get("name")}</td>
         </tr>
         <tr>
             <td>Email:</td>
@@ -22,11 +23,14 @@
         <tr>
             <td>Salary:</td>
             <td><input type="text" name="employeeSalary" value="${employee.salary}"/></td>
+            <td class="error">${errors.get("salary")}</td>
         </tr>
         <tr>
             <td>Birth Date:</td>
-            <td><input type="date" name="employeeBirthDate" value="${employee.birthDate}"/></td>
-            <td>${error.get("date")}</td>
+            <fmt:formatDate pattern="yyyy-MM-dd" value="${employee.birthDate}" var="birth"/>
+            <td><input type="date" value= "${birth}" name="employeeBirthDate"/></td>
+            <td class="error">${errors.get("birthDate")}</td>
+
         </tr>
         <tr>
             <td>

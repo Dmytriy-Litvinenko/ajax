@@ -1,5 +1,6 @@
 package testtask.controller.employees;
 
+import org.apache.commons.lang3.StringUtils;
 import testtask.dao.EmployeeDao;
 import testtask.dao.impl.EmployeeDaoImpl;
 import testtask.model.Employee;
@@ -40,7 +41,7 @@ public class EmployeeSaveController extends HttpServlet {
                 employee.setName(employeeName);
                 employee.setDepartmentId(Integer.valueOf(departmentId));
                 employee.setEmail(employeeEmail);
-                employee.setSalary(Integer.valueOf(employeeSalary));
+                if (StringUtils.isNumeric(employeeSalary)) employee.setSalary(Integer.valueOf(employeeSalary));
                 if (!employeeBirthDate.equals(""))employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
                 validator.validate(employee);
                 employeeDao.addEmpl(employee);
@@ -63,11 +64,10 @@ public class EmployeeSaveController extends HttpServlet {
         }catch (ValidationException exception){
             Map<String,String> map = exception.getMapError();
             request.setAttribute("errors", map);
+            request.setAttribute("departmentId", departmentId);
             request.setAttribute("employee", employee);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request,response);
-        }/*catch (RuntimeException e){
-            response.sendRedirect("/error");
-        }*/ catch (Exception e){
+        }catch (Exception e){
             response.sendRedirect("/error");
         }
     }

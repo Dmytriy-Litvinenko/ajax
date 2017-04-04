@@ -4,6 +4,8 @@ package testtask.model;
 import net.sf.oval.constraint.Email;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
+import testtask.util.validation.FullName;
+import testtask.util.validation.NotALetter;
 import testtask.util.validation.UniqueEmployeeEmail;
 
 import java.util.Date;
@@ -12,20 +14,20 @@ public class Employee {
 
     private Integer id;
 
+    @FullName
     private String name;
 
-    //@Email(message = "Email incorrect")
+    @Email(message = "please, enter correct email!")
     @UniqueEmployeeEmail
     private String email;
 
     @NotNull
+    @NotALetter
     private Integer salary;
 
-    @NotNull
+    @NotNull(message = "date cannot have a null value!")
     private Date birthDate;
 
-    //@Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     private Integer departmentId;
 
     public String getEmail() {

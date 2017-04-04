@@ -24,6 +24,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employee;
     }
 
+    @Override
     public Employee getById(Integer id) throws SQLException {
 
         Employee employee = new Employee();
@@ -68,6 +69,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employee;
     }
 
+    @Override
     public List<Employee> getAll( Integer departmentId) throws SQLException {
 
         List<Employee> employees = new ArrayList<Employee>();
@@ -90,6 +92,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employees;
     }
 
+    @Override
     public void addEmpl(Employee employee) throws SQLException {
 
         String sql = "INSERT INTO employees(name,email,salary,birth_date,department_id) VALUES (?,?,?,?,?)";
@@ -105,6 +108,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     }
 
+    @Override
     public void delEmpl(Integer id) throws SQLException {
         String sql="DELETE FROM employees WHERE id=(?)";
         try(
@@ -115,6 +119,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
     }
 
+    @Override
     public void updateEmpl(Employee employee) throws SQLException {
 
         String sql = "UPDATE employees SET name=(?), email=(?), salary =(?), birth_date = (?), department_id = (?) WHERE id=(?)";

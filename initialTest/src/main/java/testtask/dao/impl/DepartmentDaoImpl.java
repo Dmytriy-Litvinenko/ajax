@@ -10,6 +10,7 @@ import java.util.List;
 
 public class DepartmentDaoImpl implements DepartmentDao {
 
+    @Override
     public Department getById(Integer id) throws SQLException {
 
         Department department = new Department();
@@ -27,6 +28,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return department;
     }
 
+    @Override
     public Department getByName(String name) throws SQLException {
 
         Department department = new Department();
@@ -44,6 +46,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return department;
     }
 
+    @Override
     public List<Department> getAll() throws SQLException {
 
         List<Department> departments = new ArrayList<Department>();
@@ -58,12 +61,10 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 departments.add(department);
             }
         }
-        /*if (rs!=null)rs.close();
-        if (statement!=null)statement.close();
-        if (connection!=null)connection.close();*/
         return departments;
     }
 
+    @Override
     public void addDep(Department department) throws SQLException {
 
         String sql = "INSERT INTO departments(name) VALUES (?)";
@@ -74,11 +75,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
             preparedStatement.setString(1, department.getName());
             preparedStatement.executeUpdate();
         }
-        /*if (preparedStatement!=null)preparedStatement.close();
-        if (connection!=null)connection.close();*/
-
     }
 
+    @Override
     public void delDep(Integer id) throws SQLException {
 
         String sql="DELETE FROM departments WHERE id=(?)";
@@ -87,10 +86,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         }
-        /*if (preparedStatement!=null)preparedStatement.close();
-        if (connection!=null)connection.close();*/
     }
 
+    @Override
     public void updateDep(Department department) throws SQLException {
 
         String sql = "UPDATE departments SET name=(?) WHERE id=(?)";
@@ -100,8 +98,5 @@ public class DepartmentDaoImpl implements DepartmentDao {
             preparedStatement.setInt(2, department.getId());
             preparedStatement.executeUpdate();
         }
-        /*if (preparedStatement!=null)preparedStatement.close();
-        if (connection!=null)connection.close();*/
-
     }
 }
