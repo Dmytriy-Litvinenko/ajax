@@ -8,18 +8,20 @@ import net.sf.oval.exception.OValException;
 import testtask.dao.EmployeeDao;
 import testtask.dao.impl.EmployeeDaoImpl;
 import testtask.model.Employee;
+import testtask.service.EmployeeService;
+import testtask.service.impl.EmployeeServiceImpl;
 
 import java.sql.SQLException;
 
 public class UniqueEmployeeEmailChecker extends AbstractAnnotationCheck<UniqueEmployeeEmail> {
 
-    private EmployeeDao employeeDao = new EmployeeDaoImpl();
+    private EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
     public boolean isSatisfied(Object validatedObject, Object value, OValContext context, Validator validator) throws OValException {
         try {
             Employee validatedEmployee = (Employee) validatedObject;
-            Employee employeeFromDataBase = employeeDao.getByEmail(value.toString());
+            Employee employeeFromDataBase = employeeService.getByEmail(value.toString());
             String employeeEmail = employeeFromDataBase.getEmail();
             if(!value.toString().equals(employeeEmail)){
                 return true;

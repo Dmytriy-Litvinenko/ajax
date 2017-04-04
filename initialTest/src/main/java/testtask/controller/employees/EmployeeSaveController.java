@@ -1,10 +1,9 @@
 package testtask.controller.employees;
 
-import net.sf.oval.constraint.DigitsCheck;
-import org.apache.commons.lang3.StringUtils;
-import testtask.dao.EmployeeDao;
-import testtask.dao.impl.EmployeeDaoImpl;
 import testtask.model.Employee;
+import testtask.service.EmployeeService;
+import testtask.service.impl.EmployeeServiceImpl;
+import testtask.util.db.StringFormatter;
 import testtask.util.validation.OvalValidator;
 import testtask.util.validation.ValidationException;
 
@@ -14,15 +13,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @WebServlet("/employeeSave")
 public class EmployeeSaveController extends HttpServlet {
 
-    private EmployeeDao employeeDao = new EmployeeDaoImpl();
+    //Log logger = new Log("log.txt");
+    //logger.
+    //log.logger=
+    private static Logger log = Logger.getLogger(EmployeeSaveController.class.getName());
+
+    private EmployeeService employeeService = new EmployeeServiceImpl();
+
+    public EmployeeSaveController() throws IOException {
+    }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
@@ -44,27 +50,22 @@ public class EmployeeSaveController extends HttpServlet {
                 employee.setEmail(employeeEmail);
                 if(employeeSalary.equals(""))employee.setSalary(null);
                 else employee.setSalary(Integer.valueOf(employeeSalary));
-                if (!employeeBirthDate.equals(""))employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
+                if (!employeeBirthDate.equals(""))
+                    employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
+                else employee.setBirthDate(null);
                 validator.validate(employee);
-                employeeDao.addEmpl(employee);
+                employeeService.addEmpl(employee);
             }else {
-                employee= employeeDao.getById(Integer.valueOf(employeeId));
+                employee= employeeService.getById(Integer.valueOf(employeeId));
                 employee.setName(employeeName);
                 employee.setEmail(employeeEmail);
-                if(employeeSalary.equals(""))employee.setSalary(null);
-                else employee.setSalary(Integer.valueOf(employeeSalary));
-                if (!employeeBirthDate.equals(""))employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
+                employee.setSalary(StringFormatter.stringToInteger(employeeSalary));
+                employee.setBirthDate(StringFormatter.stringToDate(employeeBirthDate));
                 validator.validate(employee);
-                employeeDao.updateEmpl(employee);
+                employeeService.updateEmpl(employee);
             }
             response.sendRedirect("/employees?departmentId="+departmentId);
-        }/*catch (SQLException e) {
-            //throw new ServletException("Cannot save employee to DB", e);
-            response.sendRedirect("/error");
-        } catch (ParseException e) {
-            //e.printStackTrace();
-            response.sendRedirect("/error");
-        }*/catch (ValidationException exception){
+        }catch (ValidationException exception){
             Map<String,String> map = exception.getMapError();
             request.setAttribute("errors", map);
             request.setAttribute("departmentId", departmentId);
@@ -72,6 +73,9 @@ public class EmployeeSaveController extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request,response);
         }catch (Exception e){
             //e.printStackTrace();
+            //log.log(Level.SEVERE,e.getMessage(),e);
+            //log.
+
             response.sendRedirect("/error");
         }
     }

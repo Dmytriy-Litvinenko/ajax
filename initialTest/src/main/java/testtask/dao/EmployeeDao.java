@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface EmployeeDao {
 
-        Employee getById(Integer id)throws SQLException;
+        Employee findById(Integer id)throws SQLException;
 
-        List<Employee> getAll(Integer id)throws SQLException;
+        List<Employee> findAll(Integer id)throws SQLException;
 
         void addEmpl(Employee employee)throws SQLException;
 
@@ -17,5 +17,5 @@ public interface EmployeeDao {
 
         void updateEmpl(Employee employee)throws SQLException;
 
-        Employee getByEmail(String s)throws SQLException;
+        Employee findByEmail(String s)throws SQLException;
 }

@@ -3,6 +3,8 @@ package testtask.controller.employees;
 import testtask.dao.EmployeeDao;
 import testtask.dao.impl.EmployeeDaoImpl;
 import testtask.model.Employee;
+import testtask.service.EmployeeService;
+import testtask.service.impl.EmployeeServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/employeeUpdate")
 public class EmployeeUpdateController extends HttpServlet {
 
-    private EmployeeDao employeeDao = new EmployeeDaoImpl();
+    private EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,17 +30,14 @@ public class EmployeeUpdateController extends HttpServlet {
                 employee.setDepartmentId(Integer.valueOf(departmentId));
             }
             else{
-                employee= employeeDao.getById(Integer.valueOf(employeeId));
+                employee= employeeService.getById(Integer.valueOf(employeeId));
                 departmentId=employee.getDepartmentId().toString();
             }
 
             request.setAttribute("employee", employee);
             request.setAttribute("departmentId", departmentId);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request,response);
-        }/*catch (SQLException e){
-            //throw new ServletException("Cannot update department from DB", e);
-            response.sendRedirect("/error");
-        }*/catch (Exception e){
+        }catch (Exception e){
             response.sendRedirect("/error");
         }
     }

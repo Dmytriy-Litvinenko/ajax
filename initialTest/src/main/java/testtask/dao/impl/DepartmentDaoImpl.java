@@ -1,6 +1,6 @@
 package testtask.dao.impl;
 
-import testtask.dao.DatabaseConnection;
+import testtask.util.db.DatabaseConnection;
 import testtask.dao.DepartmentDao;
 import testtask.dao.EmployeeDao;
 import testtask.model.Department;
@@ -15,7 +15,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     private EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     @Override
-    public Department getById(Integer id) throws SQLException {
+    public Department findById(Integer id) throws SQLException {
 
         Department department = new Department();
         String sql = "SELECT * FROM departments WHERE id=?";
@@ -33,7 +33,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public Department getByName(String name) throws SQLException {
+    public Department findByName(String name) throws SQLException {
 
         Department department = new Department();
         String sql = "SELECT * FROM departments WHERE name=?";
@@ -51,7 +51,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Department> getAll() throws SQLException {
+    public List<Department> findAll() throws SQLException {
 
         List<Department> departments = new ArrayList<Department>();
         String sql ="SELECT * FROM departments";
@@ -82,7 +82,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public void delDep(Integer id) throws SQLException {
 
-        List<Employee> employees = employeeDao.getAll(id);
+        List<Employee> employees = employeeDao.findAll(id);
         for (Employee employee:employees) {
             employeeDao.delEmpl(employee.getId());
         }

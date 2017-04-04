@@ -1,19 +1,18 @@
 package testtask.controller.departments;
 
-import testtask.dao.DepartmentDao;
-import testtask.dao.impl.DepartmentDaoImpl;
 import testtask.model.Department;
+import testtask.service.DepartmentService;
+import testtask.service.impl.DepartmentServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class DepartmentUpdateController extends HttpServlet {
 
-    private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,14 +23,11 @@ public class DepartmentUpdateController extends HttpServlet {
             if(departmentId==null)
                 department=new Department();
             else
-                department=departmentDao.getById(Integer.valueOf(departmentId));
+                department= departmentService.getById(Integer.valueOf(departmentId));
 
             request.setAttribute("department", department);
             request.getRequestDispatcher("WEB-INF/pages/departments/update.jsp").forward(request,response);
-        }/*catch (SQLException e){
-            //throw new ServletException("Cannot update department from DB", e);
-            response.sendRedirect("/error");
-        }*/catch (Exception e){
+        }catch (Exception e){
             response.sendRedirect("/error");
         }
     }

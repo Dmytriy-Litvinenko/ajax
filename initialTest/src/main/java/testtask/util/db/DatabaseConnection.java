@@ -1,4 +1,4 @@
-package testtask.dao;
+package testtask.util.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,7 +23,8 @@ public class DatabaseConnection {
         Connection conn = null;
 
         try {
-            conn = DriverManager.getConnection(URL+"?" + "user="+PASSWORD+"&password="+USER);
+            conn =// DriverManager.getConnection(URL+"?" + "user="+PASSWORD+"&password="+USER);
+                    DriverManager.getConnection(URL,PASSWORD,USER);
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Connection failed");
@@ -31,7 +32,7 @@ public class DatabaseConnection {
         return conn;
     }
 
-    public static void closeConnection(Connection connection) {
+    /*public static void closeConnection(Connection connection) {
         if (connection != null) {
             try {
                 if (!connection.isClosed()) {
@@ -41,6 +42,6 @@ public class DatabaseConnection {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
 }

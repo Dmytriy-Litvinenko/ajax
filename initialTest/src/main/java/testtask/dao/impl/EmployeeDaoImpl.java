@@ -1,6 +1,6 @@
 package testtask.dao.impl;
 
-import testtask.dao.DatabaseConnection;
+import testtask.util.db.DatabaseConnection;
 import testtask.dao.EmployeeDao;
 import testtask.model.Employee;
 
@@ -25,7 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee getById(Integer id) throws SQLException {
+    public Employee findById(Integer id) throws SQLException {
 
         Employee employee = new Employee();
         String sql = "SELECT * FROM employees WHERE id=?";
@@ -38,7 +38,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee getByEmail(String employeeEmail) throws SQLException {
+    public Employee findByEmail(String employeeEmail) throws SQLException {
         Employee employee = new Employee();
         String sql = "SELECT * FROM employees WHERE email=?";
         try(Connection connection = DatabaseConnection.getConnection();
@@ -50,7 +50,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getAll( Integer departmentId) throws SQLException {
+    public List<Employee> findAll( Integer departmentId) throws SQLException {
 
         List<Employee> employees = new ArrayList<Employee>();
         String sql ="SELECT id,name,email,salary,birth_date,department_id FROM employees WHERE department_id="+departmentId;
