@@ -1,10 +1,10 @@
 package testtask.model;
 
 
-import net.sf.oval.constraint.*;
+import net.sf.oval.constraint.Email;
+import net.sf.oval.constraint.NotNegative;
+import net.sf.oval.constraint.NotNull;
 import testtask.util.validation.FullName;
-import testtask.util.validation.IsNumeric;
-import testtask.util.validation.NotALetter;
 import testtask.util.validation.UniqueEmployeeEmail;
 
 import java.util.Date;
@@ -22,8 +22,6 @@ public class Employee {
 
     @NotNull(message = "enter number!")
     @NotNegative(message = "Salary cannot be negative")
-    //@Digits(message = "Salary cannot contain letters")
-    //@IsNumeric
     private Double salary;
 
     @NotNull(message = "date cannot have a null value!")

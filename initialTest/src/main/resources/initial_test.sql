@@ -12,3 +12,5 @@ CREATE TABLE employees(
   department_id INT,
   FOREIGN KEY (department_id) REFERENCES departments (id)
 )
+
+SHOW VARIABLES LIKE 'character\_set\_%';

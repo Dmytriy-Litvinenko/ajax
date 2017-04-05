@@ -6,8 +6,8 @@ import java.lang.annotation.*;
 
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(checkWith = UniqueDepartmentNameChecker.class)
+@Constraint(checkWith = NotRussianLettersChecker.class)
 @Documented
-public @interface UniqueDepartmentName {
-    String message() default "There is another department with the same name!";
+public @interface NotRussianLetters {
+    String message() default "Use only english letters!";
 }

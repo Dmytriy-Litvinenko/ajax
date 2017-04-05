@@ -11,17 +11,16 @@ import java.io.IOException;
 @WebServlet("/")
 public class FrontController extends HttpServlet {
 
-    FactoryController factoryController = new  FactoryController();
+    private FactoryController factoryController = new FactoryController();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         String url = request.getRequestURI();
-
         Controller controller = factoryController.getControllerByUrl(url);
-
         if (controller == null) {
-            controller = factoryController.getDefaultController();
+            controller = factoryController.getErrorPageController();
         }
 
         controller.goToPage(request, response);

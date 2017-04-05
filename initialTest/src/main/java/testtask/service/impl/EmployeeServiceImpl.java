@@ -9,7 +9,7 @@ import testtask.service.EmployeeService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDao employeeDao = new EmployeeDaoImpl();
 

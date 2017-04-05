@@ -17,32 +17,25 @@ import java.util.Map;
 public class FactoryController {
 
     private Map<String, Controller> controllerMap = new HashMap<>();
-
-    private Controller controller = new MainController();
-
+    private Controller errorPageController = new ErrorPageController();
+    public Controller getErrorPageController() {
+        return errorPageController;
+    }
     {
         controllerMap.put("/", new MainController());
-
         controllerMap.put("/departments", new DepartmentsAllController());
         controllerMap.put("/depUpdate", new DepartmentUpdateController());
         controllerMap.put("/depSave", new DepartmentSaveController());
         controllerMap.put("/depDelete", new DepartmentDelController());
-
         controllerMap.put("/employees", new EmployeesAllController());
         controllerMap.put("/employeeUpdate", new EmployeeUpdateController());
         controllerMap.put("/employeeSave", new EmployeeSaveController());
         controllerMap.put("/empDelete", new EmployeeDelController());/**/
-
         controllerMap.put("/error",new ErrorPageController());
     }
-
     public Controller getControllerByUrl(String url) {
-
         return controllerMap.get(url);
     }
 
-    public Controller getDefaultController(){
 
-        return controller;
-    }
 }

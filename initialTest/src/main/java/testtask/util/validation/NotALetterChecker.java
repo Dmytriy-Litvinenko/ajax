@@ -11,7 +11,7 @@ public class NotALetterChecker extends AbstractAnnotationCheck<NotALetter> {
     @Override
     public boolean isSatisfied(Object validatedObject, Object valueToValidate, OValContext context, Validator validator) throws OValException {
 
-        if(valueToValidate!=null) return true;
+        if (valueToValidate != null) return true;
         else return false;
     }
 }

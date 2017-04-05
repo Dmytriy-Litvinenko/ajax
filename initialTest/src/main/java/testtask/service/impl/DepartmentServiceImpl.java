@@ -9,7 +9,7 @@ import testtask.service.DepartmentService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
 
     private DepartmentDao departmentDao = new DepartmentDaoImpl();
 

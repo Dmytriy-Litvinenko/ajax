@@ -2,7 +2,7 @@ package testtask.model;
 
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
-import net.sf.oval.constraint.NotNull;
+import testtask.util.validation.NotRussianLetters;
 import testtask.util.validation.UniqueDepartmentName;
 
 public class Department {
@@ -11,7 +11,8 @@ public class Department {
 
     @UniqueDepartmentName
     @NotEmpty
-    @Length(max=20)
+    @Length(max = 20)
+    //@NotRussianLetters
     private String name;
 
     public Integer getId() {

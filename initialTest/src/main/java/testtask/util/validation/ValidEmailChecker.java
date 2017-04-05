@@ -17,9 +17,9 @@ public class ValidEmailChecker extends AbstractAnnotationCheck<Email> {
 
     @Override
     public boolean isSatisfied(Object validatedObject, Object valueToValidate, OValContext context, Validator validator) throws OValException {
-        if(Pattern.compile(EMAIL_PATTERN).matcher(valueToValidate.toString()).matches()){
+        if (Pattern.compile(EMAIL_PATTERN).matcher(valueToValidate.toString()).matches()) {
             return true;
-        }else
+        } else
             return false;
     }
 

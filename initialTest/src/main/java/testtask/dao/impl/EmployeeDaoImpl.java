@@ -80,7 +80,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         PreparedStatement preparedStatement  = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setString(2, employee.getEmail());
-            //preparedStatement.setDouble(3, employee.getSalary());
             Double salary =employee.getSalary();
             if(salary!=null)preparedStatement.setDouble(3, salary);
             else preparedStatement.setNull(3, Types.DOUBLE);
