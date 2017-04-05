@@ -1,5 +1,6 @@
 package testtask.controller.employees;
 
+import testtask.controller.factory.Controller;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
 import testtask.service.impl.EmployeeServiceImpl;
@@ -17,8 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@WebServlet("/employeeSave")
-public class EmployeeSaveController extends HttpServlet {
+public class EmployeeSaveController implements Controller{//extends HttpServlet {
 
     //Log logger = new Log("log.txt");
     //logger.
@@ -27,11 +27,8 @@ public class EmployeeSaveController extends HttpServlet {
 
     private EmployeeService employeeService = new EmployeeServiceImpl();
 
-    public EmployeeSaveController() throws IOException {
-    }
-
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 
         Employee employee = null;//
         String departmentId = request.getParameter("departmentId");
@@ -46,20 +43,17 @@ public class EmployeeSaveController extends HttpServlet {
             if(employeeId==null || employeeId.equals("")){
                 employee=new Employee();
                 employee.setName(employeeName);
-                employee.setDepartmentId(Integer.valueOf(departmentId));
+                employee.setDepartmentId(StringFormatter.stringToInteger(employeeId));
                 employee.setEmail(employeeEmail);
-                if(employeeSalary.equals(""))employee.setSalary(null);
-                else employee.setSalary(Integer.valueOf(employeeSalary));
-                if (!employeeBirthDate.equals(""))
-                    employee.setBirthDate((new SimpleDateFormat("yyyy-mm-dd")).parse(employeeBirthDate));
-                else employee.setBirthDate(null);
+                employee.setSalary(StringFormatter.stringToDouble(employeeSalary));
+                employee.setBirthDate(StringFormatter.stringToDate(employeeBirthDate));
                 validator.validate(employee);
                 employeeService.addEmpl(employee);
             }else {
-                employee= employeeService.getById(Integer.valueOf(employeeId));
+                employee =employeeService.getById(StringFormatter.stringToInteger(employeeId));
                 employee.setName(employeeName);
                 employee.setEmail(employeeEmail);
-                employee.setSalary(StringFormatter.stringToInteger(employeeSalary));
+                employee.setSalary(StringFormatter.stringToDouble(employeeSalary));
                 employee.setBirthDate(StringFormatter.stringToDate(employeeBirthDate));
                 validator.validate(employee);
                 employeeService.updateEmpl(employee);
@@ -72,10 +66,7 @@ public class EmployeeSaveController extends HttpServlet {
             request.setAttribute("employee", employee);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request,response);
         }catch (Exception e){
-            //e.printStackTrace();
-            //log.log(Level.SEVERE,e.getMessage(),e);
-            //log.
-
+            e.printStackTrace(System.out);
             response.sendRedirect("/error");
         }
     }

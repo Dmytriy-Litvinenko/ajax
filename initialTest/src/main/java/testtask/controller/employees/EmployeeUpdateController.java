@@ -1,5 +1,6 @@
 package testtask.controller.employees;
 
+import testtask.controller.factory.Controller;
 import testtask.dao.EmployeeDao;
 import testtask.dao.impl.EmployeeDaoImpl;
 import testtask.model.Employee;
@@ -13,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/employeeUpdate")
-public class EmployeeUpdateController extends HttpServlet {
+public class EmployeeUpdateController implements Controller {
 
     private EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Employee employee = null;
         String departmentId = request.getParameter("departmentId");
@@ -38,6 +38,7 @@ public class EmployeeUpdateController extends HttpServlet {
             request.setAttribute("departmentId", departmentId);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request,response);
         }catch (Exception e){
+            e.printStackTrace(System.out);
             response.sendRedirect("/error");
         }
     }

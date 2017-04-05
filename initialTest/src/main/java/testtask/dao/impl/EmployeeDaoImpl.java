@@ -16,7 +16,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 employee.setId(rs.getInt("id"));
                 employee.setName(rs.getString("name"));
                 employee.setEmail(rs.getString("email"));
-                employee.setSalary(rs.getInt("salary"));
+                employee.setSalary(rs.getDouble("salary"));
                 employee.setBirthDate(rs.getDate("birth_date"));
                 employee.setDepartmentId(rs.getInt("department_id"));
             }
@@ -63,7 +63,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 employee.setId(rs.getInt("id"));
                 employee.setName(rs.getString("name"));
                 employee.setEmail(rs.getString("email"));
-                employee.setSalary(rs.getInt("salary"));
+                employee.setSalary(rs.getDouble("salary"));
                 employee.setBirthDate(rs.getDate("birth_date"));
                 employee.setDepartmentId(rs.getInt("department_id"));
                 employees.add(employee);
@@ -80,7 +80,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         PreparedStatement preparedStatement  = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setString(2, employee.getEmail());
-            preparedStatement.setInt(3, employee.getSalary());
+            //preparedStatement.setDouble(3, employee.getSalary());
+            Double salary =employee.getSalary();
+            if(salary!=null)preparedStatement.setDouble(3, salary);
+            else preparedStatement.setNull(3, Types.DOUBLE);
             preparedStatement.setDate(4, new java.sql.Date(employee.getBirthDate().getTime()));
             preparedStatement.setInt(5, employee.getDepartmentId());
             preparedStatement.executeUpdate();
@@ -107,14 +110,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
         PreparedStatement preparedStatement  = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setString(2, employee.getEmail());
-            preparedStatement.setInt(3, employee.getSalary());
+            Double salary =employee.getSalary();
+            if(salary!=null)preparedStatement.setDouble(3, salary);
+            else preparedStatement.setNull(3, Types.DOUBLE);
             preparedStatement.setDate(4, new java.sql.Date(employee.getBirthDate().getTime()));
             preparedStatement.setInt(5, employee.getDepartmentId());
             preparedStatement.setInt(6, employee.getId());
             preparedStatement.executeUpdate();
         }
     }
-
-
 
 }

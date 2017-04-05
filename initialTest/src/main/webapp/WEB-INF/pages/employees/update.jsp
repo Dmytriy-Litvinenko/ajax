@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<%--
+
+    String org = request.getParameter("org");
+    String h= "hello";
+--%>
 <html>
 <head>
     <title>Employee Data</title>
@@ -21,8 +29,14 @@
             <td class="error">${errors.get("email")}</td>
         </tr>
         <tr>
-            <td>Salary:</td>
-            <td><input type="number" name="employeeSalary" value="${employee.salary}"/></td>
+            <td>Salary:</td><%--==null ? validationSalary : employee.salaryvalue=""/><c:out value="${param['departmentId']}"/>
+            ${employee.salary != null ? employee.salary : validationSalary}
+
+<c:out value="${param['employeeEmail']}"/>
+
+<c:out value="${param['employeeSalary'] eq null ? employee.salary : param['employeeSalary']}"/>
+            --%>
+            <td><input type="text" name="employeeSalary" value="${param['employeeSalary'] == null ? employee.salary : param['employeeSalary']}" /></td>
             <td class="error">${errors.get("salary")}</td>
         </tr>
         <tr>

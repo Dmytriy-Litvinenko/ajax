@@ -3,6 +3,7 @@ package testtask.model;
 
 import net.sf.oval.constraint.*;
 import testtask.util.validation.FullName;
+import testtask.util.validation.IsNumeric;
 import testtask.util.validation.NotALetter;
 import testtask.util.validation.UniqueEmployeeEmail;
 
@@ -19,9 +20,11 @@ public class Employee {
     @UniqueEmployeeEmail
     private String email;
 
-    @NotNull(message = "Salary cannot be empty")
+    @NotNull(message = "enter number!")
     @NotNegative(message = "Salary cannot be negative")
-    private Integer salary;
+    //@Digits(message = "Salary cannot contain letters")
+    //@IsNumeric
+    private Double salary;
 
     @NotNull(message = "date cannot have a null value!")
     private Date birthDate;
@@ -36,11 +39,11 @@ public class Employee {
         this.email = email;
     }
 
-    public Integer getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(Integer salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 

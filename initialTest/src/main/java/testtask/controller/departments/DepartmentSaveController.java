@@ -1,5 +1,6 @@
 package testtask.controller.departments;
 
+import testtask.controller.factory.Controller;
 import testtask.model.Department;
 import testtask.service.DepartmentService;
 import testtask.service.impl.DepartmentServiceImpl;
@@ -13,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class DepartmentSaveController extends HttpServlet {
+public class DepartmentSaveController implements Controller {
 
     private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Department department = null;//
         String departmentId = request.getParameter("departmentId");
@@ -44,6 +45,7 @@ public class DepartmentSaveController extends HttpServlet {
             request.setAttribute("department", department);
             request.getRequestDispatcher("WEB-INF/pages/departments/update.jsp").forward(request, response);
         } catch (Exception e) {
+            e.printStackTrace(System.out);
             response.sendRedirect("/error");
         }
     }

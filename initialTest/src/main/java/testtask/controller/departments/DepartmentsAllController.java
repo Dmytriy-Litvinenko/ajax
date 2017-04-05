@@ -1,5 +1,6 @@
 package testtask.controller.departments;
 
+import testtask.controller.factory.Controller;
 import testtask.dao.DepartmentDao;
 import testtask.dao.impl.DepartmentDaoImpl;
 import testtask.model.Department;
@@ -14,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class DepartmentsAllController extends HttpServlet{
+public class DepartmentsAllController implements Controller{
 
     private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<Department> departments = departmentService.getAll();
             request.setAttribute("departments", departments); // Will be available as ${departments} in JSP
@@ -27,6 +28,7 @@ public class DepartmentsAllController extends HttpServlet{
             RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/pages/departments/all.jsp");
             view.forward(request, response);
         }catch (Exception e){
+            e.printStackTrace(System.out);
             response.sendRedirect("/error");
         }
     }

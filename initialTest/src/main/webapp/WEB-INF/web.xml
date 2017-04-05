@@ -18,7 +18,7 @@
     <param-value>myWebapp-instance-root</param-value>
   </context-param-->
 
-  <servlet>
+  <!--servlet>
     <servlet-name>DepartmentsAllController</servlet-name>
     <servlet-class>testtask.controller.departments.DepartmentsAllController</servlet-class>
   </servlet>
@@ -52,6 +52,6 @@
   <servlet-mapping>
     <servlet-name>DepartmentsSaveController</servlet-name>
     <url-pattern>/depSave</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping-->
 
 </web-app>
