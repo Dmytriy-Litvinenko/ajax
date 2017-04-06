@@ -8,8 +8,13 @@ import java.util.Date;
 public class StringFormatter {
 
     public static Integer stringToInteger(String s) {
-        Integer integer = null;
-        if (!s.equals("")) integer = Integer.valueOf(s);
+        Integer integer; //= null;
+        //if (!s.equals(""))
+        try{
+            integer = Integer.valueOf(s);
+        }catch (Exception e) {
+            integer = null;
+        }
         return integer;
     }
 
@@ -23,9 +28,15 @@ public class StringFormatter {
         return doubleValue;
     }
 
-    public static Date stringToDate(String s) throws ParseException {
-        Date date = null;
-        if (!s.equals("")) date = (new SimpleDateFormat("yyyy-mm-dd")).parse(s);
+    public static Date stringToDate(String s){
+        Date date ;
+        //if (!s.equals(""))
+        try {
+            date = (new SimpleDateFormat("yyyy-mm-dd")).parse(s);
+        } catch (ParseException e) {
+            //e.printStackTrace();
+            date=null;
+        }
         return date;
     }
 

@@ -1,10 +1,12 @@
 package testtask.model;
 
 
+import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Email;
 import net.sf.oval.constraint.NotNegative;
 import net.sf.oval.constraint.NotNull;
 import testtask.util.validation.FullName;
+import testtask.util.validation.OvalUniqueEmail;
 import testtask.util.validation.UniqueEmployeeEmail;
 
 import java.util.Date;
@@ -17,7 +19,8 @@ public class Employee {
     private String name;
 
     @Email(message = "please, enter correct email!")
-    @UniqueEmployeeEmail
+    //@UniqueEmployeeEmail
+    @CheckWith(value = OvalUniqueEmail.class, message = "Not Unique email")
     private String email;
 
     @NotNull(message = "enter number!")

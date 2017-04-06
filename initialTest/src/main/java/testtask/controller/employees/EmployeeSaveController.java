@@ -1,6 +1,7 @@
 package testtask.controller.employees;
 
 import testtask.controller.factory.Controller;
+import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
 import testtask.service.impl.EmployeeServiceImpl;
@@ -12,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -25,7 +28,7 @@ public class EmployeeSaveController implements Controller {//extends HttpServlet
     private EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
-    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
         Employee employee = null;//
         String departmentId = request.getParameter("departmentId");
@@ -62,9 +65,9 @@ public class EmployeeSaveController implements Controller {//extends HttpServlet
             request.setAttribute("departmentId", departmentId);
             request.setAttribute("employee", employee);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request, response);
-        } catch (Exception e) {
+        } /*catch (Exception e) {
             e.printStackTrace(System.out);
             response.sendRedirect("/error");
-        }
+        }*/
     }
 }

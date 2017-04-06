@@ -4,7 +4,7 @@
     <title>Error Page</title>
 </head>
 <body>
-<a href="/"><h1>Return home page!</h1></a>
-<img src="/assets/pictures/Error-Page.png">
+<a href="/"><h1>Return home page!</h1></a><br>
+<!--img src="/assets/pictures/Error-Page.png"-->
 </body>
 </html>

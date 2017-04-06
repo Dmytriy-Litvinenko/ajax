@@ -18,9 +18,7 @@ public class FactoryController {
 
     private Map<String, Controller> controllerMap = new HashMap<>();
     private Controller errorPageController = new ErrorPageController();
-    public Controller getErrorPageController() {
-        return errorPageController;
-    }
+
     {
         controllerMap.put("/", new MainController());
         controllerMap.put("/departments", new DepartmentsAllController());
@@ -31,11 +29,15 @@ public class FactoryController {
         controllerMap.put("/employeeUpdate", new EmployeeUpdateController());
         controllerMap.put("/employeeSave", new EmployeeSaveController());
         controllerMap.put("/empDelete", new EmployeeDelController());/**/
-        controllerMap.put("/error",new ErrorPageController());
+        controllerMap.put("/error", new ErrorPageController());
     }
+
     public Controller getControllerByUrl(String url) {
         return controllerMap.get(url);
     }
 
+    public Controller getErrorPageController() {
+        return errorPageController;
+    }
 
 }
