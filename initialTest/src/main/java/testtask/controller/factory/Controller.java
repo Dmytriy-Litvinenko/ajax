@@ -10,5 +10,5 @@ import java.sql.SQLException;
 
 public interface Controller {
 
-    void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
+    void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException;
 }

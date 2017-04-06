@@ -19,8 +19,7 @@ public class DepartmentsAllController implements Controller {
     private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
-    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         List<Department> departments = departmentService.getAll();
         request.setAttribute("departments", departments); // Will be available as ${departments} in JSP
         request.setAttribute("dep", departments.get(0));

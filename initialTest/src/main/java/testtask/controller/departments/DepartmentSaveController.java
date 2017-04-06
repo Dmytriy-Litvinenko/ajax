@@ -21,9 +21,9 @@ public class DepartmentSaveController implements Controller {
     private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
-    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
-        Department department = null;//
+        Department department = null;
         String departmentId = request.getParameter("departmentId");
         String departmentName = request.getParameter("departmentName");
         OvalValidator validator = new OvalValidator();
@@ -46,10 +46,7 @@ public class DepartmentSaveController implements Controller {
             request.setAttribute("errors", map);
             request.setAttribute("department", department);
             request.getRequestDispatcher("WEB-INF/pages/departments/update.jsp").forward(request, response);
-        } /*catch (Exception e) {
-            e.printStackTrace(System.out);
-            response.sendRedirect("/error");
-        }*/
+        }
     }
 }
 

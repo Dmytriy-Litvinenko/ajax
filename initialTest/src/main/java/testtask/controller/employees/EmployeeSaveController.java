@@ -28,7 +28,7 @@ public class EmployeeSaveController implements Controller {//extends HttpServlet
     private EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
-    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Employee employee = null;//
         String departmentId = request.getParameter("departmentId");

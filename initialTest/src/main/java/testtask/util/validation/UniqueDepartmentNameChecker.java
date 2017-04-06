@@ -5,6 +5,7 @@ import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AbstractAnnotationCheck;
 import net.sf.oval.context.OValContext;
 import net.sf.oval.exception.OValException;
+import testtask.exception.DAOException;
 import testtask.model.Department;
 import testtask.service.DepartmentService;
 import testtask.service.impl.DepartmentServiceImpl;
@@ -26,7 +27,7 @@ public class UniqueDepartmentNameChecker extends AbstractAnnotationCheck<UniqueD
             } else if (departmentFromDataBase.getId() == validatedDepartment.getId()) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
         }
         return false;

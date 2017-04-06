@@ -17,15 +17,9 @@ public class DepartmentDelController implements Controller {
     private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
-    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        //try {
+    public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         Integer departmentId = Integer.parseInt(request.getParameter("departmentId"));
         departmentService.delDep(departmentId);
         response.sendRedirect("/departments");
-        /*}catch (Exception e){
-            e.printStackTrace(System.out);
-            response.sendRedirect("/error");
-        }*/
-
     }
 }

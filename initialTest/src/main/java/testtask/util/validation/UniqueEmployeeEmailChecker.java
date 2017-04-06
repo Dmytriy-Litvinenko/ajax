@@ -5,6 +5,7 @@ import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AbstractAnnotationCheck;
 import net.sf.oval.context.OValContext;
 import net.sf.oval.exception.OValException;
+import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
 import testtask.service.impl.EmployeeServiceImpl;
@@ -26,7 +27,7 @@ public class UniqueEmployeeEmailChecker extends AbstractAnnotationCheck<UniqueEm
             } else if (employeeFromDataBase.getId() == validatedEmployee.getId()) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
         }
         return false;

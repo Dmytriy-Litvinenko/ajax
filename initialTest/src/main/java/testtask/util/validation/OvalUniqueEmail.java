@@ -1,11 +1,11 @@
 package testtask.util.validation;
 
 import net.sf.oval.constraint.CheckWithCheck;
+import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
 import testtask.service.impl.EmployeeServiceImpl;
 
-import java.sql.SQLException;
 
 public class OvalUniqueEmail implements CheckWithCheck.SimpleCheck {
 
@@ -18,7 +18,7 @@ public class OvalUniqueEmail implements CheckWithCheck.SimpleCheck {
             String email = employeeFromDataBase.getEmail();
             if (!validatedValue.equals(email)) return true;
             else if (employeeFromDataBase.getId() == validatedEmployee.getId()) return true;
-        } catch (SQLException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
         }
         return false;
