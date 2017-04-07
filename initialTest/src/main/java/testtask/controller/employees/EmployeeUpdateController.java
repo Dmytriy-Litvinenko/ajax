@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class EmployeeUpdateController implements Controller {
 
@@ -22,23 +21,16 @@ public class EmployeeUpdateController implements Controller {
         Employee employee = null;
         String departmentId = request.getParameter("departmentId");
         String employeeId = request.getParameter("employeeId");
-        //try {
         if (employeeId == null || employeeId.equals("")) {
             employee = new Employee();
             employee.setDepartmentId(Integer.valueOf(departmentId));
         } else {
             employee = employeeService.getById(Integer.valueOf(employeeId));
-
             departmentId = employee.getDepartmentId().toString();
         }
-
         request.setAttribute("employee", employee);
         request.setAttribute("departmentId", departmentId);
         request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request, response);
-        /*}catch (Exception e){
-            e.printStackTrace(System.out);
-            response.sendRedirect("/error");
-        }*/
     }
 }
 

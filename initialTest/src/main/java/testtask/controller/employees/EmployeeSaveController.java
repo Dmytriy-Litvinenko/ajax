@@ -65,9 +65,6 @@ public class EmployeeSaveController implements Controller {//extends HttpServlet
             request.setAttribute("departmentId", departmentId);
             request.setAttribute("employee", employee);
             request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request, response);
-        } /*catch (Exception e) {
-            e.printStackTrace(System.out);
-            response.sendRedirect("/error");
-        }*/
+        }
     }
 }

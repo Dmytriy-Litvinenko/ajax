@@ -7,8 +7,14 @@
   <version>1.0-SNAPSHOT</version>
   <name>initialTest Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
 
+  <properties>
+    <hibernate.version>5.0.1.Final</hibernate.version>
+    <hibernate.validator.version>5.2.1.Final</hibernate.validator.version>
+    <hibernate.commons.version>5.0.0.Final</hibernate.commons.version>
+  </properties>
+
+  <dependencies>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -45,10 +51,58 @@
       <version>3.0</version>
     </dependency>
 
+
+
+    <!-- Hibernate library dependecy start >
     <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.2</version>
+    </dependency>
+    < Hibernate library dependecy end -->
+
+    <!--dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>jta</artifactId>
+      <version>1.1</version>
+    </dependency-->
+
+
+    <!--dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
+    </dependency-->
+
+    <!--Hibernate-->
+    <dependency>
+      <groupId>org.hibernate.common</groupId>
+      <artifactId>hibernate-commons-annotations</artifactId>
+      <version>${hibernate.commons.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
     </dependency>
 
     <dependency>
@@ -61,14 +115,6 @@
   <build>
     <finalName>initialTest</finalName>
     <plugins>
-      <!--plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

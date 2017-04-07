@@ -2,7 +2,8 @@ package testtask.service.impl;
 
 
 import testtask.dao.EmployeeDao;
-import testtask.dao.impl.EmployeeDaoImpl;
+
+import testtask.dao.implWithHibernate.EmployeeDaoImpl;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;

@@ -8,8 +8,13 @@ import testtask.util.validation.OvalUniqueDepartmentName;
 import testtask.util.validation.OvalUniqueEmail;
 import testtask.util.validation.UniqueDepartmentName;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name = "departments")
 public class Department {
 
+    @Id
     private Integer id;
 
     @CheckWith(value = OvalUniqueDepartmentName.class, message = "Not Unique department name")

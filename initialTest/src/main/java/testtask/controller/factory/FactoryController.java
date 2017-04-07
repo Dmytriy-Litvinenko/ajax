@@ -28,7 +28,7 @@ public class FactoryController {
         controllerMap.put("/employees", new EmployeesAllController());
         controllerMap.put("/employeeUpdate", new EmployeeUpdateController());
         controllerMap.put("/employeeSave", new EmployeeSaveController());
-        controllerMap.put("/empDelete", new EmployeeDelController());/**/
+        controllerMap.put("/empDelete", new EmployeeDelController());
         controllerMap.put("/error", new ErrorPageController());
     }
 
