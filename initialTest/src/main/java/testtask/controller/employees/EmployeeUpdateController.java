@@ -3,7 +3,9 @@ package testtask.controller.employees;
 import testtask.controller.factory.Controller;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
+import testtask.service.DepartmentService;
 import testtask.service.EmployeeService;
+import testtask.service.impl.DepartmentServiceImpl;
 import testtask.service.impl.EmployeeServiceImpl;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EmployeeUpdateController implements Controller {
+
+    private DepartmentService departmentService = new DepartmentServiceImpl();
 
     private EmployeeService employeeService = new EmployeeServiceImpl();
 
@@ -23,10 +27,12 @@ public class EmployeeUpdateController implements Controller {
         String employeeId = request.getParameter("employeeId");
         if (employeeId == null || employeeId.equals("")) {
             employee = new Employee();
-            employee.setDepartmentId(Integer.valueOf(departmentId));
+            //employee.setDepartmentId(Integer.valueOf(departmentId));
+            employee.setDepartment(departmentService.getById(Integer.valueOf(departmentId)));
         } else {
             employee = employeeService.getById(Integer.valueOf(employeeId));
-            departmentId = employee.getDepartmentId().toString();
+            //departmentId = employee.getDepartmentId().toString();
+            departmentId = employee.getDepartment().getId().toString();
         }
         request.setAttribute("employee", employee);
         request.setAttribute("departmentId", departmentId);

@@ -14,7 +14,6 @@ import java.util.List;
 @Entity(name = "departments")
 public class Department {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id", unique=true, nullable=false)
@@ -25,8 +24,16 @@ public class Department {
     @Length(max = 20)
     private String name;
 
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.EAGER)
-    private List<Employee> employees;*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.EAGER)
+    private List<Employee> employees;
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 
     public Integer getId() {
         return id;

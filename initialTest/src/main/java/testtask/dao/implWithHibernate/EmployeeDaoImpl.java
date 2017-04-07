@@ -3,8 +3,10 @@ package testtask.dao.implWithHibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import testtask.dao.DepartmentDao;
 import testtask.dao.EmployeeDao;
 import testtask.exception.DAOException;
+import testtask.model.Department;
 import testtask.model.Employee;
 import testtask.util.db.HibernateFactory;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class EmployeeDaoImpl implements EmployeeDao {
 
     private SessionFactory sessionFactory = HibernateFactory.getSessionFactory();
+    private DepartmentDao departmentDao = new DepartmentDaoImpl();
 
     @Override
     public Employee findById(Integer id) throws DAOException {
@@ -35,11 +38,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> findAll(Integer departmentId) throws DAOException {
         Session session = sessionFactory.openSession();
+        Department department = departmentDao.findById(departmentId);
         List<Employee> employees;
         try {
             session.beginTransaction();
-            Query query = session.createQuery("FROM employees WHERE departmentId= :id");
-            query.setParameter("id", departmentId);
+            Query query = session.createQuery("FROM employees WHERE department= :dep");
+            query.setParameter("dep", department);
             employees = query.list();
             session.getTransaction().commit();
         } finally {

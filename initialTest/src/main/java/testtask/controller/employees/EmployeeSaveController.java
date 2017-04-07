@@ -3,7 +3,9 @@ package testtask.controller.employees;
 import testtask.controller.factory.Controller;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
+import testtask.service.DepartmentService;
 import testtask.service.EmployeeService;
+import testtask.service.impl.DepartmentServiceImpl;
 import testtask.service.impl.EmployeeServiceImpl;
 import testtask.util.db.StringFormatter;
 import testtask.util.validation.OvalValidator;
@@ -25,6 +27,8 @@ public class EmployeeSaveController implements Controller {//extends HttpServlet
     //log.logger=
     private static Logger log = Logger.getLogger(EmployeeSaveController.class.getName());
 
+    private DepartmentService departmentService = new DepartmentServiceImpl();
+
     private EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
@@ -42,7 +46,8 @@ public class EmployeeSaveController implements Controller {//extends HttpServlet
         try {
             if (employeeId == null || employeeId.equals("")) {
                 employee = new Employee();
-                employee.setDepartmentId(StringFormatter.stringToInteger(departmentId));
+                //employee.setDepartmentId(StringFormatter.stringToInteger(departmentId));
+                employee.setDepartment(departmentService.getById(StringFormatter.stringToInteger(departmentId)));
                 employee.setName(employeeName);
                 employee.setEmail(employeeEmail);
                 employee.setSalary(StringFormatter.stringToDouble(employeeSalary));

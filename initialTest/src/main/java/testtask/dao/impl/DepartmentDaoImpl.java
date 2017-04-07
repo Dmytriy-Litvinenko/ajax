@@ -2,6 +2,7 @@ package testtask.dao.impl;
 
 import testtask.dao.DepartmentDao;
 import testtask.dao.EmployeeDao;
+import testtask.dao.implWithHibernate.EmployeeDaoImpl;
 import testtask.exception.DAOException;
 import testtask.model.Department;
 import testtask.model.Employee;

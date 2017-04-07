@@ -18,7 +18,7 @@ public class EmployeeDelController implements Controller {
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         Integer employeeId = Integer.parseInt(request.getParameter("employeeId"));
-        Integer departmentId = employeeService.getById(employeeId).getDepartmentId();
+        Integer departmentId = employeeService.getById(employeeId).getDepartment().getId();
         employeeService.delEmpl(employeeId);
         response.sendRedirect("/employees?departmentId=" + departmentId);
     }

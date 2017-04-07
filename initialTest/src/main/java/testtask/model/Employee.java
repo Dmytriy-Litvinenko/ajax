@@ -35,22 +35,22 @@ public class Employee {
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @Column(name = "department_id")
-    private Integer departmentId;
+    /*@Column(name = "department_id")
+    private Integer departmentId;*/
 
 
-    /*@ManyToOne//(fetch= FetchType.LAZY)
+    @ManyToOne//(fetch= FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private Department department;*/
+    private Department department;/**/
 
 
-    /*public Department getDepartment() {
+    public Department getDepartment() {
         return department;
-    }
+    }/**/
 
     public void setDepartment(Department department) {
         this.department = department;
-    }*/
+    }
 
 
 
@@ -70,9 +70,9 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Integer getDepartmentId() {return departmentId; }
+    //public Integer getDepartmentId() {return departmentId; }
 
-    public void setDepartmentId(Integer departmentId) {this.departmentId = departmentId;}
+    //public void setDepartmentId(Integer departmentId) {this.departmentId = departmentId;}
 
     public Date getBirthDate() {
         return birthDate;

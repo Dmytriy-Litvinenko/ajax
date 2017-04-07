@@ -8,7 +8,7 @@ import testtask.util.db.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 public class EmployeeDaoImpl implements EmployeeDao {
 
     private Employee fillEmployeeWithFields(Employee employee, PreparedStatement preparedStatement) throws DAOException {
@@ -135,3 +135,4 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
 }
+*/
