@@ -7,7 +7,6 @@ import net.sf.oval.constraint.NotNegative;
 import net.sf.oval.constraint.NotNull;
 import testtask.util.validation.FullName;
 import testtask.util.validation.OvalUniqueEmail;
-import testtask.util.validation.UniqueEmployeeEmail;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,13 +15,14 @@ import java.util.Date;
 public class Employee {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", unique=true, nullable=false)
     private Integer id;
 
     @FullName
     private String name;
 
     @Email(message = "please, enter correct email!")
-    //@UniqueEmployeeEmail
     @CheckWith(value = OvalUniqueEmail.class, message = "Not Unique email")
     private String email;
 
@@ -37,6 +37,22 @@ public class Employee {
 
     @Column(name = "department_id")
     private Integer departmentId;
+
+
+    /*@ManyToOne//(fetch= FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;*/
+
+
+    /*public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }*/
+
+
 
     public String getEmail() {
         return email;
@@ -54,13 +70,9 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
+    public Integer getDepartmentId() {return departmentId; }
 
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
-    }
+    public void setDepartmentId(Integer departmentId) {this.departmentId = departmentId;}
 
     public Date getBirthDate() {
         return birthDate;

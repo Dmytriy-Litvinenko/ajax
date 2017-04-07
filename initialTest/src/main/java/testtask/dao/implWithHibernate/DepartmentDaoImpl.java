@@ -5,8 +5,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import testtask.dao.DepartmentDao;
+import testtask.dao.EmployeeDao;
 import testtask.exception.DAOException;
 import testtask.model.Department;
+import testtask.model.Employee;
 import testtask.util.db.HibernateFactory;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 public class DepartmentDaoImpl implements DepartmentDao {
 
     private SessionFactory sessionFactory = HibernateFactory.getSessionFactory();
+    private EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     @Override
     public Department findById(Integer id) throws DAOException {
@@ -69,6 +72,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public void addDep(Department department) throws DAOException {
+
+        List<Employee> employees = employeeDao.findAll(department.getId());
+        for (Employee employee : employees) {
+            employeeDao.delEmpl(employee.getId());
+        }
+
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();

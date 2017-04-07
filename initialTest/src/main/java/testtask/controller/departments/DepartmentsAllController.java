@@ -21,8 +21,7 @@ public class DepartmentsAllController implements Controller {
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         List<Department> departments = departmentService.getAll();
-        request.setAttribute("departments", departments); // Will be available as ${departments} in JSP
-        request.setAttribute("dep", departments.get(0));
+        request.setAttribute("departments", departments);
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/pages/departments/all.jsp");
         view.forward(request, response);
 

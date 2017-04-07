@@ -8,21 +8,25 @@ import testtask.util.validation.OvalUniqueDepartmentName;
 import testtask.util.validation.OvalUniqueEmail;
 import testtask.util.validation.UniqueDepartmentName;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "departments")
 public class Department {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id", unique=true, nullable=false)
     private Integer id;
 
     @CheckWith(value = OvalUniqueDepartmentName.class, message = "Not Unique department name")
-    //@UniqueDepartmentName
     @NotEmpty
     @Length(max = 20)
-    //@NotRussianLetters
     private String name;
+
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.EAGER)
+    private List<Employee> employees;*/
 
     public Integer getId() {
         return id;
