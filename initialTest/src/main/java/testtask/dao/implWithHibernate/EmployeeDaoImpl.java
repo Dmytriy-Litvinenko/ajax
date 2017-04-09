@@ -1,8 +1,6 @@
 package testtask.dao.implWithHibernate;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import testtask.dao.DepartmentDao;
 import testtask.dao.EmployeeDao;
 import testtask.exception.DAOException;
@@ -23,84 +21,102 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Employee employee;
         try {
             employee = new Employee();
-            session.beginTransaction();
+            //session.beginTransaction();
             Query query = session.createQuery("FROM employees WHERE id= :id");
             query.setParameter("id", id);
             if (query.uniqueResult() != null)
                 employee = (Employee) query.uniqueResult();
-            session.getTransaction().commit();
-        }finally {
-            session.close();
+            //session.getTransaction().commit();
+        }catch (HibernateException e){
+            //session.close();
+            throw new DAOException("Can't get employee by id with Hibernate", e.getCause());
         }
         return employee;
     }
 
     @Override
     public List<Employee> findAll(Integer departmentId) throws DAOException {
-        Session session = sessionFactory.openSession();
+        //Session session = sessionFactory.openSession();
         Department department = departmentDao.findById(departmentId);
         List<Employee> employees;
-        try {
-            session.beginTransaction();
+        try(Session session = sessionFactory.openSession()) {
+            //session.beginTransaction();
             Query query = session.createQuery("FROM employees WHERE department= :dep");
             query.setParameter("dep", department);
             employees = query.list();
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            //session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new DAOException("Can't get employees by department with Hibernate", e.getCause());
         }
         return employees;
     }
 
     @Override
     public void addEmpl(Employee employee) throws DAOException {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
+        //Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        boolean committed = false;
+        try(Session session = sessionFactory.openSession()) {
+            transaction=session.beginTransaction();
             session.save(employee);
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            //session.getTransaction().commit();
+            transaction.commit();
+            committed = true;
+        } catch (HibernateException e) {
+            throw new DAOException("Can't add employee with Hibernate", e.getCause());
+        }finally {
+            if (transaction!=null && !committed)transaction.rollback();
         }
     }
 
     @Override
     public void delEmpl(Integer id) throws DAOException {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
+        //Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        boolean committed =false;
+        try(Session session = sessionFactory.openSession()) {
+            transaction=session.beginTransaction();
             session.delete(findById(id));
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            //session.getTransaction().commit();
+            transaction.commit();
+            committed = true;
+        } catch (HibernateException e) {
+            throw new DAOException("Can't delete employee by id with Hibernate", e.getCause());
+        }finally {
+            if (transaction!=null && !committed)transaction.rollback();
         }
     }
 
     @Override
     public void updateEmpl(Employee employee) throws DAOException {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
+        Transaction transaction=null;
+        boolean committed = false;
+        try(Session session = sessionFactory.openSession()) {
+            transaction=session.beginTransaction();
             session.update(employee);
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            //session.getTransaction().commit();
+            transaction.commit();
+            committed=true;
+        } catch (HibernateException e) {
+            throw new DAOException("Can't update employee by id with Hibernate", e.getCause());
+        }finally {
+            if (transaction!=null && !committed)transaction.rollback();
         }
     }
 
     @Override
     public Employee findByEmail(String email) throws DAOException {
-        Session session = sessionFactory.openSession();
+        //Session session = sessionFactory.openSession();
         Employee employee = new Employee();
-        try {
+        try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             Query query = session.createQuery("FROM employees WHERE email= :email");
             query.setParameter("email", email);
             if (query.uniqueResult() != null)
                 employee = (Employee) query.uniqueResult();
             session.getTransaction().commit();
-        }finally {
-            session.close();
+        }catch (HibernateException e) {
+            throw new DAOException("Can't get employee by email with Hibernate", e.getCause());
         }
         return employee;
     }

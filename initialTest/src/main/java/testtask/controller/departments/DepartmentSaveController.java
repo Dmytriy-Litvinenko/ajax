@@ -26,18 +26,18 @@ public class DepartmentSaveController implements Controller {
         Department department = null;
         String departmentId = request.getParameter("departmentId");
         String departmentName = request.getParameter("departmentName");
-        OvalValidator validator = new OvalValidator();
+        //OvalValidator validator = new OvalValidator();
 
         try {
             if (departmentId == null || departmentId.equals("")) {
                 department = new Department();
                 department.setName(departmentName);
-                validator.validate(department);
+                //validator.validate(department);
                 departmentService.addDep(department);
             } else {
                 department = departmentService.getById(StringFormatter.stringToInteger(departmentId));//Integer.valueOf(departmentId));
                 department.setName(departmentName);
-                validator.validate(department);
+                //validator.validate(department);
                 departmentService.updateDep(department);
             }
             response.sendRedirect("/departments");

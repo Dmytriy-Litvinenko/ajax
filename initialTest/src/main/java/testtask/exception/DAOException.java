@@ -8,9 +8,9 @@ public class DAOException extends Exception{
         super();
 
     }
-    public DAOException (String message) {
-        super(message);
-        this.printStackTrace(System.out);
+    public DAOException (String message, Throwable cause) {
+        super(message,cause);
+        //this.printStackTrace(System.out);
     }
 
 }

@@ -1,6 +1,7 @@
 package testtask.service;
 
 import testtask.exception.DAOException;
+import testtask.exception.ValidationException;
 import testtask.model.Department;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public interface DepartmentService {
 
     List<Department> getAll() throws DAOException;
 
-    void addDep(Department department) throws DAOException;
+    void addDep(Department department) throws DAOException, ValidationException;
 
     void delDep(Integer id) throws DAOException;
 
-    void updateDep(Department department) throws DAOException;
+    void updateDep(Department department) throws DAOException, ValidationException;
 }

@@ -5,8 +5,10 @@ import testtask.dao.DepartmentDao;
 
 import testtask.dao.implWithHibernate.DepartmentDaoImpl;
 import testtask.exception.DAOException;
+import testtask.exception.ValidationException;
 import testtask.model.Department;
 import testtask.service.DepartmentService;
+import testtask.util.validation.OvalValidator;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    private OvalValidator validator = new OvalValidator();
 
     @Override
     public Department getById(Integer id) throws DAOException {
@@ -31,7 +34,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void addDep(Department department) throws DAOException {
+    public void addDep(Department department) throws DAOException, ValidationException {
+        validator.validate(department);
         departmentDao.addDep(department);
     }
 
@@ -41,7 +45,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void updateDep(Department department) throws DAOException {
+    public void updateDep(Department department) throws DAOException, ValidationException {
+        validator.validate(department);
         departmentDao.updateDep(department);
     }
 }

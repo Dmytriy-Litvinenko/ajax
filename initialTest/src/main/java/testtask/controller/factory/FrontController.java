@@ -26,6 +26,7 @@ public class FrontController extends HttpServlet {
         try {
             controller.goToPage(request, response);
         } catch (DAOException e) {
+            e.getCause().printStackTrace(System.err);
             response.sendRedirect("/error");
         }
     }

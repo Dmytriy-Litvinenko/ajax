@@ -1,9 +1,7 @@
 package testtask.dao.implWithHibernate;
 
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import testtask.dao.DepartmentDao;
 import testtask.dao.EmployeeDao;
 import testtask.exception.DAOException;
@@ -20,52 +18,49 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public Department findById(Integer id) throws DAOException {
-        Session session = sessionFactory.openSession();
-        Department department;
-        try {
+        Department department=null;
+        try(Session session = sessionFactory.openSession()) {
             department = new Department();
-            session.beginTransaction();
             Query query = session.createQuery("FROM departments WHERE id = :id");
             query.setParameter("id", id);
             if (query.uniqueResult() != null)
                 department = (Department) query.uniqueResult();
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+        } catch (HibernateException e){
+            throw new DAOException("Can't get all departments with Hibernate", e.getCause());
         }
         return department;
     }
 
     @Override
     public Department findByName(String name) throws DAOException {
-        Session session = sessionFactory.openSession();
-        Department department;
-        try {
+        Department department =null;
+        Transaction transaction=null;
+        boolean committed =false;
+        try(Session session = sessionFactory.openSession()) {
             department = new Department();
-            session.beginTransaction();
-            Query query = session.createQuery("FROM departments WHERE name= :name");
+            transaction=session.beginTransaction();
+            Query query = session.createQuery("FROM departments WHERE name = :name");
             query.setParameter("name", name);
             if (query.uniqueResult() != null)
                 department = (Department) query.uniqueResult();
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            transaction.commit();
+            committed =true;
+        }catch (HibernateException e){
+            throw new DAOException("Can't get department by name with Hibernate", e.getCause());
+        }finally {
+            if (transaction!=null && !committed)transaction.rollback();
         }
         return department;
     }
 
     @Override
     public List<Department> findAll() throws DAOException {
-
-        Session session = sessionFactory.openSession();
         List<Department> departments;
-        try {
-            session.beginTransaction();
+        try (Session session = sessionFactory.openSession()){
             Query query = session.createQuery("FROM departments");
             departments = query.list();
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+        }catch(HibernateException e){
+            throw new DAOException("Can't get all departments with Hibernate", e.getCause());
         }
         return departments;
     }
@@ -78,37 +73,50 @@ public class DepartmentDaoImpl implements DepartmentDao {
             employeeDao.delEmpl(employee.getId());
         }*/
 
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
+
+        Transaction transaction=null;
+        boolean committed =false;
+        try (Session session = sessionFactory.openSession()){
+            transaction=session.beginTransaction();
             session.save(department);
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            transaction.commit();
+            committed = true;
+        } catch (HibernateException e){
+            throw new DAOException("Can't add department with Hibernate", e.getCause());
+        }finally {
+            if (transaction!=null && committed!=true)transaction.rollback();
         }
     }
 
     @Override
     public void delDep(Integer id) throws DAOException {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
+        Transaction transaction=null;
+        boolean committed = false;
+        try (Session session = sessionFactory.openSession()) {
+            transaction=session.beginTransaction();
             session.delete(findById(id));
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            transaction.commit();
+            committed=true;
+        } catch (HibernateException e){
+            throw new DAOException("Can't add department with Hibernate", e.getCause());
+        }finally {
+            if (transaction!=null && committed!=true)transaction.rollback();
         }
     }
 
     @Override
     public void updateDep(Department department) throws DAOException {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
+        Transaction  transaction = null;
+        boolean committed=false;
+        try (Session session = sessionFactory.openSession()){
+            transaction = session.beginTransaction();
             session.update(department);
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+            transaction.commit();
+            committed = true;
+        } catch (HibernateException e){
+            throw new DAOException("Can't update department with Hibernate", e.getCause());
+        }finally {
+            if (transaction!=null && committed!=true)transaction.rollback();
         }
     }
 }
