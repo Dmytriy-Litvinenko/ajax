@@ -39,7 +39,7 @@ public class Employee {
     private Integer departmentId;*/
 
 
-    @ManyToOne//(fetch= FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;/**/
 

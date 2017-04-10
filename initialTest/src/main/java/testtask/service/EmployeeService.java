@@ -2,6 +2,7 @@ package testtask.service;
 
 
 import testtask.exception.DAOException;
+import testtask.exception.ValidationException;
 import testtask.model.Employee;
 
 import java.sql.SQLException;
@@ -13,11 +14,11 @@ public interface EmployeeService {
 
     List<Employee> getAll(Integer id) throws DAOException;
 
-    void addEmpl(Employee employee) throws DAOException;
+    void addEmpl(Employee employee) throws DAOException, ValidationException;
 
     void delEmpl(Integer id) throws DAOException;
 
-    void updateEmpl(Employee employee) throws DAOException;
+    void updateEmpl(Employee employee) throws DAOException, ValidationException;
 
     Employee getByEmail(String s) throws DAOException;
 }

@@ -5,14 +5,17 @@ import testtask.dao.EmployeeDao;
 
 import testtask.dao.implWithHibernate.EmployeeDaoImpl;
 import testtask.exception.DAOException;
+import testtask.exception.ValidationException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
+import testtask.util.validation.OvalValidator;
 
 import java.util.List;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDao employeeDao = new EmployeeDaoImpl();
+    private OvalValidator validator = new OvalValidator();
 
     @Override
     public Employee getById(Integer id) throws DAOException {
@@ -25,7 +28,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addEmpl(Employee employee) throws DAOException {
+    public void addEmpl(Employee employee) throws DAOException, ValidationException {
+        validator.validate(employee);
         employeeDao.addEmpl(employee);
     }
 
@@ -35,7 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmpl(Employee employee) throws DAOException {
+    public void updateEmpl(Employee employee) throws DAOException, ValidationException {
+        validator.validate(employee);
         employeeDao.updateEmpl(employee);
     }
 
