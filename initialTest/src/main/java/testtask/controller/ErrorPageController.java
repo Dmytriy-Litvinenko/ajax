@@ -1,16 +1,14 @@
 package testtask.controller;
 
 
-import testtask.controller.factory.Controller;
+import testtask.controller.factory.PageController;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ErrorPageController implements Controller {
+public class ErrorPageController implements PageController {
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

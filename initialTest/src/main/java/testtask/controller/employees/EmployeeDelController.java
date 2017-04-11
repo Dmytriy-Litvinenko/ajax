@@ -1,7 +1,8 @@
 package testtask.controller.employees;
 
 
-import testtask.controller.factory.Controller;
+
+import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.service.EmployeeService;
 import testtask.service.impl.EmployeeServiceImpl;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class EmployeeDelController implements Controller {
+public class EmployeeDelController implements PageController {
 
     private EmployeeService employeeService = new EmployeeServiceImpl();
 

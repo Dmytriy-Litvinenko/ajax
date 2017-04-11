@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="testtask"/>
+
+    <bean id="/departments" class="testtask.controller.departments.DepartmentsAllController"></bean>
+    <bean id="/depDelete" class="testtask.controller.departments.DepartmentDelController"></bean>
+    <bean id="/depUpdate" class="testtask.controller.departments.DepartmentUpdateController"></bean>
+    <bean id="/depSave" class="testtask.controller.departments.DepartmentSaveController"></bean>
+    <bean id="/employees" class="testtask.controller.employees.EmployeesAllController"></bean>
+    <bean id="/empDelete" class="testtask.controller.employees.EmployeeDelController"></bean>
+    <bean id="/employeeUpdate" class="testtask.controller.employees.EmployeeUpdateController"></bean>
+    <bean id="/employeeSave" class="testtask.controller.employees.EmployeeSaveController"></bean>
+
+</beans>
+
+
+

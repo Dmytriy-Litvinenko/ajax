@@ -1,7 +1,9 @@
 package testtask.controller.employees;
 
 
-import testtask.controller.factory.Controller;
+
+import org.springframework.stereotype.Component;
+import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
@@ -16,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class EmployeesAllController implements Controller {
+public class EmployeesAllController implements PageController {
 
     private EmployeeService employeeService = new EmployeeServiceImpl();
 

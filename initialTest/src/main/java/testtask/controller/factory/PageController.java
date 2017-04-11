@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public interface Controller {
+public interface PageController {
 
     void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException;
 }

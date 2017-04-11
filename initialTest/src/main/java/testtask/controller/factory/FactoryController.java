@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class FactoryController {
 
-    private Map<String, Controller> controllerMap = new HashMap<>();
-    private Controller errorPageController = new ErrorPageController();
+    private Map<String, PageController> controllerMap = new HashMap<>();
+    private PageController errorPageController = new ErrorPageController();
 
     {
         controllerMap.put("/", new MainController());
@@ -32,11 +32,11 @@ public class FactoryController {
         controllerMap.put("/error", new ErrorPageController());
     }
 
-    public Controller getControllerByUrl(String url) {
+    public PageController getControllerByUrl(String url) {
         return controllerMap.get(url);
     }
 
-    public Controller getErrorPageController() {
+    public PageController getErrorPageController() {
         return errorPageController;
     }
 

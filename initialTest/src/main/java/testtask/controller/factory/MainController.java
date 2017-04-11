@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class MainController implements Controller{
+public class MainController implements PageController{
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

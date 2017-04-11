@@ -1,6 +1,7 @@
 package testtask.controller.employees;
 
-import testtask.controller.factory.Controller;
+
+import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.DepartmentService;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class EmployeeUpdateController implements Controller {
+public class EmployeeUpdateController implements PageController {
 
     private DepartmentService departmentService = new DepartmentServiceImpl();
 

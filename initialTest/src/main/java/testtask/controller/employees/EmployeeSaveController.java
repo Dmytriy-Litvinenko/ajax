@@ -1,6 +1,7 @@
 package testtask.controller.employees;
 
-import testtask.controller.factory.Controller;
+
+import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
 import testtask.model.Employee;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class EmployeeSaveController implements Controller {//extends HttpServlet {
+public class EmployeeSaveController implements PageController {//extends HttpServlet {
 
     //Log logger = new Log("log.txt");
     //logger.

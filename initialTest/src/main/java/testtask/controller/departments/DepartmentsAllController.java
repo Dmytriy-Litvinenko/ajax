@@ -1,6 +1,12 @@
 package testtask.controller.departments;
 
-import testtask.controller.factory.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
+import org.springframework.web.HttpRequestHandler;
+import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.model.Department;
 import testtask.service.DepartmentService;
@@ -11,14 +17,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
-public class DepartmentsAllController implements Controller {
+//@Component("feed")
+public class DepartmentsAllController implements PageController {
 
+    //@Autowired
     private DepartmentService departmentService = new DepartmentServiceImpl();
 
-    @Override
+    //@Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         List<Department> departments = departmentService.getAll();
         request.setAttribute("departments", departments);
@@ -26,4 +33,17 @@ public class DepartmentsAllController implements Controller {
         view.forward(request, response);
 
     }
+
+   /* @Override
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Department> departments = null;
+        try {
+            departments = departmentService.getAll();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("departments", departments);
+        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/pages/departments/all.jsp");
+        view.forward(request, response);
+    }*/
 }

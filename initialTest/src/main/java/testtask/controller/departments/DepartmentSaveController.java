@@ -1,6 +1,7 @@
 package testtask.controller.departments;
 
-import testtask.controller.factory.Controller;
+
+import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
 import testtask.model.Department;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class DepartmentSaveController implements Controller {
+public class DepartmentSaveController implements PageController {
 
     private DepartmentService departmentService = new DepartmentServiceImpl();
 

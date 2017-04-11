@@ -1,6 +1,9 @@
 package testtask.controller.departments;
 
-import testtask.controller.factory.Controller;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.model.Department;
 import testtask.service.DepartmentService;
@@ -12,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DepartmentUpdateController implements Controller {
+//@Component(value = "/depUpdate")
+public class DepartmentUpdateController implements PageController {
 
     private DepartmentService departmentService = new DepartmentServiceImpl();
 

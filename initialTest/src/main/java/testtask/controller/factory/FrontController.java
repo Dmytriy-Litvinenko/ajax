@@ -1,27 +1,30 @@
 package testtask.controller.factory;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.web.HttpRequestHandler;
 import testtask.exception.DAOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/")
-public class FrontController extends HttpServlet {
+@Component(value = "FrontController")
+public class FrontController implements HttpRequestHandler {
 
-    private FactoryController factoryController = new FactoryController();
+    @Autowired
+    private ApplicationContext applicationContext;//= new ClassPathXmlApplicationContext("application_context.xml");
 
     protected void doService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
         String url = request.getRequestURI();
-        Controller controller = factoryController.getControllerByUrl(url);
+        PageController controller = applicationContext.getBean(url, PageController.class);
+
         if (controller == null) {
-            controller = factoryController.getErrorPageController();
+            controller = applicationContext.getBean("/error", PageController.class);
         }
         try {
             controller.goToPage(request, response);
@@ -31,16 +34,8 @@ public class FrontController extends HttpServlet {
         }
     }
 
-
-
     @Override
-    protected void doGet(HttpServletRequest servletRequest, HttpServletResponse resp)
-            throws ServletException, IOException {
-        doService(servletRequest, resp);
+    public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        doService(httpServletRequest, httpServletResponse);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {
-        doService(servletRequest, servletResponse);
-    }/**/
 }
