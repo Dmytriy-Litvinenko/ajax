@@ -1,4 +1,4 @@
-package testtask.dao.impl;
+/*package testtask.dao.impl;
 
 import testtask.dao.DepartmentDao;
 import testtask.dao.EmployeeDao;
@@ -120,3 +120,4 @@ public class DepartmentDaoImpl implements DepartmentDao {
         }
     }
 }
+*/

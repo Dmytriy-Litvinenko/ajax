@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-        <!--org.hibernate.dialect.MySQLInnoDBDialect-->
 <hibernate-configuration>
     <session-factory name="HibernateSessionFactory">
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -18,4 +17,4 @@
         <mapping class="testtask.model.Department"/>
         <mapping class="testtask.model.Employee"/>
     </session-factory>
-</hibernate-configuration>
+</hibernate-configuration-->

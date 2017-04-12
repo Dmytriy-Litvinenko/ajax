@@ -1,9 +1,12 @@
 package testtask.service.impl;
 
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import testtask.dao.DepartmentDao;
 
-import testtask.dao.implWithHibernate.DepartmentDaoImpl;
+import testtask.dao.implSpringWithHibernate.DepartmentDaoImpl;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
 import testtask.model.Department;
@@ -13,9 +16,12 @@ import testtask.util.validation.OvalValidator;
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private DepartmentDao departmentDao = new DepartmentDaoImpl();
+    @Autowired
+    private DepartmentDaoImpl departmentDao;//Impl = new DepartmentDaoImpl(sessionFactory);
+
     private OvalValidator validator = new OvalValidator();
 
     @Override

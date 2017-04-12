@@ -1,9 +1,11 @@
 package testtask.service.impl;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import testtask.dao.EmployeeDao;
 
-import testtask.dao.implWithHibernate.EmployeeDaoImpl;
+import testtask.dao.implSpringWithHibernate.EmployeeDaoImpl;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
 import testtask.model.Employee;
@@ -12,9 +14,11 @@ import testtask.util.validation.OvalValidator;
 
 import java.util.List;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDao employeeDao = new EmployeeDaoImpl();
+    @Autowired
+    private EmployeeDaoImpl employeeDao; //= new EmployeeDaoImpl();
     private OvalValidator validator = new OvalValidator();
 
     @Override
