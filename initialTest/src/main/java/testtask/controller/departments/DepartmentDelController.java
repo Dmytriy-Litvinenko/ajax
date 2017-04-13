@@ -2,6 +2,8 @@ package testtask.controller.departments;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.service.DepartmentService;
@@ -12,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Controller(value = "/depDelete")
 public class DepartmentDelController implements PageController {
 
-    private DepartmentService departmentService = new DepartmentServiceImpl();
+    @Autowired
+    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response)

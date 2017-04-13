@@ -1,8 +1,10 @@
 package testtask.controller.departments;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.model.Department;
@@ -15,10 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@Component(value = "/depUpdate")
+@Controller(value = "/depUpdate")
 public class DepartmentUpdateController implements PageController {
 
-    private DepartmentService departmentService = new DepartmentServiceImpl();
+    @Autowired
+    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {

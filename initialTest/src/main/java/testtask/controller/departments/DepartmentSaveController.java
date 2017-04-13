@@ -1,6 +1,8 @@
 package testtask.controller.departments;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
@@ -16,10 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
-
+@Controller(value = "/depSave")
 public class DepartmentSaveController implements PageController {
 
-    private DepartmentService departmentService = new DepartmentServiceImpl();
+    @Autowired
+    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {

@@ -1,9 +1,10 @@
 package testtask.dao.implSpringWithHibernate;
 
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,24 +15,31 @@ import testtask.model.Department;
 import java.util.List;
 
 @Repository
-public class DepartmentDaoImpl implements DepartmentDao{
+public class DepartmentDaoImpl implements DepartmentDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    //SessionFactoryImpl
-    @Autowired
-    public DepartmentDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    //@Autowired
+    //public DepartmentDaoImpl(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;}
 
-    }
     private Session currentSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Override
+    //@Transactional
     public Department findById(Integer id) throws DAOException {
-        return currentSession().get(Department.class,id);
+        Session session;
+        Department department;
+
+        try {
+            session = currentSession();//.createQuery("FROM employees WHERE department= :dep");
+        } catch (HibernateException e) {
+            session = sessionFactory.openSession();//.createQuery("FROM employees WHERE department= :dep");
+        }
+        department = session.get(Department.class, id);
+        return department;
     }
 
     @Override
@@ -44,19 +52,21 @@ public class DepartmentDaoImpl implements DepartmentDao{
             department = (Department) query.uniqueResult();
         }*/
 
-        return currentSession().get(Department.class,name);
+        return currentSession().get(Department.class, name);
         //return department;
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public List<Department> findAll() throws DAOException {
         List<Department> departments;
-        departments = currentSession().createCriteria(Department.class).list();
+        Query query = currentSession().createQuery("FROM departments");
+        departments = query.list();
         return departments;
     }
 
     @Override
+    @Transactional
     public void addDep(Department department) throws DAOException {
         currentSession().save(department);
     }
@@ -68,6 +78,13 @@ public class DepartmentDaoImpl implements DepartmentDao{
 
     @Override
     public void updateDep(Department department) throws DAOException {
-        currentSession().update(department);
+        //currentSession().update(department);
+        Session session;
+        try {
+            session = currentSession();//.createQuery("FROM employees WHERE department= :dep");
+        } catch (HibernateException e) {
+            session = sessionFactory.openSession();//.createQuery("FROM employees WHERE department= :dep");
+        }
+        session.update(department);
     }
 }

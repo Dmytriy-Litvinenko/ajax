@@ -1,6 +1,8 @@
 package testtask.controller.employees;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
@@ -17,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
-
+@Controller(value = "/employeeSave")
 public class EmployeeSaveController implements PageController {//extends HttpServlet {
 
     //Log logger = new Log("log.txt");
@@ -25,9 +27,11 @@ public class EmployeeSaveController implements PageController {//extends HttpSer
     //log.logger=
     private static Logger log = Logger.getLogger(EmployeeSaveController.class.getName());
 
-    private DepartmentService departmentService = new DepartmentServiceImpl();
+    @Autowired
+    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
 
-    private EmployeeService employeeService = new EmployeeServiceImpl();
+    @Autowired
+    private EmployeeServiceImpl employeeService;// = new EmployeeServiceImpl();
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {

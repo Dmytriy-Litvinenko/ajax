@@ -3,6 +3,7 @@ package testtask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import testtask.dao.EmployeeDao;
 
 import testtask.dao.implSpringWithHibernate.EmployeeDaoImpl;
@@ -19,6 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeDaoImpl employeeDao; //= new EmployeeDaoImpl();
+
     private OvalValidator validator = new OvalValidator();
 
     @Override
@@ -27,13 +29,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public List<Employee> getAll(Integer id) throws DAOException {
         return employeeDao.findAll(id);
     }
 
     @Override
     public void addEmpl(Employee employee) throws DAOException, ValidationException {
-        validator.validate(employee);
+        //validator.validate(employee);
         employeeDao.addEmpl(employee);
     }
 
@@ -44,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmpl(Employee employee) throws DAOException, ValidationException {
-        validator.validate(employee);
+        //validator.validate(employee);
         employeeDao.updateEmpl(employee);
     }
 

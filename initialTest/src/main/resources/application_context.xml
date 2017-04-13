@@ -2,22 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:annotation-config/>
     <context:component-scan base-package="testtask"/>
 
-    <bean id="/departments" class="testtask.controller.departments.DepartmentsAllController"></bean>
+    <!--bean id="/departments" class="testtask.controller.departments.DepartmentsAllController"></bean>
     <bean id="/depDelete" class="testtask.controller.departments.DepartmentDelController"></bean>
     <bean id="/depUpdate" class="testtask.controller.departments.DepartmentUpdateController"></bean>
     <bean id="/depSave" class="testtask.controller.departments.DepartmentSaveController"></bean>
     <bean id="/employees" class="testtask.controller.employees.EmployeesAllController"></bean>
     <bean id="/empDelete" class="testtask.controller.employees.EmployeeDelController"></bean>
     <bean id="/employeeUpdate" class="testtask.controller.employees.EmployeeUpdateController"></bean>
-    <bean id="/employeeSave" class="testtask.controller.employees.EmployeeSaveController"></bean>
+    <bean id="/employeeSave" class="testtask.controller.employees.EmployeeSaveController"></bean-->
 
 
     <!--bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -38,9 +41,16 @@
         <property name="connection.password">root</property>
     </bean-->
 
+    <!--bean id="departmentDaoImpl" class="testtask.dao.implSpringWithHibernate.DepartmentDaoImpl">
+        <constructor-arg ref="sessionFactory" />
+    </bean>
+    <bean id="departmentServiceImpl" class="testtask.service.impl.DepartmentServiceImpl">
+        <property name="departmentDao" ref="departmentDaoImpl"/>
+    </bean-->
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/hibernate_test"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/hibernate_test?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
@@ -51,8 +61,14 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.show_sql" >true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.id.new_generator_mappings">false</prop>
+                <!--prop key="hibernate.connection.CharSet">UTF-8</prop>
+                <prop key="hibernate.connection.characterEncoding">UTF-8</prop>
+                ?characterEncoding=UTF-8
+                <prop key="hibernate.connection.useUnicode">true</prop-->
+                <!--characterEncoding=UTF-8-->
             </props>
         </property>
         <!--property name="annotatedClasses">
@@ -62,6 +78,15 @@
             </list>
         </property-->
     </bean>
+
+
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean class="net.sf.oval.integration.spring.SpringInjector"/>
 </beans>
 
 
