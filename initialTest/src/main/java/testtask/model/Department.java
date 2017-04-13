@@ -24,7 +24,7 @@ public class Department {
     @Length(max = 20)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "department", fetch = FetchType.EAGER)//,orphanRemoval = true
     private List<Employee> employees;
 
     public List<Employee> getEmployees() {

@@ -5,6 +5,7 @@ import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AbstractAnnotationCheck;
 import net.sf.oval.context.OValContext;
 import net.sf.oval.exception.OValException;
+import org.springframework.beans.factory.annotation.Autowired;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
@@ -14,7 +15,8 @@ import java.sql.SQLException;
 
 public class UniqueEmployeeEmailChecker extends AbstractAnnotationCheck<UniqueEmployeeEmail> {
 
-    private EmployeeService employeeService = new EmployeeServiceImpl();
+    @Autowired
+    private EmployeeServiceImpl employeeService;// = new EmployeeServiceImpl();
 
     @Override
     public boolean isSatisfied(Object validatedObject, Object value, OValContext context, Validator validator) throws OValException {

@@ -5,6 +5,7 @@ import net.sf.oval.Validator;
 import net.sf.oval.configuration.annotation.AbstractAnnotationCheck;
 import net.sf.oval.context.OValContext;
 import net.sf.oval.exception.OValException;
+import org.springframework.beans.factory.annotation.Autowired;
 import testtask.exception.DAOException;
 import testtask.model.Department;
 import testtask.service.DepartmentService;
@@ -14,7 +15,8 @@ import java.sql.SQLException;
 
 public class UniqueDepartmentNameChecker extends AbstractAnnotationCheck<UniqueDepartmentName> {
 
-    private DepartmentService departmentService = new DepartmentServiceImpl();
+    @Autowired
+    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
 
     @Override
     public boolean isSatisfied(Object validatedObject, Object value, OValContext context, Validator validator) throws OValException {

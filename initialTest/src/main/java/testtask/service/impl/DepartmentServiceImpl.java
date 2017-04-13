@@ -25,7 +25,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentDaoImpl departmentDao; //= new DepartmentDaoImpl(sessionFactory);
 
-    private OvalValidator validator = new OvalValidator();
+    @Autowired
+    private OvalValidator validator; //= new OvalValidator();
 
     @Override
     //@Transactional
@@ -49,7 +50,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     //@Transactional
     public void addDep(Department department) throws DAOException, ValidationException {
-        //validator.validate(department);
+        validator.validate(department);
         departmentDao.addDep(department);
     }
 
@@ -62,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     //@Transactional
     public void updateDep(Department department) throws DAOException, ValidationException {
-        //validator.validate(department);
+        validator.validate(department);
         departmentDao.updateDep(department);
     }
 }

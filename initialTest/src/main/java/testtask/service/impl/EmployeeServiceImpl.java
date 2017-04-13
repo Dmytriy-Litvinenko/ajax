@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void addEmpl(Employee employee) throws DAOException, ValidationException {
-        //validator.validate(employee);
+        validator.validate(employee);
         employeeDao.addEmpl(employee);
     }
 
@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmpl(Employee employee) throws DAOException, ValidationException {
-        //validator.validate(employee);
+        validator.validate(employee);
         employeeDao.updateEmpl(employee);
     }
 

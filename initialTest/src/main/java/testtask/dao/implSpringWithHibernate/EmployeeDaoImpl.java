@@ -19,18 +19,13 @@ import java.util.List;
 @Transactional
 public class EmployeeDaoImpl implements EmployeeDao {
 
-    //@Autowired
-    @Resource(name = "sessionFactory")
+    @Autowired
+    //@Resource(name = "sessionFactory")
     private SessionFactory sessionFactory;
 
     @Autowired
     private DepartmentDaoImpl departmentDao;
 
-    /*@Autowired
-    public EmployeeDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-
-    }*/
     private Session currentSession() {
         return sessionFactory.getCurrentSession();
     }
@@ -45,23 +40,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public List<Employee> findAll(Integer id) throws DAOException {
         Department department = departmentDao.findById(id);
         List<Employee> employees;
-        Query query;
-        try {
+        Query query= currentSession().createQuery("FROM employees WHERE department= :dep");
+        /*try {
             query = currentSession().createQuery("FROM employees WHERE department= :dep");
         }catch (HibernateException e){
             query = sessionFactory.openSession().createQuery("FROM employees WHERE department= :dep");
-        }
+        }*/
         query.setParameter("dep", department);
         employees = query.list();
         return employees;
-        /*Query query = currentSession().createQuery("from E where department.id= :depId");
-        query.setParameter("depId", id);*/
-        //  List<Employee> employees = query.list();
-        //return query.list();
+
     }
 
     @Override
-    //@Transactional
     public void addEmpl(Employee employee) throws DAOException {
         currentSession().save(employee);
     }
@@ -78,6 +69,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee findByEmail(String email) throws DAOException {
-        return currentSession().get(Employee.class, email);
+        Employee employee = new Employee();
+        Query query = currentSession().createQuery("FROM employees WHERE email= :emplEmail");
+        query.setParameter("emplEmail", email);
+        if (query.uniqueResult() != null)
+            employee = (Employee) query.uniqueResult();
+        return employee;
     }
 }

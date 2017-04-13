@@ -2,6 +2,8 @@ package testtask.util.validation;
 
 
 import net.sf.oval.constraint.CheckWithCheck;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import testtask.exception.DAOException;
 import testtask.model.Department;
 import testtask.service.DepartmentService;
@@ -9,9 +11,11 @@ import testtask.service.impl.DepartmentServiceImpl;
 
 import java.sql.SQLException;
 
+@Component
 public class OvalUniqueDepartmentName implements CheckWithCheck.SimpleCheck {
 
-    private DepartmentService departmentService = new DepartmentServiceImpl();
+    @Autowired
+    private DepartmentServiceImpl departmentService; //= new DepartmentServiceImpl();
 
     public boolean isSatisfied(Object validatedObject, Object validatedValue) {
         try {

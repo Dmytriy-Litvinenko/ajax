@@ -44,15 +44,15 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public Department findByName(String name) throws DAOException {
-        /*Department department = new Department();
-        Query query = currentSession().createQuery("from Department where name= :name");
+        Department department = new Department();
+        Query query = currentSession().createQuery("FROM departments WHERE name= :name");
         query.setParameter("name", name);
         if (query.uniqueResult() != null) {
 
             department = (Department) query.uniqueResult();
-        }*/
+        }/**/
 
-        return currentSession().get(Department.class, name);
+        return department;//currentSession().get(Department.class, name);
         //return department;
     }
 

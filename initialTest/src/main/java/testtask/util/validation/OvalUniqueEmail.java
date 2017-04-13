@@ -1,6 +1,7 @@
 package testtask.util.validation;
 
 import net.sf.oval.constraint.CheckWithCheck;
+import org.springframework.beans.factory.annotation.Autowired;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
 import testtask.service.EmployeeService;
@@ -9,7 +10,8 @@ import testtask.service.impl.EmployeeServiceImpl;
 
 public class OvalUniqueEmail implements CheckWithCheck.SimpleCheck {
 
-    private EmployeeService employeeService = new EmployeeServiceImpl();
+    @Autowired
+    private EmployeeServiceImpl employeeService;// = new EmployeeServiceImpl();
 
     public boolean isSatisfied(Object validatedObject, Object validatedValue) {
         try {
