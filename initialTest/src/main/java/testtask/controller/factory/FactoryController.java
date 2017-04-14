@@ -20,7 +20,7 @@ public class FactoryController {
     private PageController errorPageController = new ErrorPageController();
 
     {
-        controllerMap.put("/", new MainController());
+        //controllerMap.put("/", new MainController());
         controllerMap.put("/departments", new DepartmentsAllController());
         controllerMap.put("/depUpdate", new DepartmentUpdateController());
         controllerMap.put("/depSave", new DepartmentSaveController());
