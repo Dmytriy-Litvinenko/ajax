@@ -1,5 +1,6 @@
 package testtask.controller.factory;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component//(value = "FrontController")
+@Component
 public class FrontController implements HttpRequestHandler {
 
     @Autowired
@@ -21,15 +22,11 @@ public class FrontController implements HttpRequestHandler {
 
         request.setCharacterEncoding("UTF-8");
         String url = request.getRequestURI();
-        PageController controller = null;
+        PageController controller;
         try {
             controller = applicationContext.getBean(url, PageController.class);
-        } catch (RuntimeException e) {
-            //e.getCause().printStackTrace(System.err);
-            //response.sendRedirect("/error");
-        }
-        if (controller == null) {
-            controller = applicationContext.getBean("/error", PageController.class);//"/error"
+        } catch (NoSuchBeanDefinitionException e) {
+            controller = applicationContext.getBean("/error", PageController.class);
         }
         try {
             controller.goToPage(request, response);

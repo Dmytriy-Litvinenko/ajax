@@ -4,8 +4,6 @@ package testtask.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import testtask.dao.EmployeeDao;
-
 import testtask.dao.implSpringWithHibernate.EmployeeDaoImpl;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
@@ -19,19 +17,19 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
-    private EmployeeDaoImpl employeeDao; //= new EmployeeDaoImpl();
+    private EmployeeDaoImpl employeeDao;
 
     @Autowired
-    private OvalValidator validator;// = new OvalValidator();
+    private OvalValidator validator;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Employee getById(Integer id) throws DAOException {
         return employeeDao.findById(id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Employee> getAll(Integer id) throws DAOException {
         return employeeDao.findAll(id);
     }
@@ -57,6 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Employee getByEmail(String s) throws DAOException {
         return employeeDao.findByEmail(s);
     }
