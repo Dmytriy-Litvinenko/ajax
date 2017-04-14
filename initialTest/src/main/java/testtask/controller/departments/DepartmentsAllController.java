@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@Controller(value = "/departments")
+@Controller(value = "/depart")
 public class DepartmentsAllController implements PageController {
 
     @Autowired

@@ -1,6 +1,7 @@
 package testtask.dao.implSpringWithHibernate;
 
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,7 +42,13 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public List<Department> findAll() throws DAOException {
         List<Department> departments;
-        Query query = currentSession().createQuery("FROM departments");
+        Query query;
+        try{
+            query = sessionFactory.getCurrentSession().createQuery("FROM departments");
+        }catch (HibernateException e){
+            query = sessionFactory.openSession().createQuery("FROM departments");
+        }
+
         departments = query.list();
         return departments;
     }

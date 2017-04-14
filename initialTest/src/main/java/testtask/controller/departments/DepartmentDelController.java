@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/*
 @Controller(value = "/depDelete")
 public class DepartmentDelController implements PageController {
 
@@ -27,4 +27,4 @@ public class DepartmentDelController implements PageController {
         departmentService.delDep(departmentId);
         response.sendRedirect("/departments");
     }
-}
+}*/

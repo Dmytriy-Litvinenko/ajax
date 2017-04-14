@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Employee> getAll(Integer id) throws DAOException {
         return employeeDao.findAll(id);
     }

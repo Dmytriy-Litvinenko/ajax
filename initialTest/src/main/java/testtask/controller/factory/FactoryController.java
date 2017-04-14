@@ -1,8 +1,8 @@
-package testtask.controller.factory;
+/*package testtask.controller.factory;
 
 
 import testtask.controller.ErrorPageController;
-import testtask.controller.departments.DepartmentDelController;
+
 import testtask.controller.departments.DepartmentSaveController;
 import testtask.controller.departments.DepartmentUpdateController;
 import testtask.controller.departments.DepartmentsAllController;
@@ -41,3 +41,4 @@ public class FactoryController {
     }
 
 }
+*/

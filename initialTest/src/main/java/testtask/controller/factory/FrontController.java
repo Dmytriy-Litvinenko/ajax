@@ -1,9 +1,8 @@
-package testtask.controller.factory;
+/*package testtask.controller.factory;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestHandler;
 import testtask.exception.DAOException;
 
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
+//@Component
 public class FrontController implements HttpRequestHandler {
 
     @Autowired
@@ -40,4 +39,4 @@ public class FrontController implements HttpRequestHandler {
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         doService(httpServletRequest, httpServletResponse);
     }
-}
+}*/
