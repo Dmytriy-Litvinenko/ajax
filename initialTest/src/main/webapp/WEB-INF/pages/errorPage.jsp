@@ -6,8 +6,9 @@
 </head>
 <body style="text-align:center">
 <h1>Oops... <a href="/">Return home page!</a></h1><br>
-<div style="text-align:center">
-    <img src="<c:url value='/images/error.jpg'/>" />
+<div>
+    <%--img src="<c:url value='/images/error.jpg'/>"/--%>
+    <img src="/images/error.jpg" />
 </div>
 </body>
 </html>

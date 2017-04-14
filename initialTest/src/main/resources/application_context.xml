@@ -42,8 +42,6 @@
         </property>
     </bean>
 
-    <!--<mvc:resources mapping="/resources/**" location="/resources/" />cache-period="31556926"-->
-
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
