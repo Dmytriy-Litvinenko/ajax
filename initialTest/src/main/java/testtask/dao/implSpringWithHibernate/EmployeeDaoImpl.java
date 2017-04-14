@@ -16,11 +16,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Repository
-@Transactional
 public class EmployeeDaoImpl implements EmployeeDao {
 
     @Autowired
-    //@Resource(name = "sessionFactory")
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -36,7 +34,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    //@Transactional
     public List<Employee> findAll(Integer id) throws DAOException {
         Department department = departmentDao.findById(id);
         List<Employee> employees;
@@ -64,7 +61,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public void updateEmpl(Employee employee) throws DAOException {
-        currentSession().update(employee);
+        currentSession().merge(employee);
     }
 
     @Override

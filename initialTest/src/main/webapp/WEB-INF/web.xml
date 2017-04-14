@@ -60,12 +60,12 @@
   </context-param>
 
   <servlet>
-    <servlet-name>FrontController</servlet-name>
+    <servlet-name>frontController</servlet-name>
     <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>FrontController</servlet-name>
+    <servlet-name>frontController</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 

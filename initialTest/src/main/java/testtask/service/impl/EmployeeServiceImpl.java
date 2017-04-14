@@ -21,9 +21,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeDaoImpl employeeDao; //= new EmployeeDaoImpl();
 
-    private OvalValidator validator = new OvalValidator();
+    @Autowired
+    private OvalValidator validator;// = new OvalValidator();
 
     @Override
+    @Transactional
     public Employee getById(Integer id) throws DAOException {
         return employeeDao.findById(id);
     }
@@ -35,17 +37,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public void addEmpl(Employee employee) throws DAOException, ValidationException {
         validator.validate(employee);
         employeeDao.addEmpl(employee);
     }
 
     @Override
+    @Transactional
     public void delEmpl(Integer id) throws DAOException {
         employeeDao.delEmpl(id);
     }
 
     @Override
+    @Transactional
     public void updateEmpl(Employee employee) throws DAOException, ValidationException {
         validator.validate(employee);
         employeeDao.updateEmpl(employee);

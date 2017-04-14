@@ -21,7 +21,7 @@ import java.io.IOException;
 public class DepartmentUpdateController implements PageController {
 
     @Autowired
-    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
+    private DepartmentServiceImpl departmentService;
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {

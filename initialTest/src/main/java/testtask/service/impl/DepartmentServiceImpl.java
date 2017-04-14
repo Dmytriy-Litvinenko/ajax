@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-@Transactional
+//@Transactional
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
@@ -29,7 +29,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     private OvalValidator validator; //= new OvalValidator();
 
     @Override
-    //@Transactional
+    @Transactional
     public Department getById(Integer id) throws DAOException {
         return departmentDao.findById(id);
 
@@ -42,26 +42,26 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    //@Transactional
+    @Transactional
     public List<Department> getAll() throws DAOException {
         return departmentDao.findAll();
     }
 
     @Override
-    //@Transactional
+    @Transactional
     public void addDep(Department department) throws DAOException, ValidationException {
         validator.validate(department);
         departmentDao.addDep(department);
     }
 
     @Override
-    //@Transactional
+    @Transactional
     public void delDep(Integer id) throws DAOException {
         departmentDao.delDep(id);
     }
 
     @Override
-    //@Transactional
+    @Transactional
     public void updateDep(Department department) throws DAOException, ValidationException {
         validator.validate(department);
         departmentDao.updateDep(department);

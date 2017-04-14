@@ -13,41 +13,6 @@
     <context:annotation-config/>
     <context:component-scan base-package="testtask"/>
 
-    <!--bean id="/departments" class="testtask.controller.departments.DepartmentsAllController"></bean>
-    <bean id="/depDelete" class="testtask.controller.departments.DepartmentDelController"></bean>
-    <bean id="/depUpdate" class="testtask.controller.departments.DepartmentUpdateController"></bean>
-    <bean id="/depSave" class="testtask.controller.departments.DepartmentSaveController"></bean>
-    <bean id="/employees" class="testtask.controller.employees.EmployeesAllController"></bean>
-    <bean id="/empDelete" class="testtask.controller.employees.EmployeeDelController"></bean>
-    <bean id="/employeeUpdate" class="testtask.controller.employees.EmployeeUpdateController"></bean>
-    <bean id="/employeeSave" class="testtask.controller.employees.EmployeeSaveController"></bean-->
-
-
-    <!--bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-        <property name="url" value="jdbc:hsqldb:hsql://localhost/spitter/spitter" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/hibernate_test</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
-
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/hibernate_test</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
-    </bean-->
-
-    <!--bean id="departmentDaoImpl" class="testtask.dao.implSpringWithHibernate.DepartmentDaoImpl">
-        <constructor-arg ref="sessionFactory" />
-    </bean>
-    <bean id="departmentServiceImpl" class="testtask.service.impl.DepartmentServiceImpl">
-        <property name="departmentDao" ref="departmentDaoImpl"/>
-    </bean-->
-
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/hibernate_test?characterEncoding=UTF-8"/>
@@ -64,21 +29,9 @@
                 <prop key="hibernate.show_sql" >true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.id.new_generator_mappings">false</prop>
-                <!--prop key="hibernate.connection.CharSet">UTF-8</prop>
-                <prop key="hibernate.connection.characterEncoding">UTF-8</prop>
-                ?characterEncoding=UTF-8
-                <prop key="hibernate.connection.useUnicode">true</prop-->
-                <!--characterEncoding=UTF-8-->
             </props>
         </property>
-        <!--property name="annotatedClasses">
-            <list>
-                <value>testtask.model.Department</value>
-                <value>testtask.model.Employee</value>
-            </list>
-        </property-->
     </bean>
-
 
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
@@ -86,7 +39,6 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean class="net.sf.oval.integration.spring.SpringInjector"/>
 </beans>
 
 

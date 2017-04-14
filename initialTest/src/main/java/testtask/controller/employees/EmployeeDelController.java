@@ -6,10 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
-import testtask.model.Department;
-import testtask.model.Employee;
-import testtask.service.EmployeeService;
-import testtask.service.impl.DepartmentServiceImpl;
 import testtask.service.impl.EmployeeServiceImpl;
 
 import javax.servlet.ServletException;
@@ -21,14 +17,12 @@ import java.io.IOException;
 public class EmployeeDelController implements PageController {
 
     @Autowired
-    private EmployeeServiceImpl employeeService;// = new EmployeeServiceImpl();
+    private EmployeeServiceImpl employeeService;
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         Integer employeeId = Integer.parseInt(request.getParameter("employeeId"));
         Integer departmentId = employeeService.getById(employeeId).getDepartment().getId();
-        /*Employee employee=employeeService.getById(employeeId);
-        employee.getDepartment().getEmployees().remove(employee);*/
         employeeService.delEmpl(employeeId);
         response.sendRedirect("/employees?departmentId=" + departmentId);
     }

@@ -18,7 +18,7 @@ import java.io.IOException;
 public class DepartmentDelController implements PageController {
 
     @Autowired
-    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
+    private DepartmentServiceImpl departmentService;
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response)

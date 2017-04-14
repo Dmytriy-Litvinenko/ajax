@@ -20,24 +20,22 @@ import java.io.IOException;
 public class EmployeeUpdateController implements PageController {
 
     @Autowired
-    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
+    private DepartmentServiceImpl departmentService;
 
     @Autowired
-    private EmployeeServiceImpl employeeService;// = new EmployeeServiceImpl();
+    private EmployeeServiceImpl employeeService;
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
-        Employee employee = null;
+        Employee employee;
         String departmentId = request.getParameter("departmentId");
         String employeeId = request.getParameter("employeeId");
         if (employeeId == null || employeeId.equals("")) {
             employee = new Employee();
-            //employee.setDepartmentId(Integer.valueOf(departmentId));
             employee.setDepartment(departmentService.getById(Integer.valueOf(departmentId)));
         } else {
             employee = employeeService.getById(Integer.valueOf(employeeId));
-            //departmentId = employee.getDepartmentId().toString();
             departmentId = employee.getDepartment().getId().toString();
         }
         request.setAttribute("employee", employee);

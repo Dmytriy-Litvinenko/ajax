@@ -3,12 +3,10 @@ package testtask.controller.employees;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.model.Employee;
-import testtask.service.EmployeeService;
 import testtask.service.impl.EmployeeServiceImpl;
 import testtask.util.db.StringFormatter;
 
@@ -23,7 +21,7 @@ import java.util.List;
 public class EmployeesAllController implements PageController {
 
     @Autowired
-    private EmployeeServiceImpl employeeService;// = new EmployeeServiceImpl();
+    private EmployeeServiceImpl employeeService;
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {

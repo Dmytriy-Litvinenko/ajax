@@ -23,9 +23,9 @@ import java.util.List;
 public class DepartmentsAllController implements PageController {
 
     @Autowired
-    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
+    private DepartmentServiceImpl departmentService;
 
-    //@Override
+    @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         List<Department> departments = departmentService.getAll();
         request.setAttribute("departments", departments);
@@ -33,17 +33,4 @@ public class DepartmentsAllController implements PageController {
         view.forward(request, response);
 
     }
-
-   /* @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Department> departments = null;
-        try {
-            departments = departmentService.getAll();
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        request.setAttribute("departments", departments);
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/pages/departments/all.jsp");
-        view.forward(request, response);
-    }*/
 }

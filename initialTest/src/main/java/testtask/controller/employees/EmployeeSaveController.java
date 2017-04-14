@@ -7,8 +7,6 @@ import testtask.controller.factory.PageController;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
 import testtask.model.Employee;
-import testtask.service.DepartmentService;
-import testtask.service.EmployeeService;
 import testtask.service.impl.DepartmentServiceImpl;
 import testtask.service.impl.EmployeeServiceImpl;
 import testtask.util.db.StringFormatter;
@@ -19,8 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
+
 @Controller(value = "/employeeSave")
-public class EmployeeSaveController implements PageController {//extends HttpServlet {
+public class EmployeeSaveController implements PageController {
 
     //Log logger = new Log("log.txt");
     //logger.
@@ -28,10 +27,10 @@ public class EmployeeSaveController implements PageController {//extends HttpSer
     private static Logger log = Logger.getLogger(EmployeeSaveController.class.getName());
 
     @Autowired
-    private DepartmentServiceImpl departmentService;// = new DepartmentServiceImpl();
+    private DepartmentServiceImpl departmentService;
 
     @Autowired
-    private EmployeeServiceImpl employeeService;// = new EmployeeServiceImpl();
+    private EmployeeServiceImpl employeeService;
 
     @Override
     public void goToPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
