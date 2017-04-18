@@ -48,9 +48,10 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <mvc:annotation-driven />
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <!--mvc:annotation-driven />
+    <mvc:resources mapping="/resources/**" location="/resources/" /-->
 
+    <bean class="net.sf.oval.integration.spring.SpringInjector" />
 </beans>
 
 

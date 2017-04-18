@@ -1,4 +1,4 @@
-package testtask.controller.departments;
+/*package testtask.controller.departments;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class DepartmentUpdateController implements PageController {
         request.getRequestDispatcher("WEB-INF/pages/departments/update.jsp").forward(request, response);
     }
 }
-
+*/
 
 
 

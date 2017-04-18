@@ -9,8 +9,9 @@
 <br/>
 <div style="text-align:center">
     <%--img src="<c:url value='/images/error.jpg'/>"/--%>
-    <img src="/resources/images/error.jpg" />
-        <img src="/images/error.jpg" />
+    <!--img src="/resources/images/error.jpg" />
+        <img src="/resources/error.jpg" /-->
+        <img src="/resources/error.jpg" />
 </div>
 </body>
 </html>

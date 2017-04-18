@@ -8,7 +8,7 @@
 <h1>Oops... <a href="/">Return home page!</a></h1><br>
 <div>
     <%--img src="<c:url value='/images/error.jpg'/>"/--%>
-    <img src="/images/error.jpg" />
+    <img src="/resources/images/error.jpg" />
 </div>
 </body>
 </html>

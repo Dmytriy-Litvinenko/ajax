@@ -1,4 +1,4 @@
-package testtask.controller.departments;
+/*package testtask.controller.departments;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,4 +33,4 @@ public class DepartmentsAllController implements PageController {
         view.forward(request, response);
 
     }
-}
+}*/

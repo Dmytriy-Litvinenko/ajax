@@ -23,6 +23,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return sessionFactory.getCurrentSession();
     }
 
+    /*@Autowired
+    public DepartmentDaoImpl(SessionFactory sessionFactory) {
+
+        this.sessionFactory = sessionFactory;
+    }*/
+
     @Override
     public Department findById(Integer id) throws DAOException {
         return currentSession().get(Department.class, id);
@@ -55,7 +61,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public void addDep(Department department) throws DAOException {
-        currentSession().save(department);
+        Session session = sessionFactory.getCurrentSession();//currentSession();
+        session.save(department);
+
     }
 
     @Override
