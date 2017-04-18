@@ -1,4 +1,4 @@
-package testtask.controller.employees;
+/*package testtask.controller.employees;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class EmployeeUpdateController implements PageController {
         request.getRequestDispatcher("WEB-INF/pages/employees/update.jsp").forward(request, response);
     }
 }
-
+*/
 
 
 

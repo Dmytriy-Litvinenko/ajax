@@ -2,6 +2,7 @@ package testtask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import testtask.dao.implSpringWithHibernate.DepartmentDaoImpl;
@@ -20,6 +21,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentDaoImpl departmentDao;
+
     @Autowired
     private OvalValidator validator;
 
@@ -36,7 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)//, propagation = Propagation.REQUIRED
     public List<Department> getAll() throws DAOException {
         return departmentDao.findAll();
     }

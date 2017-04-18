@@ -13,9 +13,16 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven/>
+    <!--tx:annotation-driven  <context:component-scan base-package="testtask"/>/<mvc:annotation-driven/>-->
+
+
+
     <context:annotation-config/>
     <context:component-scan base-package="testtask"/>
+        <!--context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan-->
+
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -26,37 +33,33 @@
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="testtask.model" />
-        <!--property name="annotatedClasses">
+        <!--property name="packagesToScan" value="testtask.model" /-->
+        <property name="annotatedClasses">
             <list>
                 <value>testtask.model.Department</value>
                 <value>testtask.model.Employee</value>
             </list>
-        </property-->
+        </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql" >true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.id.new_generator_mappings">false</prop>
-                <prop key="hibernate.current_session_context_class">thread</prop>
+                <!--prop key="hibernate.current_session_context_class">thread</prop-->
             </props>
         </property>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
-
-
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
-        <property name="dataSource" ref="dataSource"/>
+        <!--property name="dataSource" ref="dataSource"/-->
     </bean>
 
-    <!--mvc:annotation-driven />
-    <mvc:resources mapping="/resources/**" location="/resources/" /-->
-
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
     <bean class="net.sf.oval.integration.spring.SpringInjector" />
 </beans>
+
 
 
 

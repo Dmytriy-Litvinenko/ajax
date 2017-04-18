@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import testtask.dao.DepartmentDao;
 import testtask.exception.DAOException;
 import testtask.model.Department;
@@ -23,11 +24,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return sessionFactory.getCurrentSession();
     }
 
-    /*@Autowired
+    @Autowired
     public DepartmentDaoImpl(SessionFactory sessionFactory) {
 
         this.sessionFactory = sessionFactory;
-    }*/
+    }/**/
 
     @Override
     public Department findById(Integer id) throws DAOException {
@@ -46,6 +47,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
+    //@SuppressWarnings("unchecked")
+    @Transactional
     public List<Department> findAll() throws DAOException {
         List<Department> departments;
         Query query;
@@ -60,8 +63,15 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
+    @Transactional
     public void addDep(Department department) throws DAOException {
-        Session session = sessionFactory.getCurrentSession();//currentSession();
+        Session session;
+        try{
+            session = sessionFactory.getCurrentSession();
+        }catch (HibernateException e){
+            session = sessionFactory.openSession();
+        }
+        //currentSession();
         session.save(department);
 
     }

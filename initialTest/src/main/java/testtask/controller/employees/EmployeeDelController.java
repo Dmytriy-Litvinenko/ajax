@@ -1,4 +1,4 @@
-package testtask.controller.employees;
+/*package testtask.controller.employees;
 
 
 
@@ -26,4 +26,4 @@ public class EmployeeDelController implements PageController {
         employeeService.delEmpl(employeeId);
         response.sendRedirect("/employees?departmentId=" + departmentId);
     }
-}
+}*/

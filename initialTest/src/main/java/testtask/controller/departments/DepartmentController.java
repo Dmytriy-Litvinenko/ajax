@@ -54,7 +54,6 @@ public class DepartmentController {
                                        @RequestParam(required = true) String departmentName) throws DAOException {
 
         ModelAndView modelAndView = new ModelAndView("/departments/all");
-
         Department department = new Department();
         department.setName(departmentName);
                 /*String departmentId = request.getParameter("departmentId");
@@ -77,20 +76,8 @@ public class DepartmentController {
             //request.setAttribute();
             //request.setAttribute();
             //request.getRequestDispatcher("WEB-INF/pages/departments/update.jsp").forward(request, response);
-
         }
+
         return modelAndView;
-
-
     }
-
-
 }
-
-
-
-   /* public String deleteContact() {
-        contactService.remove(id);
-        return "redirect:/";
-    }*/
-
