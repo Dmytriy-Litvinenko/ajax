@@ -2,6 +2,7 @@ package testtask.controller.employees;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,6 @@ import testtask.service.impl.DepartmentServiceImpl;
 import testtask.service.impl.EmployeeServiceImpl;
 import testtask.util.db.StringFormatter;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,14 +35,14 @@ public class EmployeeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/empDelete", method = RequestMethod.GET)//
+    @RequestMapping(value = "/empDelete", method = RequestMethod.GET)
     public String deleteEmployee(@RequestParam(required = true) Integer employeeId) throws DAOException {
         Integer departmentId = employeeService.getById(employeeId).getDepartment().getId();
         employeeService.delEmpl(employeeId);
         return "redirect:/employees?departmentId=" + departmentId;
     }
 
-    @RequestMapping(value = "/employeeUpdate", method = RequestMethod.POST)//
+    @RequestMapping(value = "/employeeUpdate", method = RequestMethod.POST)
     public ModelAndView updateEmployee(@RequestParam(required = false) Integer employeeId,
                                          @RequestParam(required = true) Integer departmentId) throws DAOException {
         Employee employee;
@@ -55,13 +55,13 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employeeSave", method = RequestMethod.POST)//
-    public ModelAndView saveEmployee(@RequestParam(required = true) Integer departmentId,
+    public String saveEmployee(@RequestParam(required = true) Integer departmentId,
                                        @RequestParam(required = false) Integer employeeId,
                                        @RequestParam(required = true) String employeeName,
                                        @RequestParam(required = true) String employeeEmail,
                                        @RequestParam(required = true) String employeeSalary,
-                                       @RequestParam(required = true) String employeeBirthDate) throws DAOException {
-        ModelAndView modelAndView = new ModelAndView("/employees/all");
+                                       @RequestParam(required = true) String employeeBirthDate,
+                                     Model model) throws DAOException {
         Employee employee = new Employee();//
         employee.setName(employeeName);
         employee.setEmail(employeeEmail);
@@ -72,18 +72,17 @@ public class EmployeeController {
             if (employeeId == null) {
                 employeeService.addEmpl(employee);
             } else {
-                employee.setId(employeeId);//StringFormatter.stringToInteger(employeeId)
+                employee.setId(employeeId);
                 employeeService.updateEmpl(employee);
             }
         } catch (ValidationException exception) {
-            modelAndView = new ModelAndView("/employees/update");
             Map<String, String> map = exception.getMapError();
-            modelAndView.addObject("errors", map);
-            modelAndView.addObject("departmentId", departmentId);
-            modelAndView.addObject("employee", employee);
+            model.addAttribute("errors", map);
+            model.addAttribute( "departmentId",departmentId);
+            model.addAttribute("employee", employee);
+            return "/employees/update";
         }
-        modelAndView.addObject("departmentId", departmentId);
-        return modelAndView;
+        return "redirect:/employees?departmentId="+departmentId;
     }
 }
 

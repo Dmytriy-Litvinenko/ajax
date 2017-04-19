@@ -1,13 +1,11 @@
 package testtask.dao.implSpringWithHibernate;
 
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import testtask.dao.DepartmentDao;
 import testtask.exception.DAOException;
 import testtask.model.Department;
@@ -23,12 +21,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
     private Session currentSession() {
         return sessionFactory.getCurrentSession();
     }
-
-    @Autowired
-    public DepartmentDaoImpl(SessionFactory sessionFactory) {
-
-        this.sessionFactory = sessionFactory;
-    }/**/
 
     @Override
     public Department findById(Integer id) throws DAOException {
@@ -47,33 +39,16 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    //@SuppressWarnings("unchecked")
-    @Transactional
     public List<Department> findAll() throws DAOException {
         List<Department> departments;
-        Query query;
-        try{
-            query = sessionFactory.getCurrentSession().createQuery("FROM departments");
-        }catch (HibernateException e){
-            query = sessionFactory.openSession().createQuery("FROM departments");
-        }
-
+        Query query= sessionFactory.getCurrentSession().createQuery("FROM departments");
         departments = query.list();
         return departments;
     }
 
     @Override
-    @Transactional
     public void addDep(Department department) throws DAOException {
-        Session session;
-        try{
-            session = sessionFactory.getCurrentSession();
-        }catch (HibernateException e){
-            session = sessionFactory.openSession();
-        }
-        //currentSession();
-        session.save(department);
-
+        currentSession().save(department);
     }
 
     @Override
