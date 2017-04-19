@@ -52,8 +52,8 @@ public class DepartmentController {
     @RequestMapping(value = "/depSave", method = RequestMethod.POST)//
     public ModelAndView saveDepartment(@ModelAttribute("department") Department department) throws DAOException {
         Integer departmentId = department.getId();
-        String departmentName = department.getName();
-        department.setName(departmentName);
+        /*String departmentName = department.getName();
+        department.setName(departmentName);*/
         try {
             if (departmentId == null) {
                 departmentService.addDep(department);
