@@ -55,13 +55,14 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employeeSave", method = RequestMethod.POST)//
-    public String saveEmployee(@RequestParam(required = true) Integer departmentId,
-                                       @RequestParam(required = false) Integer employeeId,
-                                       @RequestParam(required = true) String employeeName,
-                                       @RequestParam(required = true) String employeeEmail,
-                                       @RequestParam(required = true) String employeeSalary,
-                                       @RequestParam(required = true) String employeeBirthDate,
-                                     Model model) throws DAOException {
+    public String saveEmployee(
+            @RequestParam(required = true) Integer departmentId,
+            @RequestParam(required = false) Integer employeeId,
+            @RequestParam(required = true) String employeeName,
+            @RequestParam(required = true) String employeeEmail,
+            @RequestParam(required = true) String employeeSalary,
+            @RequestParam(required = true) String employeeBirthDate,
+            Model model) throws DAOException {
         Employee employee = new Employee();//
         employee.setName(employeeName);
         employee.setEmail(employeeEmail);

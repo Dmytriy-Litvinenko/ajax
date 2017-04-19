@@ -9,16 +9,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
-<form method="post" action="/depSave">
+<form method="post" action="/depSave" ><%-- departmentName   "--%>
     <table>
         <tr>
             <td>Name:</td>
-            <td><input type="text" name="departmentName" value="${department.name}"/></td>
+            <td>
+                <input type="text" name="name" value="${department.name}"/>
+                <input type="hidden" name="id" value="${department.id}"/>
+            </td>
             <td class="error">${errors.get("name")}</td>
         </tr>
         <tr>
             <td colspan="2">
-                <input type="hidden" name="departmentId" value="${department.id}"/>
+                <input type="hidden" name="id" />
                 <input type="submit" value="Save"/>
             </td>
         </tr>

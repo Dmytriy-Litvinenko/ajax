@@ -1,7 +1,7 @@
 package testtask.controller;
 
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @ControllerAdvice
 public class ErrorPageController{
 
-    private static final Logger logger = Logger.getLogger(ErrorPageController.class);
+    //private static final Logger logger = Logger.getLogger(ErrorPageController.class);
 
-    @ExceptionHandler(Exception.class)
+    //@ExceptionHandler(Exception.class)
     public String showErrorPage(Exception e) {
-        logger.error(e.getMessage(),e);
+        //logger.error(e.getMessage(),e);
         return "errorPage";
     }
 }

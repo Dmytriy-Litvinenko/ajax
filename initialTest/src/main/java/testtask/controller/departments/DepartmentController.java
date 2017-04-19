@@ -3,9 +3,7 @@ package testtask.controller.departments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
@@ -37,21 +35,24 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
-    @RequestMapping(value = "/depUpdate", method = RequestMethod.POST)//
-    public ModelAndView updateDepartment(@RequestParam(required = false) Integer departmentId) throws DAOException {
+    @PostMapping(value = "/depUpdate")//, method = RequestMethod.POST
+    public String updateDepartment(@RequestParam(required = false) Integer departmentId,
+                                   Model model) throws DAOException {
         Department department;
         if (departmentId == null) department = new Department();
         else department = departmentService.getById(departmentId);
-        ModelAndView modelAndView = new ModelAndView("departments/update");
+        /*ModelAndView modelAndView = new ModelAndView("departments/update");
         modelAndView.addObject("department", department);
-        return modelAndView;
+        return modelAndView;*/
+        model.addAttribute("department", department);
+        return "departments/update";
     }
 
 
     @RequestMapping(value = "/depSave", method = RequestMethod.POST)//
-    public String saveDepartment(@RequestParam(required = false) Integer departmentId,
-                                 @RequestParam(required = true) String departmentName, Model model) throws DAOException {
-        Department department = new Department();
+    public ModelAndView saveDepartment(@ModelAttribute("department") Department department) throws DAOException {
+        Integer departmentId = department.getId();
+        String departmentName = department.getName();
         department.setName(departmentName);
         try {
             if (departmentId == null) {
@@ -61,11 +62,12 @@ public class DepartmentController {
                 departmentService.updateDep(department);
             }
         } catch (ValidationException exception) {
+            ModelAndView modelAndView = new ModelAndView("/departments/update");
             Map<String, String> map = exception.getMapError();
-            model.addAttribute("errors", map);
-            model.addAttribute("department", department);
-            return "departments/update";
+            modelAndView.addObject("errors", map);
+            modelAndView.addObject("department", department);
+            return modelAndView;
         }
-        return "redirect:/departments";
+        return new ModelAndView("redirect:/departments");
     }
 }
