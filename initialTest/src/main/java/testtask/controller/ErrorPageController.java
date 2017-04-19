@@ -1,14 +1,21 @@
 package testtask.controller;
 
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
+@ControllerAdvice
 public class ErrorPageController{
-    @RequestMapping(value = "/error", method = RequestMethod.GET)//
-    public String showErrorPage() {
+
+    private static final Logger logger = Logger.getLogger(ErrorPageController.class);
+
+    @ExceptionHandler(Exception.class)
+    public String showErrorPage(Exception e) {
+        logger.error(e.getMessage(),e);
         return "errorPage";
     }
 }

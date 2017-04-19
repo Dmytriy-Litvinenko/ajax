@@ -28,10 +28,10 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <error-page>
+  <!--error-page>
     <exception-type>java.lang.Exception</exception-type>
     <location>/WEB-INF/pages/errorPage.jsp</location>
-  </error-page>
+  </error-page-->
 
   <!--servlet-mapping>
     <servlet-name>default</servlet-name>

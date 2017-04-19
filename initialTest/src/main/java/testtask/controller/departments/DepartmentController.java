@@ -26,6 +26,8 @@ public class DepartmentController {
         List<Department> departments = departmentService.getAll();
         ModelAndView modelAndView = new ModelAndView("/departments/all");
         modelAndView.addObject("departments", departments);
+        //throw new DAOException();
+        //throw new RuntimeException();
         return modelAndView;
     }
 
