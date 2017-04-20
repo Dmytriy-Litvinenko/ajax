@@ -3,10 +3,7 @@ package testtask.controller.departments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
@@ -22,39 +19,31 @@ public class DepartmentController {
     @Autowired
     private DepartmentServiceImpl departmentService;
 
+    @ResponseBody
     @RequestMapping(value = "/departments", method = RequestMethod.GET)
-    public ModelAndView showDepartments() throws DAOException {
-        List<Department> departments = departmentService.getAll();
-        ModelAndView modelAndView = new ModelAndView("/departments/all");
-        modelAndView.addObject("departments", departments);
-        //throw new DAOException();
-        //throw new RuntimeException();
-        return modelAndView;
+    public List<Department> showDepartments() throws DAOException {
+        return departmentService.getAll();
     }
 
+    @ResponseBody
     @RequestMapping(value = "/depDelete", method = RequestMethod.GET)//
-    public String deleteDepartment(@RequestParam(required = true) Integer departmentId) throws DAOException {
+    public List<Department> deleteDepartment(@RequestParam(required = true) Integer departmentId) throws DAOException {
         departmentService.delDep(departmentId);
-        return "redirect:/departments";
+        return departmentService.getAll();
     }
 
-    @PostMapping(value = "/depUpdate")//, method = RequestMethod.POST
-    public String updateDepartment(@RequestParam(required = false) Integer departmentId,
-                                   Model model) throws DAOException {
+    @ResponseBody
+    @PostMapping(value = "/depUpdate")
+    public Department updateDepartment(@RequestParam(required = false) Integer departmentId, Model model) throws DAOException {
         Department department;
         if (departmentId == null) department = new Department();
         else department = departmentService.getById(departmentId);
-        /*ModelAndView modelAndView = new ModelAndView("departments/update");
-        modelAndView.addObject("department", department);
-        return modelAndView;*/
-        model.addAttribute("department", department);
-        return "departments/update";
+        return department;
     }
 
 
-    @RequestMapping(value = "/depSave", method = RequestMethod.POST)//
-    public ModelAndView saveDepartment(//@ModelAttribute("department")
-                                       Department department) throws DAOException {
+    @RequestMapping(value = "/depSave", method = RequestMethod.POST)
+    public ModelAndView saveDepartment(Department department) throws DAOException {
         Integer departmentId = department.getId();
         try {
             if (departmentId == null) {
