@@ -3,7 +3,10 @@ package testtask.controller.departments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
@@ -50,10 +53,9 @@ public class DepartmentController {
 
 
     @RequestMapping(value = "/depSave", method = RequestMethod.POST)//
-    public ModelAndView saveDepartment(@ModelAttribute("department") Department department) throws DAOException {
+    public ModelAndView saveDepartment(//@ModelAttribute("department")
+                                       Department department) throws DAOException {
         Integer departmentId = department.getId();
-        /*String departmentName = department.getName();
-        department.setName(departmentName);*/
         try {
             if (departmentId == null) {
                 departmentService.addDep(department);
