@@ -1,6 +1,7 @@
 package testtask.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Email;
 import net.sf.oval.constraint.NotNegative;
@@ -43,7 +44,7 @@ public class Employee {
     @JoinColumn(name = "department_id")
     private Department department;/**/
 
-
+    @JsonIgnore
     public Department getDepartment() {
         return department;
     }/**/

@@ -19,28 +19,29 @@ public class DepartmentController {
     @Autowired
     private DepartmentServiceImpl departmentService;
 
-    @ResponseBody
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
+    public @ResponseBody Department showDepartmentById(@PathVariable Integer id) throws DAOException {
+        return departmentService.getById(id);
+    }
+
     @RequestMapping(value = "/departments", method = RequestMethod.GET)
-    public List<Department> showDepartments() throws DAOException {
+    public @ResponseBody List<Department> showDepartments() throws DAOException {
         return departmentService.getAll();
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/depDelete", method = RequestMethod.GET)//
-    public List<Department> deleteDepartment(@RequestParam(required = true) Integer departmentId) throws DAOException {
+    @RequestMapping(value = "/depDelete", method = RequestMethod.GET)
+    public @ResponseBody List<Department> deleteDepartment(@RequestParam(required = true) Integer departmentId) throws DAOException {
         departmentService.delDep(departmentId);
         return departmentService.getAll();
     }
 
-    @ResponseBody
     @PostMapping(value = "/depUpdate")
-    public Department updateDepartment(@RequestParam(required = false) Integer departmentId, Model model) throws DAOException {
+    public @ResponseBody Department updateDepartment(@RequestParam(required = false) Integer departmentId, Model model) throws DAOException {
         Department department;
         if (departmentId == null) department = new Department();
         else department = departmentService.getById(departmentId);
         return department;
     }
-
 
     @RequestMapping(value = "/depSave", method = RequestMethod.POST)
     public ModelAndView saveDepartment(Department department) throws DAOException {

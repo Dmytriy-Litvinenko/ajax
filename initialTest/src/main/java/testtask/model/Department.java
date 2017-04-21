@@ -1,5 +1,6 @@
 package testtask.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
@@ -27,6 +28,7 @@ public class Department {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "department", fetch = FetchType.EAGER)//,orphanRemoval = true
     private List<Employee> employees;
 
+    //@JsonIgnore
     public List<Employee> getEmployees() {
         return employees;
     }
