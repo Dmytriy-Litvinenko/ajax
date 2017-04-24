@@ -32,10 +32,10 @@ public class DepartmentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)//@PathVariable Integer id)
-    public List<Department> deleteDepartment(@RequestParam(required = false) Integer id) throws DAOException {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)//@RequestParam(required = false) Integer id)
+    public void deleteDepartment(@PathVariable Integer id) throws DAOException {
         departmentService.delDep(id);
-        return departmentService.getAll();
+        //return departmentService.getAll();List<Department>
     }
 
     @ResponseBody

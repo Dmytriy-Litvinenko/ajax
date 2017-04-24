@@ -35,12 +35,13 @@ var showAllDepartments = function () {
             for (let i = 0; i < response.length; i++) {
                 body.append($('<tr>')
                     .append($('<td colspan="2">').text(response[i].name))
-                    .append($('<td>').append($('<table>'))
-                    //.append('<button onclick="deleteDepartment(response[i].id);">Delete</button>')
-                        .append('<form method="get" action="/delete">'
-                        +'<input type="hidden" name="id" value="'+response[i].id+'"/>'
+                    .append($('<td>')
+                        .append($('<table>'))
+                    .append('<button onclick="deleteDepartment('+response[i].id+');">Delete</button>')
+                        /*.append('<form method="get" action="/delete/45">'
+                        //+'<input type="hidden" name="id" value="'+response[i].id+'"/>'
                         +'<input type="submit" value="Delete"/>'
-                        )
+                        )*/
                     )
                     .append($('<td>')
                         .append('<form method="post" action="/depUpdate">'
@@ -60,11 +61,11 @@ var showAllDepartments = function () {
     });
 };
 
-var deleteDepartment = function (departmentId) {
+var deleteDepartment = function (event) {
     $.ajax({
-        url: '/delete',
+        url: '/delete/',
         //data: {id: el.data('location')}
-        data: ({ "id": departmentId }),
+        data: ({ "id": event.target().value}),
         type: 'GET',
         success: function () {
             showAllDepartments();
