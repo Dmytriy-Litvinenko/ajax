@@ -28,7 +28,7 @@ public class Department {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "department", fetch = FetchType.EAGER)//,orphanRemoval = true
     private List<Employee> employees;
 
-    //@JsonIgnore
+    @JsonIgnore
     public List<Employee> getEmployees() {
         return employees;
     }

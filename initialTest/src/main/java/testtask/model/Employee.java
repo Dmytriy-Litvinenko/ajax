@@ -36,15 +36,11 @@ public class Employee {
     @Column(name = "birth_date")
     private Date birthDate;
 
-    /*@Column(name = "department_id")
-    private Integer departmentId;*/
-
-
     @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;/**/
 
-    @JsonIgnore
+    //@JsonIgnore
     public Department getDepartment() {
         return department;
     }/**/
