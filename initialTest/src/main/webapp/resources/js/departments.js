@@ -49,7 +49,7 @@ let deleteDepartment = function (event) {
 };
 
 let updateDepartment = function (event) {
-    alert('updating' + event.target.name);
+    //alert('updating' + event.target.name);
     $.ajax({
         url: '/update',
         data: {id: event.target.name},
@@ -87,29 +87,10 @@ let displayDepartmentDetails = function (response) {
 let displayDepartmentDetails1 = function (response) {
     let body = $('body');
     body.text('');
-     /*body.append(
-        $('<form id="departmentForm" method="post" action="/saveDep">')//
-            .append(
-                $('<table>')
-                    .append($('<tr>')
-                        .append($('<td>').text('Name:'))
-                        .append($('<td>')
-                            .append($('<input type="text" id="name" value="' + response.name + '"/>'))
-                            .append($('<input type="hidden" id="id" value="' + response.id + '"/>'))
-                        )
-                    )
-                    .append($('<tr>')
-                        .append($('<td>')//type="button"
-                            .append($('<button type="submit" onclick="saveDepartment(event,this);" value="Save">Save</button>'))
-                        )
-                    )
-            )
-    )*/
-    //onclick="save(event,this);"
-     body.append('<form id="departmentForm" action="/saveDep" method="POST">' +
+    body.append('<form id="departmentForm" action="/saveDep" method="POST">' +
         'name: <input type="text" id="name" name="name" value ="'+response.name+'"/> <br/>'+
         '<input type="hidden" id="id" name="id" value ="'+response.id +'" />' +
-         ' <br/><button type="submit" onclick="save(event,this);">Save</button></form>');//<input type="submit" value="Save">
+        ' <br/><button type="submit" onclick="save(event);">Save</button></form>');//<input type="submit" value="Save">
 };
 /*
 <form name="ajaxform" id="ajaxform" action="ajax-form-submit.php" method="POST">
@@ -139,45 +120,38 @@ let displayDepartmentDetails1 = function (response) {
     e.preventDefault(); // avoid to execute the actual submit of the form.
 });*/
 
- let save=function(event,form) {
-     //$("#departmentForm").
-     let id =// $('#id').value;
-         event.target.name;
-     alert('id='+id);
-     let data = $("#departmentForm:input").serializeArray();
-     alert('submitting'+data.length);//postData+formURL
- //let postData = $(this).serializeArray();
- //let formURL = $(this).attr("action");
-
- $.ajax(
- {
-     headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json'
-     },
-     data : JSON.stringify({
-         name : "yyy4",
-         id : "52"
-     }),
-     url : '/saveDep',
-     type: "POST",
-     //data : postData,
-     success:function(data, textStatus, jqXHR) {
-     //data: return data from server
-         alert('succss'+data);
-     },
-     error: function(jqXHR, textStatus, errorThrown) {
-     //if fails
-     }
+ let save=function(event) {
+     //event.preventDefault();
+     $('#departmentForm').submit(function(){return false;});
+     let depId =$('#id').val();
+     let depName =$('#name').val();/**/
+     //alert('id = '+depId+'; name = '+depName);
+     $.ajax(
+     {
+         headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json'
+         },
+         data : JSON.stringify({
+             id : depId,
+             name : depName
+         }),
+         url : '/saveDep',
+         type: "POST",
+         success:function(data, textStatus, jqXHR) {
+             //alert('success'+data.name);
+             showAllDepartments();
+         },
+         error: function(jqXHR, textStatus, errorThrown) {
+             alert(textStatus);
+         }
      });
-     e.preventDefault(); //STOP default action
-     e.unbind(); //unbind. to stop multiple form submit.
  };
 
  //$("#ajaxform").submit(); //Submit  the FORM
  /**/
 
-let saveDepartment = function f(event, form) {
+let saveDepartment = function(event, form) {
     alert('saving'+$(form).find('#id').text);
 //.attr("action"
     //let url = form.attr("action");

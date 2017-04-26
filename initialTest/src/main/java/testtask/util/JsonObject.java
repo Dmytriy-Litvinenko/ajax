@@ -40,8 +40,6 @@ public class JsonObject {
         this.employees = employees;
     }
 
-
-
     public Map<String, String> getErrors() {
         return errors;
     }
@@ -51,3 +49,12 @@ public class JsonObject {
     }
 }
 
+/*
+    private String status = null;
+
+        private Map<String, String> error = null;
+
+        private List<Department> department = null;
+
+        private List<Employee> employee = null;
+*/

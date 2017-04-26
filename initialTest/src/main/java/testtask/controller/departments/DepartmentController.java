@@ -52,7 +52,7 @@ public class DepartmentController {
     @RequestMapping(value = "/saveDep", method = RequestMethod.POST)
     public Department saveDepartment(@RequestBody Department department) throws DAOException {
 
-        JsonObject jsonObject = new JsonObject();
+        //JsonObject jsonObject = new JsonObject();
 
         Integer departmentId = department.getId();
         try {
