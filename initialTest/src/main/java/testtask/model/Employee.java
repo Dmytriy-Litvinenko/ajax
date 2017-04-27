@@ -32,7 +32,7 @@ public class Employee {
     private Double salary;
 
     @NotNull(message = "date cannot have a null value!")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "birth_date")
     private Date birthDate;
 

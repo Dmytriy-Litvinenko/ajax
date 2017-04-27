@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
+import testtask.model.Department;
 import testtask.model.Employee;
 import testtask.service.impl.DepartmentServiceImpl;
 import testtask.service.impl.EmployeeServiceImpl;
@@ -45,35 +46,26 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping(value = "/employeeUpdate", method = RequestMethod.POST)
-    public Employee updateEmployee(@RequestParam(required = false) Integer employeeId
-            , @RequestParam(required = true) Integer departmentId
-    ) throws DAOException {
+    public Employee updateEmployee(@RequestParam(required = false) Integer employeeId,
+                                   @RequestParam(required = true) Integer departmentId) throws DAOException {
         Employee employee;
         if (employeeId == null) {
             employee = new Employee();
             employee.setDepartment(departmentService.getById(departmentId));
-        }
-        else employee = employeeService.getById(employeeId);
+        } else employee = employeeService.getById(employeeId);
         return employee;
     }
 
     @ResponseBody
     @RequestMapping(value = "/employeeSave", method = RequestMethod.POST)
-    public Employee saveEmployee(//@ModelAttribute("employee")
-                                 //@RequestBody
-                                         Employee employee
-            , @RequestParam(required = true) Integer departmentId
+    public List<Employee> saveEmployee(@RequestBody Employee employee, @RequestParam(required = true) Integer departmentId
     ) throws DAOException {
         Integer employeeId = employee.getId();
-        employee.setDepartment(departmentService.getById(departmentId));
+        Department department = departmentService.getById(departmentId);
+        employee.setDepartment(department);
         try {
-            if (employeeId == null) {
-                employeeService.addEmpl(employee);
-            } else {
-                employee.setId(employeeId);
-                //employeeService.getById(employeeId);
-                employeeService.updateEmpl(employee);
-            }
+            if (employeeId == null) employeeService.addEmpl(employee);
+            else employeeService.updateEmpl(employee);
         } catch (ValidationException exception) {
             ModelAndView modelAndView = new ModelAndView("/employees/update");
             Map<String, String> map = exception.getMapError();
@@ -82,7 +74,7 @@ public class EmployeeController {
             modelAndView.addObject("employee", employee);
             //return modelAndView;
         }
-        return employee;//new ModelAndView("redirect:/employees?departmentId=" + departmentId);
+        return employeeService.getAll(departmentId);//employee;//new ModelAndView("redirect:/employees?departmentId=" + departmentId);
     }
 }
 
