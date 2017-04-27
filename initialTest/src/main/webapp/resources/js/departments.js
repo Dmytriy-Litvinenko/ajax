@@ -34,7 +34,6 @@ let displayDepartments = function (response) {
 };
 
 let deleteDepartment = function (event) {
-    //alert('deleting'+event.target.name);
     $.ajax({
         url: '/delete',// + id,
         data: {id: event.target.name},
@@ -46,7 +45,6 @@ let deleteDepartment = function (event) {
 };
 
 let updateDepartment = function (event) {
-    //alert('updating' + event.target.name);
     $.ajax({
         url: '/update',
         data: {id: event.target.name},
@@ -59,12 +57,10 @@ let updateDepartment = function (event) {
 };
 
 let addDepartment = function (event) {
-    //alert('updating');
     let departmentId = event.target.name
     $.ajax({
         url: '/update',
         data: {
-            //employeeId: "",
             departmentId: departmentId
         },
         type: 'POST',
@@ -84,28 +80,26 @@ let displayDepartmentDetails = function (response) {
                     .append($('<tr>')
                         .append($('<td>').text('Name:'))
                         .append($('<td>')
-                            .append($('<input type="text" id="name"/>').val(response !== null ? response.name : ""))//value="' + response.name + '"
+                            .append($('<input type="text" id="name" />').val(response !== null ? response.name : ""))//value="' + response.name + '"
                             .append($('<input type="hidden" id="id" value="' + response.id + '"/>'))
                         )
                     )
                     .append($('<tr>')
-                        .append($('<td>')//type="button"
+                        .append($('<td>')
                             .append($('<button type="submit" onclick="saveDepartment();" value="Save">Save</button>'))
                         )
                     )
             )
-    )
+    );
+    validateDepartment();
 };
 
 let saveDepartment = function () {
-    //event.preventDefault();
     $('#departmentForm').submit(function () {
         return false;
     });
     let depId = $('#id').val();
     let depName = $('#name').val();
-    /**/
-    //alert('id = '+depId+'; name = '+depName);
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -118,7 +112,6 @@ let saveDepartment = function () {
         url: '/saveDep',
         type: "POST",
         success: function (data, textStatus, jqXHR) {
-            //alert('success'+data.name);
             showAllDepartments();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -126,3 +119,34 @@ let saveDepartment = function () {
         }
     });
 };
+
+let validateDepartment = function() {
+    $('#departmentForm').validate({
+        rules: {
+            name: {
+                //required: true,
+                minlength: 5
+                 /*maxlength: 16
+                remote: {
+                    url: "/uniqueName",
+                    type: "POST",
+                    data: {
+                        id:$('#id').val(),
+                        name:$('#name').val()
+                    }//id: function() {return ;}
+                }*/
+            }
+        },
+        messages: {
+            name: {
+                //required: "Please provide a password"/*,
+                minlength: "Your password must be at least 5 characters long"
+                //maxlength: "Your password must not be longer than 16 characters"*/
+                //, remote: "This name is already used!"
+            }
+        },
+        submitHandler: function () {
+            saveDepartment();
+        }
+    });
+}

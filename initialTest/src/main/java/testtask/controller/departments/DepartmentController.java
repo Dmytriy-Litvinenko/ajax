@@ -1,8 +1,11 @@
 package testtask.controller.departments;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testtask.exception.DAOException;
@@ -50,9 +53,10 @@ public class DepartmentController {
 
     @ResponseBody
     @RequestMapping(value = "/saveDep", method = RequestMethod.POST)
-    public Department saveDepartment(@RequestBody Department department) throws DAOException {
+    public JsonObject saveDepartment(@RequestBody Department department) throws DAOException {
 
-        //JsonObject jsonObject = new JsonObject();
+        JsonObject jsonObject = new JsonObject();
+        ResponseEntity responseEntity=null;// = new ResponseEntity();
 
         Integer departmentId = department.getId();
         try {
@@ -64,15 +68,30 @@ public class DepartmentController {
             }
         } catch (ValidationException exception) {
             ModelAndView modelAndView = new ModelAndView("/departments/update");
-            Map<String, String> map = exception.getMapError();
-            modelAndView.addObject("errors", map);
-            modelAndView.addObject("department", department);
+           Map<String, String> map = exception.getMapError();
+           //MultiValueMap<String, String> errors = new MultiValueMap<String, String>(map) ;          }
+            //modelAndView.addObject("errors", map);
+            //modelAndView.addObject("department", department);
             //return modelAndView;
+            //responseEntity = new ResponseEntity(department, map, HttpStatus.NOT_ACCEPTABLE);
+            jsonObject.setErrors(map);
+            return jsonObject;
         }
         //return new ModelAndView("redirect:/departments");
-        return department;
+        jsonObject.setDepartments(departmentService.getAll());
+        return jsonObject;//department;
+    }
+/*
+    public ResponseEntity(T body, MultiValueMap<String, String> headers, HttpStatus status) {
+        super(body, headers);
+        Assert.notNull(status, "HttpStatus must not be null");
+        this.statusCode = status;
     }
 
+    private ResponseEntity(T body, MultiValueMap<String, String> headers, Object statusCode) {
+        super(body, headers);
+        this.statusCode = statusCode;
+    }*/
     /*@RequestMapping(value = "/depSaveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public JsonResponse addNewOne(@RequestBody Department department) throws SQLException {
@@ -90,5 +109,22 @@ public class DepartmentController {
         }
         return result;
     }*/
+
+    @ResponseBody
+    @PostMapping("/uniqueName")
+    public Boolean validate(@RequestParam Integer id, @RequestParam String name) throws DAOException {
+        //Integer id = null ;!value.equals("")
+        //if (id!=null) {id = Integer.parseInt(value);}
+        Department department = departmentService.getByName(name);
+        /*if (name.equals(department.getName())) {
+            if (id == null) {
+                return false;
+            } else if (id != department.getId().intValue()) {
+                return false;
+            } else return true;
+        } else return true;*/
+        return !name.equals(department.getName()) || id != null && id == department.getId().intValue();
+    }
+
 
 }
