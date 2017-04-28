@@ -12,7 +12,11 @@ import testtask.model.Department;
 import testtask.model.Employee;
 import testtask.service.impl.DepartmentServiceImpl;
 import testtask.service.impl.EmployeeServiceImpl;
+import testtask.util.db.StringFormatter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +45,7 @@ public class EmployeeController {
     public List<Employee> deleteEmployee(@RequestParam(required = true) Integer employeeId) throws DAOException {
         Integer departmentId = employeeService.getById(employeeId).getDepartment().getId();
         employeeService.delEmpl(employeeId);
-        return employeeService.getAll(departmentId);//"redirect:/employees?departmentId=" + departmentId;
+        return employeeService.getAll(departmentId);
     }
 
     @ResponseBody
@@ -72,9 +76,20 @@ public class EmployeeController {
             modelAndView.addObject("errors", map);
             //modelAndView.addObject("departmentId", departmentId);
             modelAndView.addObject("employee", employee);
-            //return modelAndView;
         }
         return employeeService.getAll(departmentId);//employee;//new ModelAndView("redirect:/employees?departmentId=" + departmentId);
+    }
+
+    @PostMapping("/uniqueEmail")
+    public void validate(HttpServletRequest request, HttpServletResponse response) throws DAOException, IOException {
+        String email = request.getParameter("email");
+        String value = request.getParameter("id");
+        Integer id = null;
+        if (!value.equals("")) id = StringFormatter.stringToInteger(value);
+        Employee employee = employeeService.getByEmail(email);
+        Boolean result = true;
+        if ((id == null || id != employee.getId().intValue()) && email.equals(employee.getEmail())) result = false;
+        response.getWriter().write(result.toString());
     }
 }
 

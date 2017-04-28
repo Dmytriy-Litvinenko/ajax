@@ -35,7 +35,7 @@ let displayDepartments = function (response) {
 
 let deleteDepartment = function (event) {
     $.ajax({
-        url: '/delete',// + id,
+        url: '/delete',
         data: {id: event.target.name},
         type: 'POST',
         success: function (response) {
@@ -74,7 +74,7 @@ let displayDepartmentDetails = function (response) {
     let body = $('body');
     body.text('');
     body.append(
-        $('<form id="departmentForm" >')//method="post" action="/saveDep"
+        $('<form id="departmentForm" >')
             .append(
                 $('<table>')
                     .append($('<tr>')
@@ -95,7 +95,6 @@ let displayDepartmentDetails = function (response) {
 };
 
 let saveDepartment = function () {
-    //$('#departmentForm').submit(function () {return false;});
     let depId = $('#id').val();
     let depName = $('#name').val();
     $.ajax({
@@ -109,7 +108,7 @@ let saveDepartment = function () {
         }),
         url: '/saveDep',
         type: "POST",
-        success: function () {//data, textStatus, jqXHR
+        success: function () {
             showAllDepartments();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -122,7 +121,7 @@ let validateDepartment = function() {
     $('#departmentForm').validate({
         rules: {
             name: {
-                //required: true,
+                required: true,
                 minlength: 5,
                 maxlength: 10,
                 remote: {
@@ -136,18 +135,17 @@ let validateDepartment = function() {
                     }),*/
                     url: "/uniqueName",
                     type: "POST",
-                    //datatype:json,
                     data: //JSON.stringify({
                         {
                         id:function(){return $('#id').val();},
                         name:function(){return $('#name').val();}
-                    }//)//id: function() {return ;}
+                    }
                 }
             }
         },
         messages: {
             name: {
-                //required: "Please provide a password"/*,
+                required:"Type name, please",
                 minlength: "Your password must be at least 5 characters long",
                 maxlength: "Your password must not be longer than 10 characters",
                 remote: "This name is already used!"

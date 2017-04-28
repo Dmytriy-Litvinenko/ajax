@@ -105,7 +105,7 @@ let displayEmployeeDetails = function (response, departmentId) {
                     .append($('<tr>')
                         .append($('<td>').text('Email:'))
                         .append($('<td>')
-                            .append($('<input type="text" id="email" name="email"/>')
+                            .append($('<input type="email" id="email" name="email"/>')
                                 .val(response !== null ? response.email : ""))
                         )
                     )
@@ -134,10 +134,7 @@ let displayEmployeeDetails = function (response, departmentId) {
 };
 
 let saveEmployee = function () {
-    let form = $('#employeeForm');
-    form.submit(function () {
-        return false;
-    });
+    //let form = $('#employeeForm');
     let empId = $('#id').val();
     let empName = $('#name').val();
     let empEmail = $('#email').val();
@@ -176,7 +173,11 @@ let validateEmployee = function () {
             name: {
                 required: true,
                 minlength: 5,
-                maxlength: 10,
+                maxlength: 10
+            },
+            email: {
+                required: true,
+                email: true,
                 remote: {
                     url: "/uniqueEmail",
                     type: "POST",
@@ -184,42 +185,39 @@ let validateEmployee = function () {
                         id: function () {
                             return $('#id').val();
                         },
-                        name: function () {
+                        email: function () {
                             return $('#email').val();
                         }
                     }
-                },
-                email: {
-                    email: true
-                },
-                birthDate: {
-                    required: true,
-                    date: true
-                },
-                salary: {
-                    required: true,
-                    digits: true,
                 }
+            },
+            salary: {
+                required: true,
+                digits: true,
+            },
+            birthDate: {
+                required: true,
+                date: true
             }
         },
         messages: {
             name: {
-                required: "type name, please",
+                required: "Type name, please",
                 minlength: "Your password must be at least 5 characters long",
                 maxlength: "Your password must not be longer than 10 characters",
-                remote: "This name is already used!"
             },
             email: {
+                required: "Type email, please",
                 email: "Type correct email!!",
                 remote: "This email is already used!"
+            },
+            salary: {
+                required: "Input salary, please",
+                digits: "Type only digits!",
             },
             birthDate: {
                 required: "Type birthday, please",
                 date: "input correct date"
-            },
-            salary: {
-                required: "Type birthday, please",
-                digits: "Type only digits!",
             }
         },
         submitHandler: function () {
@@ -227,45 +225,3 @@ let validateEmployee = function () {
         }
     });
 };
-
-/*
- {
- rules: {
- input_first: {
- required: true,
- minlength: 3,
- maxlength: 20
- },
- input_second: {
- required: true,
- minlength: 3,
- maxlength: 20
- },
- input_email: {
- required: true,
- email: true
- },
- input_birthday: {
- required: true,
- date: true
- }
-
- }, messages: {
- input_first: {
- minlength: "Min length is 3",
- maxlength: "Min length is 20",
- required: "This is required field"
- },
- input_second: {
- minlength: "Min length is 3",
- maxlength: "Min length is 20",
- required: "This is required field"
- },
- input_email: {
- required: "This is required field",
- email: "Not valid email"
- },
- input_birthday: {
- required: "This is required field"
- }
- }*/
