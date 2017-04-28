@@ -57,7 +57,7 @@ let updateDepartment = function (event) {
 };
 
 let addDepartment = function (event) {
-    let departmentId = event.target.name
+    let departmentId = event.target.name;
     $.ajax({
         url: '/update',
         data: {
@@ -74,19 +74,19 @@ let displayDepartmentDetails = function (response) {
     let body = $('body');
     body.text('');
     body.append(
-        $('<form id="departmentForm" method="post" action="/saveDep">')
+        $('<form id="departmentForm" >')//method="post" action="/saveDep"
             .append(
                 $('<table>')
                     .append($('<tr>')
                         .append($('<td>').text('Name:'))
                         .append($('<td>')
-                            .append($('<input type="text" id="name" />').val(response !== null ? response.name : ""))//value="' + response.name + '"
+                            .append($('<input type="text" id="name" name ="name" minlength="5"/>').val(response !== null ? response.name : ""))//value="' + response.name + '"
                             .append($('<input type="hidden" id="id" value="' + response.id + '"/>'))
                         )
                     )
                     .append($('<tr>')
                         .append($('<td>')
-                            .append($('<button type="submit" onclick="saveDepartment();" value="Save">Save</button>'))
+                            .append($('<input type="submit" value="Save"/>'))
                         )
                     )
             )
@@ -95,9 +95,7 @@ let displayDepartmentDetails = function (response) {
 };
 
 let saveDepartment = function () {
-    $('#departmentForm').submit(function () {
-        return false;
-    });
+    //$('#departmentForm').submit(function () {return false;});
     let depId = $('#id').val();
     let depName = $('#name').val();
     $.ajax({
@@ -111,11 +109,11 @@ let saveDepartment = function () {
         }),
         url: '/saveDep',
         type: "POST",
-        success: function (data, textStatus, jqXHR) {
+        success: function () {//data, textStatus, jqXHR
             showAllDepartments();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus);
+            alert(errorThrown);
         }
     });
 };
@@ -125,24 +123,34 @@ let validateDepartment = function() {
         rules: {
             name: {
                 //required: true,
-                minlength: 5
-                 /*maxlength: 16
+                minlength: 5,
+                maxlength: 10,
                 remote: {
+                    /*headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },*/
+                    /*data: JSON.stringify({
+                        id: depId,
+                        name: depName
+                    }),*/
                     url: "/uniqueName",
                     type: "POST",
-                    data: {
-                        id:$('#id').val(),
-                        name:$('#name').val()
-                    }//id: function() {return ;}
-                }*/
+                    //datatype:json,
+                    data: //JSON.stringify({
+                        {
+                        id:function(){return $('#id').val();},
+                        name:function(){return $('#name').val();}
+                    }//)//id: function() {return ;}
+                }
             }
         },
         messages: {
             name: {
                 //required: "Please provide a password"/*,
-                minlength: "Your password must be at least 5 characters long"
-                //maxlength: "Your password must not be longer than 16 characters"*/
-                //, remote: "This name is already used!"
+                minlength: "Your password must be at least 5 characters long",
+                maxlength: "Your password must not be longer than 10 characters",
+                remote: "This name is already used!"
             }
         },
         submitHandler: function () {

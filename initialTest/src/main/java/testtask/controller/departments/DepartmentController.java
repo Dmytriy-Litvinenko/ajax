@@ -1,11 +1,9 @@
 package testtask.controller.departments;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testtask.exception.DAOException;
@@ -13,7 +11,11 @@ import testtask.exception.ValidationException;
 import testtask.model.Department;
 import testtask.service.impl.DepartmentServiceImpl;
 import testtask.util.JsonObject;
+import testtask.util.db.StringFormatter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +58,7 @@ public class DepartmentController {
     public JsonObject saveDepartment(@RequestBody Department department) throws DAOException {
 
         JsonObject jsonObject = new JsonObject();
-        ResponseEntity responseEntity=null;// = new ResponseEntity();
+        ResponseEntity responseEntity = null;// = new ResponseEntity();
 
         Integer departmentId = department.getId();
         try {
@@ -68,8 +70,8 @@ public class DepartmentController {
             }
         } catch (ValidationException exception) {
             ModelAndView modelAndView = new ModelAndView("/departments/update");
-           Map<String, String> map = exception.getMapError();
-           //MultiValueMap<String, String> errors = new MultiValueMap<String, String>(map) ;          }
+            Map<String, String> map = exception.getMapError();
+            //MultiValueMap<String, String> errors = new MultiValueMap<String, String>(map) ;          }
             //modelAndView.addObject("errors", map);
             //modelAndView.addObject("department", department);
             //return modelAndView;
@@ -110,21 +112,50 @@ public class DepartmentController {
         return result;
     }*/
 
-    @ResponseBody
+    //@ResponseBody
     @PostMapping("/uniqueName")
-    public Boolean validate(@RequestParam Integer id, @RequestParam String name) throws DAOException {
-        //Integer id = null ;!value.equals("")
-        //if (id!=null) {id = Integer.parseInt(value);}
+//void@RequestParam(required = false) Integer id, @RequestParam(required = false) String name
+    public void validate(HttpServletRequest request, HttpServletResponse response) throws DAOException, IOException {
+        String name = request.getParameter("name");
+        String value = request.getParameter("id");
+        Integer id = null;
+        if (!value.equals("")) id = StringFormatter.stringToInteger(value);//Integer.parseInt(value);
         Department department = departmentService.getByName(name);
-        /*if (name.equals(department.getName())) {
+        Boolean result;
+        if (name.equals(department.getName())) {
             if (id == null) {
-                return false;
+                result = false;
             } else if (id != department.getId().intValue()) {
-                return false;
-            } else return true;
-        } else return true;*/
-        return !name.equals(department.getName()) || id != null && id == department.getId().intValue();
+                result = false;
+            } else result = true;
+        } else result = true;/**/
+        //Boolean result = !name.equals(department.getName()) || id != null && id == department.getId().intValue();
+        //return
+        response.getWriter().write(result.toString());
+        //return result;
     }
 
+    /*
 
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String name = request.getParameter("name");
+        String value = request.getParameter("id");
+        Integer id = null      ;
+        if (!value.equals("")) {
+            id = Integer.parseInt(value);
+        }
+
+        Department dep = departmentService.getByName(name);
+
+        if(name.equals(dep.getName())){
+            if(id == null){
+                response.getWriter().write("false");
+            }else if(id != dep.getId().intValue()){
+                response.getWriter().write("false");
+            } else response.getWriter().write("true");
+        } else response.getWriter().write("true");
+    }
+     */
 }
