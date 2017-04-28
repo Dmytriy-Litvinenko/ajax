@@ -10,34 +10,6 @@ let showAllEmployees = function (event) {
     });
 };
 
-let displayEmployees = function (response, departmentId) {
-    let body = $('body');
-    body.text('');
-    let table = $('<table>');
-    table.append($('<tr>')
-        .append($('<td>').append($('<b>').text('Name')))
-        .append($('<td>').append($('<b>').text('Email')))
-        .append($('<td>').append($('<b>').text('Salary')))
-        .append($('<td>').append($('<b>').text('Birth Date')))
-    );
-    for (let i = 0; i < response.length; i++) {
-        let birthDate = new Date(response[i].birthDate).toLocaleString('en-GB').split(' ')[0].slice(0, -1).split('/').reverse().join('-');
-        table.append($('<tr>')
-            .append($('<p id="departmentId" />').val(departmentId).hide())
-            .append($('<td>').text(response[i].name))
-            .append($('<td>').text(response[i].email))
-            .append($('<td>').text(response[i].salary))
-            .append($('<td>').text(birthDate))
-            .append($('<td>').append($('<button  onclick="deleteEmployee(event);" name="' + response[i].id + '">Delete</button>')))
-            .append($('<td>').append($('<button onclick="updateEmployee(event);" name="' + response[i].id + '">Update</button>')))
-        );
-    }
-    table.append($('<tr>')
-        .append($('<td>')
-            .append($('<button onclick="addEmployee(event);" name="' + departmentId + '">Add</button>')))
-    );
-    body.append(table);
-};
 
 let deleteEmployee = function (event) {
     let departmentId = $('#departmentId').val();
@@ -82,6 +54,70 @@ let addEmployee = function (event) {
         }
     });
 };
+
+let saveEmployee = function () {
+    //let form = $('#employeeForm');
+    let empId = $('#id').val();
+    let empName = $('#name').val();
+    let empEmail = $('#email').val();
+    let empSalary = $('#salary').val();
+    let empBirthDate = $('#birthDate').val();
+    let departmentId = $('#departmentId').val();
+    let employee = {
+        id: empId,
+        name: empName,
+        email: empEmail,
+        salary: empSalary,
+        birthDate: empBirthDate,
+        department: {}
+    };
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify(employee),
+        dataType: "json",
+        url: '/employeeSave?departmentId=' + departmentId,
+        type: "POST",
+        success: function (data) {
+            displayEmployees(data, departmentId);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus);
+        }
+    });
+};
+/*
+let displayEmployees = function (response, departmentId) {
+    let body = $('body');
+    body.text('');
+    let table = $('<table>');
+    table.append($('<tr>')
+        .append($('<td>').append($('<b>').text('Name')))
+        .append($('<td>').append($('<b>').text('Email')))
+        .append($('<td>').append($('<b>').text('Salary')))
+        .append($('<td>').append($('<b>').text('Birth Date')))
+    );
+    for (let i = 0; i < response.length; i++) {
+        let birthDate = new Date(response[i].birthDate).toLocaleString('en-GB').split(' ')[0].slice(0, -1).split('/').reverse().join('-');
+        table.append($('<tr>')
+            .append($('<p id="departmentId" />').val(departmentId).hide())
+            .append($('<td>').text(response[i].name))
+            .append($('<td>').text(response[i].email))
+            .append($('<td>').text(response[i].salary))
+            .append($('<td>').text(birthDate))
+            .append($('<td>').append($('<button  onclick="deleteEmployee(event);" name="' + response[i].id + '">Delete</button>')))
+            .append($('<td>').append($('<button onclick="updateEmployee(event);" name="' + response[i].id + '">Update</button>')))
+        );
+    }
+    table.append($('<tr>')
+        .append($('<td>')
+            .append($('<button onclick="addEmployee(event);" name="' + departmentId + '">Add</button>')))
+    );
+    body.append(table);
+};
+
 
 let displayEmployeeDetails = function (response, departmentId) {
     let body = $('body');
@@ -133,39 +169,7 @@ let displayEmployeeDetails = function (response, departmentId) {
     validateEmployee();
 };
 
-let saveEmployee = function () {
-    //let form = $('#employeeForm');
-    let empId = $('#id').val();
-    let empName = $('#name').val();
-    let empEmail = $('#email').val();
-    let empSalary = $('#salary').val();
-    let empBirthDate = $('#birthDate').val();
-    let departmentId = $('#departmentId').val();
-    let employee = {
-        id: empId,
-        name: empName,
-        email: empEmail,
-        salary: empSalary,
-        birthDate: empBirthDate,
-        department: {}
-    };
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        data: JSON.stringify(employee),
-        dataType: "json",
-        url: '/employeeSave?departmentId=' + departmentId,
-        type: "POST",
-        success: function (data) {
-            displayEmployees(data, departmentId);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus);
-        }
-    });
-};
+
 
 let validateEmployee = function () {
     $('#employeeForm').validate({
@@ -224,4 +228,4 @@ let validateEmployee = function () {
             saveEmployee();
         }
     });
-};
+};*/

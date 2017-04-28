@@ -17,6 +17,8 @@
     </body>
 <script type='text/javascript' src="/resources/js/jquery-3.2.1.min.js"></script>
 <script type='text/javascript' src="/resources/js/jquery.validation.min.js"></script>
-<script type='text/javascript' src='/resources/js/departments.js'></script>
-<script type='text/javascript' src='/resources/js/employees.js'></script>
+<script type='text/javascript' src='/resources/js/route/departments.js'></script>
+<script type='text/javascript' src='/resources/js/route/employees.js'></script>
+<script type='text/javascript' src='/resources/js/service/departmentService.js'></script>
+<script type='text/javascript' src='/resources/js/service/employeeServiсe.js'></script>
 </html>

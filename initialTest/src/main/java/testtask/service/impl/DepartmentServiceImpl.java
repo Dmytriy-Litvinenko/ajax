@@ -37,7 +37,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    @Transactional(readOnly = true)//, propagation = Propagation.REQUIRED
+    @Transactional(readOnly = true)
     public List<Department> getAll() throws DAOException {
         return departmentDao.findAll();
     }
