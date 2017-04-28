@@ -157,4 +157,4 @@ let validateDepartment = function() {
             saveDepartment();
         }
     });
-}
+};

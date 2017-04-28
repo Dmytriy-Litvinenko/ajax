@@ -21,7 +21,7 @@ let displayEmployees = function (response, departmentId) {
         .append($('<td>').append($('<b>').text('Birth Date')))
     );
     for (let i = 0; i < response.length; i++) {
-        let birthDate = new Date(response[i].birthDate).toLocaleString('en-GB').split(' ')[0].slice(0,-1).split('/').reverse().join('-');
+        let birthDate = new Date(response[i].birthDate).toLocaleString('en-GB').split(' ')[0].slice(0, -1).split('/').reverse().join('-');
         table.append($('<tr>')
             .append($('<p id="departmentId" />').val(departmentId).hide())
             .append($('<td>').text(response[i].name))
@@ -85,7 +85,7 @@ let addEmployee = function (event) {
 
 let displayEmployeeDetails = function (response, departmentId) {
     let body = $('body');
-    let birthDate = new Date(response.birthDate).toLocaleString('en-GB').split(' ')[0].slice(0,-1).split('/').reverse().join('-');
+    let birthDate = new Date(response.birthDate).toLocaleString('en-GB').split(' ')[0].slice(0, -1).split('/').reverse().join('-');
     body.text('');
     body.append(
         $('<form id="employeeForm" method="post" action="/employeeSave">')
@@ -94,7 +94,7 @@ let displayEmployeeDetails = function (response, departmentId) {
                     .append($('<tr>')
                         .append($('<td>').text('Name:'))
                         .append($('<td>')
-                            .append($('<input type="text" id="name" />')
+                            .append($('<input type="text" id="name" name="name"/>')
                                 .val(response !== null ? response.name : ""))
                             .append($('<input type="hidden" id="id" />')
                                 .val(response !== null ? response.id : ""))
@@ -105,31 +105,32 @@ let displayEmployeeDetails = function (response, departmentId) {
                     .append($('<tr>')
                         .append($('<td>').text('Email:'))
                         .append($('<td>')
-                            .append($('<input type="text" id="email"/>')
+                            .append($('<input type="text" id="email" name="email"/>')
                                 .val(response !== null ? response.email : ""))
                         )
                     )
                     .append($('<tr>')
                         .append($('<td>').text('Salary:'))
                         .append($('<td>')
-                            .append($('<input type="text" id="salary"/>')
+                            .append($('<input type="text" id="salary" name="salary"/>')
                                 .val(response !== null ? response.salary : ""))
                         )
                     )
                     .append($('<tr>')
                         .append($('<td>').text('Birth Date:'))
                         .append($('<td>')
-                            .append($('<input type="date" id="birthDate"/>')
+                            .append($('<input type="date" id="birthDate" name="birthDate"/>')
                                 .val(response !== null ? birthDate : ""))
                         )
                     )
                     .append($('<tr>')
                         .append($('<td>')
-                            .append($('<button type="submit" onclick="saveEmployee();" value="Save">Save</button>'))
+                            .append($('<input type="submit" value="Save"/>'))//onclick="saveEmployee();Save</button>"
                         )
                     )
             )
-    )
+    );
+    validateEmployee();
 };
 
 let saveEmployee = function () {
@@ -168,3 +169,103 @@ let saveEmployee = function () {
         }
     });
 };
+
+let validateEmployee = function () {
+    $('#employeeForm').validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 5,
+                maxlength: 10,
+                remote: {
+                    url: "/uniqueEmail",
+                    type: "POST",
+                    data: {
+                        id: function () {
+                            return $('#id').val();
+                        },
+                        name: function () {
+                            return $('#email').val();
+                        }
+                    }
+                },
+                email: {
+                    email: true
+                },
+                birthDate: {
+                    required: true,
+                    date: true
+                },
+                salary: {
+                    required: true,
+                    digits: true,
+                }
+            }
+        },
+        messages: {
+            name: {
+                required: "type name, please",
+                minlength: "Your password must be at least 5 characters long",
+                maxlength: "Your password must not be longer than 10 characters",
+                remote: "This name is already used!"
+            },
+            email: {
+                email: "Type correct email!!",
+                remote: "This email is already used!"
+            },
+            birthDate: {
+                required: "Type birthday, please",
+                date: "input correct date"
+            },
+            salary: {
+                required: "Type birthday, please",
+                digits: "Type only digits!",
+            }
+        },
+        submitHandler: function () {
+            saveEmployee();
+        }
+    });
+};
+
+/*
+ {
+ rules: {
+ input_first: {
+ required: true,
+ minlength: 3,
+ maxlength: 20
+ },
+ input_second: {
+ required: true,
+ minlength: 3,
+ maxlength: 20
+ },
+ input_email: {
+ required: true,
+ email: true
+ },
+ input_birthday: {
+ required: true,
+ date: true
+ }
+
+ }, messages: {
+ input_first: {
+ minlength: "Min length is 3",
+ maxlength: "Min length is 20",
+ required: "This is required field"
+ },
+ input_second: {
+ minlength: "Min length is 3",
+ maxlength: "Min length is 20",
+ required: "This is required field"
+ },
+ input_email: {
+ required: "This is required field",
+ email: "Not valid email"
+ },
+ input_birthday: {
+ required: "This is required field"
+ }
+ }*/
