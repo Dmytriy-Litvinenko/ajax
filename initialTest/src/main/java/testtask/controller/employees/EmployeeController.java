@@ -88,7 +88,7 @@ public class EmployeeController {
         if (!value.equals("")) id = StringFormatter.stringToInteger(value);
         Employee employee = employeeService.getByEmail(email);
         Boolean result = true;
-        if ((id == null || id != employee.getId().intValue()) && email.equals(employee.getEmail())) result = false;
+        if (email.equals(employee.getEmail()) && (id == null || id != employee.getId().intValue())) result = false;
         response.getWriter().write(result.toString());
     }
 }
