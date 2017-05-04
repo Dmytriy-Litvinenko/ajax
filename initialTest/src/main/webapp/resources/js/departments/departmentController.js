@@ -1,6 +1,4 @@
-//class departmentRoute {
-
-    //let depart
+/*
 
     showAllDepartments = function () {
         $.ajax({
@@ -63,5 +61,5 @@
         });
     };
 
-//}
 
+    */

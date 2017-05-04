@@ -9,6 +9,7 @@
         <div style="text-align:center">
             <h2>Hello, click the following button to see the departments list!</h2>
             <button onclick='showAllDepartments();'>Departments</button>
+            <button onclick='goToIndexJs();'>Departments in OOP</button>
             <br/>
             <div>
                 <img src="/resources/images/wellcome.jpg" width="100%"/>
@@ -17,8 +18,12 @@
     </body>
 <script type='text/javascript' src="/resources/js/jquery-3.2.1.min.js"></script>
 <script type='text/javascript' src="/resources/js/jquery.validation.min.js"></script>
-<script type='text/javascript' src='/resources/js/route/departments.js'></script>
-<script type='text/javascript' src='/resources/js/route/employees.js'></script>
-<script type='text/javascript' src='/resources/js/service/departmentService.js'></script>
-<script type='text/javascript' src='/resources/js/service/employeeServiсe.js'></script>
+<script type='text/javascript' src='/resources/js/bundle.js'></script>
+<script type='text/javascript' src='/resources/js/depControllerOOP.js'></script>
+<script type='text/javascript' src='/resources/js/departments/depServiceOOP.js'></script>
+<!--script type='text/javascript' src='/resources/js/departments/departmentService.js'></script>
+<script type='text/javascript' src='/resources/js/departments/departmentController.js'></script>
+<script type='text/javascript' src='/resources/js/employees/employeeServiсe.js'></script>
+
+<script type='text/javascript' src='/resources/js/employees/employeeController.js'></script-->
 </html>

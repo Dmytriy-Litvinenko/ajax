@@ -1,4 +1,4 @@
-let displayDepartments = function (response) {
+/*let displayDepartments = function (response) {
     let body = $('body');
     body.text('');
     let table = $('<table>');
@@ -76,4 +76,4 @@ let validateDepartment = function () {
             saveDepartment();
         }
     });
-};
+}*/
