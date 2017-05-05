@@ -92,7 +92,7 @@ class DepartmentController {
         }
         table.append($('<tr>')
             .append($('<td>')
-                .append($('<button onclick="addDepartment(event);">Add</button>')))
+                .append($('<button class="listen" onclick="this.addDepartment(event);">Add</button>')))
         );
         body.append(table);
     };

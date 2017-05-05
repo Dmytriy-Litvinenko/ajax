@@ -17,6 +17,13 @@ class Main {
     static main(){
         let depController = new DepartmentController();
         depController.showAllDepartments();
+
+        $('#page').on('click','.listen',function (event) {
+            let value = $(this).attr('value');
+            //dispatcher[value](event);
+            //$(document).ready(function () {});
+            depController.addDepartment();
+        });
     }
 }
 window.Main = Main;
