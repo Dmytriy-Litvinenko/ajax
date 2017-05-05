@@ -2,32 +2,20 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <!--meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"-->
     <title></title>
-
 </head>
     <body>
-        <div style="text-align:center">
+        <div id="page" style="text-align:center">
             <h2>Hello, click the following button to see the departments list!</h2>
-            <button onclick='showAllDepartments();'>Departments</button>
-            <button onclick='goToIndexJs()'>Departments in OOP</button>
+            <!--button onclick='showAllDepartments();'>Departments</button-->
+            <!--button onclick='startShowing()'>Departments</button-->
+            <button onclick='Main.main();'>Departments</button>
+
             <br/>
-            <div>
+            <div id="logs">
                 <img src="/resources/images/wellcome.jpg" width="100%"/>
             </div>
         </div>
-
-        <!--script type='text/javascript' src="/resources/js/jquery-3.2.1.min.js"></script>
-        <script type='text/javascript' src="/resources/js/jquery.validation.min.js"></script-->
-        <!--script type='text/javascript' src='/resources/js/bundle.js'></scriptalert("hi");-->
-        <!--script type='text/javascript' src='/resources/js/departments/depControllerOOP.js'></script>
-        <script type='text/javascript' src='/resources/js/departments/depServiceOOP.js'></script-->
         <script src="/resources/js/bundle.js"></script>
     </body>
-
-<!--script type='text/javascript' src='/resources/js/departments/departmentService.js'></script>
-<script type='text/javascript' src='/resources/js/departments/departmentController.js'></script>
-<script type='text/javascript' src='/resources/js/employees/employeeServiсe.js'></script>
-
-<script type='text/javascript' src='/resources/js/employees/employeeController.js'></script-->
 </html>

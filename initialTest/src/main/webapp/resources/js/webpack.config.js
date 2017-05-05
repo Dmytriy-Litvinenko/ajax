@@ -10,7 +10,7 @@ module.exports={
         filename: 'bundle.js',
         library: 'index'
     },
-   // watch: true,//NODE_ENV=='development',
+    watch: true,//NODE_ENV=='development',
     devtool: 'source-map',
     module: {
         loaders: [

@@ -1,3 +1,5 @@
+/*'use strict'
+
 class DepartmentService{
 
     constructor(){
@@ -84,3 +86,4 @@ class DepartmentService{
     });
 };
 }
+module.exports = DepartmentService;*/
