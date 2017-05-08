@@ -29,7 +29,7 @@
             <td>
                 <form method="post" action="/employeeUpdate">
                     <table>
-                        <input type="hidden" name="employeeId" value="${employee.id}"/>
+                        <input type="hidden" name="id" value="${employee.id}"/>
                         <input type="hidden" name="departmentId" value="${departmentId}"/>
                         <input type="submit" value="Update"/>
                     </table>

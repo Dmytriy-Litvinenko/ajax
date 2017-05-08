@@ -1,68 +1,31 @@
 'use strict';
 import jQuery from "jquery";
+import Service from "../service";
 window.$ = window.jQuery = jQuery;
 
-export default class DepartmentService {
+export default class EmployeeService extends Service {
+
+    constructor() {
+        super();
+    }
 
     findAll(departmentId) {
-        let getAllEmployees =
-            $.ajax({
-                url: '/employees',
-                type: 'GET',
-                data: {departmentId: departmentId}
-            });
-        return getAllEmployees;
+        return super.findAll('/employees', departmentId);
     };
 
-    delete(id) {
-        let deleteEmployee =
-            $.ajax({
-                url: '/empDelete',
-                data: {employeeId: id},
-                type: 'POST'
-            });
-        return deleteEmployee;
+    _delete(id) {
+        return super._delete('/empDelete', id);
     };
 
     update(id) {
-        let updateEmployee =
-            $.ajax({
-                url: '/employeeUpdate',
-                data: {
-                    employeeId: id,
-                    departmentId: ""
-                },
-                type: 'POST'
-            });
-        return updateEmployee;
+        return super.update('/employeeUpdate', id);
     };
 
     add(id) {
-        let addEmployee =
-            $.ajax({
-                url: '/employeeUpdate',
-                data: {
-                    employeeId: "",
-                    departmentId: id
-                },
-                type: 'POST'
-            });
-        return addEmployee;
+        return super.add('/employeeUpdate', id);
     };
 
     save(employee, departmentId) {
-        let saveEmployee =
-            $.ajax({
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                data: JSON.stringify(employee),
-                dataType: "json",
-                url: '/employeeSave?departmentId=' + departmentId,
-                type: "POST"
-
-            });
-        return saveEmployee;
+        return super.save('/employeeSave', employee, departmentId);
     };
 }

@@ -1,60 +1,31 @@
 'use strict';
 import jQuery from "jquery";
+import Service from "../service";
 window.$ = window.jQuery = jQuery;
 
-export default class DepartmentService {
+export default class DepartmentService extends Service {
+
+    constructor() {
+        super();
+    }
 
     findAll() {
-        let getDepartments = $.ajax({
-            url: '/departments',
-            type: 'GET'
-        });
-        return getDepartments;
+        return super.findAll('/departments', null);
     };
 
-    delete(id) {
-        let deleteDepartment = $.ajax({
-            url: '/delete',
-            data: {id: id},
-            type: 'POST'
-        });
-        return deleteDepartment;
+    _delete(id) {
+        return super._delete('/delete', id);
     };
 
     update(id) {
-        let updateDepartment = $.ajax({
-            url: '/update',
-            data: {id: id},
-            type: 'POST',
-            dataType: 'json'
-        });
-        return updateDepartment;
+        return super.update('/update', id);
     };
 
     add(departmentId) {
-        let addDepartment = $.ajax({
-            url: '/update',
-            data: {
-                departmentId: departmentId
-            },
-            type: 'POST'
-        });
-        return addDepartment;
+        return super.add('/update', departmentId);
     };
 
-    save(id, name) {
-        let saveDepartment = $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify({
-                id: id,
-                name: name
-            }),
-            url: '/saveDep',
-            type: "POST"
-        });
-        return saveDepartment;
+    save(department, id) {
+        return super.save('/saveDep', department, id);
     };
 }

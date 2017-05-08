@@ -42,9 +42,9 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping(value = "/empDelete", method = RequestMethod.POST)
-    public List<Employee> deleteEmployee(@RequestParam(required = true) Integer employeeId) throws DAOException {
-        Integer departmentId = employeeService.getById(employeeId).getDepartment().getId();
-        employeeService.delEmpl(employeeId);
+    public List<Employee> deleteEmployee(@RequestParam(required = true) Integer id) throws DAOException {
+        Integer departmentId = employeeService.getById(id).getDepartment().getId();
+        employeeService.delEmpl(id);
         return employeeService.getAll(departmentId);
     }
 

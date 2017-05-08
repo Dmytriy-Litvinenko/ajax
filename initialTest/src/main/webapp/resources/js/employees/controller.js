@@ -21,9 +21,9 @@ export default class EmployeeController {
     };
 
     deleteEmployee(event) {
-        let departmentId = $('#departmentId').val()
+        let departmentId = $('#departmentId').val();
         let employeeId = event.target.name;
-        this.employeeService.delete(employeeId)
+        this.employeeService._delete(employeeId)
             .then((response) => {
                 this.employeeViev.displayEmployees(response, departmentId);
             });

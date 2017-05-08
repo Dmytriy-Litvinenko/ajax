@@ -3,7 +3,6 @@ import jQuery from "jquery";
 import "jquery-validation";
 window.$ = window.jQuery = jQuery;
 
-
 export default class EmployeeView {
 
     displayEmployees(response, departmentId) {
