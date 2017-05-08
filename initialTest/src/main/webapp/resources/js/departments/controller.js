@@ -5,8 +5,7 @@ import jQuery from "jquery";
 import "jquery-validation";
 window.$ = window.jQuery = jQuery;
 //const departmentService = new DepartmentService();
-//export default
- class DepartmentController {
+export default class DepartmentController {
 
     showAllDepartments() {
         $.ajax({
@@ -158,4 +157,4 @@ window.$ = window.jQuery = jQuery;
     };
 
 }
-module.exports = DepartmentController;
+//module.exports = DepartmentController;

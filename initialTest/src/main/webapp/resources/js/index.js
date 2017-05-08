@@ -1,31 +1,33 @@
 'use strict';
 import jQuery from "jquery";
-const DepartmentController = require('./departments/controller.js');
-//import DepartmentController from './departments/controller.js';
-const EmployeeController = require('./employees/controller.js');
+//const DepartmentController = require('./departments/controller.js');
+import DepartmentController from './departments/controller.js';
+import EmployeeController from './employees/controller.js';
+//const EmployeeController = require('./employees/controller.js');
+import Dispatcher from './dispatcher';
 window.$ = window.jQuery = jQuery;
 $(document).ready(function () {
 
-    let departmentController = new DepartmentController();
-    let employeeController =new EmployeeController();
-    let dispatcher = new Map();
+    /*let departmentController = new DepartmentController();
+    let employeeController = new EmployeeController();*/
+    let dispatcher = new Dispatcher();
+    dispatcher.listen();
 
-    dispatcher.set('showAllDepartments',()=>departmentController.showAllDepartments());
-    dispatcher.set('deleteDepartment',()=>departmentController.deleteDepartment(event));
-    dispatcher.set('addDepartment',()=>departmentController.addDepartment(event));
-    dispatcher.set('updateDepartment',()=>departmentController.updateDepartment(event));
-    //dispatcher.set('saveDepartment',()=>departmentController.saveDepartment(event));
-    dispatcher.set('showAllEmployees',()=>employeeController.showAllEmployees(event));
-    dispatcher.set('deleteEmployee',()=>employeeController.deleteEmployee(event));
-    dispatcher.set('addEmployee',()=>employeeController.addEmployee(event));
-    dispatcher.set('updateEmployee',()=>employeeController.updateEmployee(event));
-    //dispatcher.set('saveEmployee',()=>employeeController.saveEmployee(event));
+    /*let dispatcher = new Map();
 
-    $('body').on('click', '.listener',(event)=> {//
-        //let value = $(this).attr('value');
-        let valueFromEvent=event.target.value;
+    dispatcher.set('showAllDepartments', () => departmentController.showAllDepartments());
+    dispatcher.set('deleteDepartment', () => departmentController.deleteDepartment(event));
+    dispatcher.set('addDepartment', () => departmentController.addDepartment(event));
+    dispatcher.set('updateDepartment', () => departmentController.updateDepartment(event));
+    dispatcher.set('showAllEmployees', () => employeeController.showAllEmployees(event));
+    dispatcher.set('deleteEmployee', () => employeeController.deleteEmployee(event));
+    dispatcher.set('addEmployee', () => employeeController.addEmployee(event));
+    dispatcher.set('updateEmployee', () => employeeController.updateEmployee(event));
+
+    $('body').on('click', '.listener', (event) => {//
+        let valueFromEvent = event.target.value;
         dispatcher.get(valueFromEvent)(event);
-    });
+    });*/
 });
 
 

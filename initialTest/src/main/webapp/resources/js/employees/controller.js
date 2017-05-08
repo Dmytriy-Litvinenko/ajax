@@ -4,7 +4,7 @@ import "jquery-validation";
 window.$ = window.jQuery = jQuery;
 //const departmentService = new DepartmentService();
 
-class EmployeeController {
+export default class EmployeeController {
 
     showAllEmployees(event) {
         let departmentId = event.target.name;
@@ -43,7 +43,6 @@ class EmployeeController {
 
     addEmployee(event) {
         let departmentId = event.target.name;
-        //let departmentId = event.target.name;
         $.ajax({
             url: '/employeeUpdate',
             data: {
@@ -104,8 +103,6 @@ class EmployeeController {
                 .append($('<td>').text(response[i].email))
                 .append($('<td>').text(response[i].salary))
                 .append($('<td>').text(birthDate))
-                //.append($('<td>').append($('<button  onclick="deleteEmployee(event);" name="' + response[i].id + '">Delete</button>')))
-                //.append($('<td>').append($('<button onclick="updateEmployee(event);" name="' + response[i].id + '">Update</button>')))
                 .append($('<td>').append($('<button class="listener" value="deleteEmployee" name="' + response[i].id + '">Delete</button>')))
                 .append($('<td>').append($('<button class="listener" value="updateEmployee" name="' + response[i].id + '">Update</button>')))
 
@@ -113,7 +110,6 @@ class EmployeeController {
         }
         table.append($('<tr>')
             .append($('<td>')
-                //.append($('<button onclick="addEmployee(event);" name="' + departmentId + '">Add</button>')))
                 .append($('<button class="listener" value="addEmployee" name="' + departmentId + '">Add</button>')))
         );
         body.append(table);
@@ -124,7 +120,7 @@ class EmployeeController {
         let birthDate = new Date(response.birthDate).toLocaleString('en-GB').split(' ')[0].slice(0, -1).split('/').reverse().join('-');
         body.text('');
         body.append(
-            $('<form id="employeeForm" >')//method="post" action="/employeeSave">
+            $('<form id="employeeForm" >')
                 .append(
                     $('<table>')
                         .append($('<tr>')
@@ -137,7 +133,7 @@ class EmployeeController {
                                 .append($('<input type="hidden" id="departmentId"/>')
                                     .val(departmentId))
                             )
-                        )/*
+                        )
                         .append($('<tr>')
                             .append($('<td>').text('Email:'))
                             .append($('<td>')
@@ -158,11 +154,10 @@ class EmployeeController {
                                 .append($('<input type="date" id="birthDate" name="birthDate"/>')
                                     .val(response !== null ? birthDate : ""))
                             )
-                        )*/
+                        )
                         .append($('<tr>')
                             .append($('<td>')
-                                //.append($('<input type="submit" value="Save"/>'))
-                                .append($('<button type="submit" value="employeeSave">Save</button>'))//onclick="saveEmployee();Save</button>"
+                                .append($('<button type="submit" value="employeeSave">Save</button>'))
                             )
                         )
                 )
@@ -229,4 +224,4 @@ class EmployeeController {
         });
     };
 }
-module.exports = EmployeeController;
+//module.exports = EmployeeController;
