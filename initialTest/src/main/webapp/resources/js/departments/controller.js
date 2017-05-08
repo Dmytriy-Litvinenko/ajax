@@ -1,10 +1,12 @@
 'use strict';
 import jQuery from "jquery";
+//import jqueryValidation from 'jquery-validation';
 //const DepartmentService = require('./departmentService.js');
+import "jquery-validation";
 window.$ = window.jQuery = jQuery;
 //const departmentService = new DepartmentService();
-
-class DepartmentController {
+//export default
+ class DepartmentController {
 
     showAllDepartments() {
         $.ajax({
@@ -52,7 +54,7 @@ class DepartmentController {
     };
 
     saveDepartment(event) {
-        event.preventDefault();
+        //event.preventDefault();
         let depId = $('#id').val();
         let depName = $('#name').val();
         $.ajax({
@@ -67,8 +69,8 @@ class DepartmentController {
             url: '/saveDep',
             type: "POST"
         }).then((response) => {
-            //this.showAllDepartments();//this.departmentservice.
-            this.displayDepartments(response.departments);
+            //this.showAllDepartments();//this.departmentservice..departments
+            this.displayDepartments(response);
         });
     };
 
@@ -76,7 +78,7 @@ class DepartmentController {
     displayDepartments = (response) => {
         //this;
         //let body = $('body');
-        let body =$('#page');
+        let body = $('#page');
         body.text('');
         let table = $('<table>');
         table.append($('<tr>').append($('<td>').append($('<b>').text('Department Name'))));
@@ -84,19 +86,13 @@ class DepartmentController {
             table.append(
                 $('<tr>')
                     .append($('<td>').text(response[i].name))
-                    //.append($('<td>').append($('<button onclick="this.deleteDepartment(event);" name="' + response[i].id + '">Delete</button>')))
                     .append($('<td>').append($('<button class="listener" value="deleteDepartment" name="' + response[i].id + '">Delete</button>')))
-                    //.append($('<td>').append($('<button onclick="this.updateDepartment(event);" name="' + response[i].id + '">Update</button>')))
-                    .append($('<td>').append($('<button class="listener" value="updateDepartment" name="'+ response[i].id + '" name="' + response[i].id + '">Update</button>')))
-                    .append($('<td>').append($('<button onclick="this.showAllEmployees(event);" name="' + response[i].id + '">Employees</button>')))
+                    .append($('<td>').append($('<button class="listener" value="updateDepartment" name="' + response[i].id + '" >Update</button>')))
+                    .append($('<td>').append($('<button class="listener" value="showAllEmployees" name="' + response[i].id + '">Employees</button>')))
             );
-            //$('.updateDepartmentButton').addEventListener("click",this.updateDepartment(event));
-            //id="update_department'+ response[i].id+'"
-            //$("#updateDepartmentButton" + id).addEventListener("click",this.updateDepartment(event));;
         }
         table.append($('<tr>')
             .append($('<td>')
-            //.append($('<button class="listen" onclick="this.addDepartment(event);">Add</button>')))
                 .append($('<button class="listener" value="addDepartment" >Add</button>')))
         );
         body.append(table);
@@ -118,12 +114,12 @@ class DepartmentController {
                         )
                         .append($('<tr>')
                             .append($('<td>')
-                                .append($('<button class="listener" type="submit" value="saveDepartment">Save</button>'))
-                            )
+                                .append($('<button type="submit" value="saveDepartment">Save</button>'))
+                            )//class="listener"
                         )
                 )
         );
-        //this.validateDepartment();
+        this.validateDepartment();
     };
 
     validateDepartment() {
@@ -137,10 +133,10 @@ class DepartmentController {
                         url: "/uniqueName",
                         type: "POST",
                         data: {
-                            id: function () {
+                            id: () => {
                                 return $('#id').val();
                             },
-                            name: function () {
+                            name: () => {
                                 return $('#name').val();
                             }
                         }
@@ -155,7 +151,7 @@ class DepartmentController {
                     remote: "This name is already used!"
                 }
             },
-            submitHandler: function () {
+            submitHandler: () => {
                 this.saveDepartment();
             }
         });

@@ -1,12 +1,9 @@
-let showAllEmployees = function (event) {
+/*let showAllEmployees = function (event) {
     let departmentId = event.target.name;
     $.ajax({
         url: '/employees',
         type: 'GET',
-        data: {departmentId: departmentId}/*,
-        success: function (response) {
-            displayEmployees(response, departmentId);
-        }*/
+        data: {departmentId: departmentId}
     }).then((response) =>{
         displayEmployees(response, departmentId);
     });
@@ -18,13 +15,7 @@ let deleteEmployee = function (event) {
     $.ajax({
         url: '/empDelete',
         data: {employeeId: event.target.name},
-        type: 'POST'/*,
-        success: function (response) {
-            displayEmployees(response, departmentId);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus);
-        }*/
+        type: 'POST'
     }).then((response) => {
         displayEmployees(response, departmentId);
         });
@@ -37,10 +28,7 @@ let updateEmployee = function (event) {
             employeeId: event.target.name,
             departmentId: ""
         },
-        type: 'POST'/*,
-        success: function (response) {
-            displayEmployeeDetails(response, response.department.id);
-        }*/
+        type: 'POST'
     }).then((response)=>{
         displayEmployeeDetails(response, response.department.id);
     });
@@ -53,10 +41,7 @@ let addEmployee = function (event) {
             employeeId: "",
             departmentId: departmentId
         },
-        type: 'POST'/*,
-        success: function (response) {
-            displayEmployeeDetails(response, departmentId);
-        }*/
+        type: 'POST'
     }).then((response)=>{
         displayEmployeeDetails(response, departmentId);
     });
@@ -85,15 +70,16 @@ let saveEmployee = function () {
         data: JSON.stringify(employee),
         dataType: "json",
         url: '/employeeSave?departmentId=' + departmentId,
-        type: "POST"/*,
-        success: function (data) {
-            displayEmployees(data, departmentId);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus);
-        }*/
+        type: "POST"
 
     }).then((data)=>{
         displayEmployees(data, departmentId);
     });
-};
+};*/
+/*,
+ success: function (data) {
+ displayEmployees(data, departmentId);
+ },
+ error: function (jqXHR, textStatus, errorThrown) {
+ alert(textStatus);
+ }*/

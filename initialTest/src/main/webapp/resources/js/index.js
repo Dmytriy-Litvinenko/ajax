@@ -1,19 +1,25 @@
 'use strict';
 import jQuery from "jquery";
-//const User = require('./user.js');
-const DepartmentController = require('./departments/depControllerOOP.js');
+const DepartmentController = require('./departments/controller.js');
+//import DepartmentController from './departments/controller.js';
+const EmployeeController = require('./employees/controller.js');
 window.$ = window.jQuery = jQuery;
-//window.document = document;
 $(document).ready(function () {
 
     let departmentController = new DepartmentController();
+    let employeeController =new EmployeeController();
     let dispatcher = new Map();
+
     dispatcher.set('showAllDepartments',()=>departmentController.showAllDepartments());
     dispatcher.set('deleteDepartment',()=>departmentController.deleteDepartment(event));
     dispatcher.set('addDepartment',()=>departmentController.addDepartment(event));
     dispatcher.set('updateDepartment',()=>departmentController.updateDepartment(event));
-    dispatcher.set('saveDepartment',()=>departmentController.saveDepartment(event));
-    //dispatcher.set('showAllDepartments',()=>departmentController.showAllDepartments());
+    //dispatcher.set('saveDepartment',()=>departmentController.saveDepartment(event));
+    dispatcher.set('showAllEmployees',()=>employeeController.showAllEmployees(event));
+    dispatcher.set('deleteEmployee',()=>employeeController.deleteEmployee(event));
+    dispatcher.set('addEmployee',()=>employeeController.addEmployee(event));
+    dispatcher.set('updateEmployee',()=>employeeController.updateEmployee(event));
+    //dispatcher.set('saveEmployee',()=>employeeController.saveEmployee(event));
 
     $('body').on('click', '.listener',(event)=> {//
         //let value = $(this).attr('value');

@@ -55,10 +55,10 @@ public class DepartmentController {
 
     @ResponseBody
     @RequestMapping(value = "/saveDep", method = RequestMethod.POST)
-    public JsonObject saveDepartment(@RequestBody Department department) throws DAOException {
+    public List<Department> saveDepartment(@RequestBody Department department) throws DAOException {
 
-        JsonObject jsonObject = new JsonObject();
-        ResponseEntity responseEntity = null;// = new ResponseEntity();
+        //JsonObject jsonObject = new JsonObject();JsonObject
+       // ResponseEntity responseEntity = null;// = new ResponseEntity();
 
         Integer departmentId = department.getId();
         try {
@@ -76,12 +76,13 @@ public class DepartmentController {
             //modelAndView.addObject("department", department);
             //return modelAndView;
             //responseEntity = new ResponseEntity(department, map, HttpStatus.NOT_ACCEPTABLE);
-            jsonObject.setErrors(map);
-            return jsonObject;
+            //jsonObject.setErrors(map);
+            //return jsonObject;
         }
         //return new ModelAndView("redirect:/departments");
-        jsonObject.setDepartments(departmentService.getAll());
-        return jsonObject;//department;
+        //jsonObject.setDepartments(departmentService.getAll());
+        //return jsonObject;//department;
+        return departmentService.getAll();
     }
 /*
     public ResponseEntity(T body, MultiValueMap<String, String> headers, HttpStatus status) {
@@ -122,14 +123,14 @@ public class DepartmentController {
         if (!value.equals("")) id = StringFormatter.stringToInteger(value);//Integer.parseInt(value);
         Department department = departmentService.getByName(name);
         Boolean result;
-        if (name.equals(department.getName())) {
+        /*if (name.equals(department.getName())) {
             if (id == null) {
                 result = false;
             } else if (id != department.getId().intValue()) {
                 result = false;
             } else result = true;
-        } else result = true;/**/
-        //Boolean result = !name.equals(department.getName()) || id != null && id == department.getId().intValue();
+        } else result = true;*/
+        result = !name.equals(department.getName()) || id != null && id == department.getId().intValue();
         //return
         response.getWriter().write(result.toString());
         //return result;
