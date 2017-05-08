@@ -1,17 +1,9 @@
 'use strict';
 import jQuery from "jquery";
-//import jqueryValidation from 'jquery-validation';
-//const DepartmentService = require('./departmentService.js');
 import "jquery-validation";
 window.$ = window.jQuery = jQuery;
-//const departmentService = new DepartmentService();
-import DepartmentController from "./controller.js";
 
 export default class DepartmentView {
-
-    /*constructor(){
-        this.departmentController = new DepartmentController();
-    }*/
 
     displayDepartments = (response) => {
         //this;
@@ -90,11 +82,9 @@ export default class DepartmentView {
                 }
             },
             submitHandler: () => {
-                //this.departmentController.saveDepartment();
                 $( "#saveDepartment" ).addClass('listener').trigger( 'click' );
             }
         });
     };
 
 }
-//module.exports = DepartmentController;

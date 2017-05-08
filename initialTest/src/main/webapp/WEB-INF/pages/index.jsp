@@ -8,7 +8,6 @@
 <div id="page" style="text-align:center">
     <h2>Hello, click the following button to see the departments list!</h2>
     <!--button onclick='showAllDepartments();'>Departments</button-->
-    <!--button onclick='startShowing()'>Departments</buttononclick='Main.main();'-->
     <button class ="listener" value="showAllDepartments" >Departments</button>
 
     <br/>

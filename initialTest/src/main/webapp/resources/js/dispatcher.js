@@ -21,6 +21,7 @@ export default class Dispatcher {
         this.map.set('deleteEmployee', () => this.employeeController.deleteEmployee(event));
         this.map.set('addEmployee', () => this.employeeController.addEmployee(event));
         this.map.set('updateEmployee', () => this.employeeController.updateEmployee(event));
+        this.map.set('saveEmployee', () => this.employeeController.saveEmployee(event));
     }
 
     listen() {
