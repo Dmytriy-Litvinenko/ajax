@@ -4,10 +4,7 @@ import jQuery from "jquery";
 //const DepartmentService = require('./departmentService.js');
 import EmployeeController from "./employees/controller.js";
 import DepartmentController from "./departments/controller.js";
-import "jquery-validation";
 window.$ = window.jQuery = jQuery;
-//const departmentService = new DepartmentService();
-
 
 export default class Dispatcher {
 
@@ -19,6 +16,7 @@ export default class Dispatcher {
         this.map.set('deleteDepartment', () => this.departmentController.deleteDepartment(event));
         this.map.set('addDepartment', () => this.departmentController.addDepartment(event));
         this.map.set('updateDepartment', () => this.departmentController.updateDepartment(event));
+        this.map.set('saveDepartment', () => this.departmentController.saveDepartment(event));
         this.map.set('showAllEmployees', () => this.employeeController.showAllEmployees(event));
         this.map.set('deleteEmployee', () => this.employeeController.deleteEmployee(event));
         this.map.set('addEmployee', () => this.employeeController.addEmployee(event));
@@ -34,4 +32,3 @@ export default class Dispatcher {
 
 
 }
-//module.exports = DepartmentController;
