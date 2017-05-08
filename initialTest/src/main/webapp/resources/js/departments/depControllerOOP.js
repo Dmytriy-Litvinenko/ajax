@@ -51,7 +51,8 @@ class DepartmentController {
         });
     };
 
-    saveDepartment() {
+    saveDepartment(event) {
+        event.preventDefault();
         let depId = $('#id').val();
         let depName = $('#name').val();
         $.ajax({
@@ -65,15 +66,17 @@ class DepartmentController {
             }),
             url: '/saveDep',
             type: "POST"
-        }).then(() => {
-            this.showAllDepartments();//this.departmentservice.
+        }).then((response) => {
+            //this.showAllDepartments();//this.departmentservice.
+            this.displayDepartments(response.departments);
         });
     };
 
 
     displayDepartments = (response) => {
         //this;
-        let body = $('body');
+        //let body = $('body');
+        let body =$('#page');
         body.text('');
         let table = $('<table>');
         table.append($('<tr>').append($('<td>').append($('<b>').text('Department Name'))));
@@ -81,9 +84,10 @@ class DepartmentController {
             table.append(
                 $('<tr>')
                     .append($('<td>').text(response[i].name))
-                    .append($('<td>').append($('<button onclick="this.deleteDepartment(event);" name="' + response[i].id + '">Delete</button>')))
-                    .append($('<td>').append($('<button onclick="this.updateDepartment(event);" name="' + response[i].id + '">Update</button>')))
-                    //.append($('<td>').append($('<button id="' +"updateDepartmentButton"+ response[i].id + '" class ="updateDepartmentButton"  name="' + response[i].id + '">Update</button>')))
+                    //.append($('<td>').append($('<button onclick="this.deleteDepartment(event);" name="' + response[i].id + '">Delete</button>')))
+                    .append($('<td>').append($('<button class="listener" value="deleteDepartment" name="' + response[i].id + '">Delete</button>')))
+                    //.append($('<td>').append($('<button onclick="this.updateDepartment(event);" name="' + response[i].id + '">Update</button>')))
+                    .append($('<td>').append($('<button class="listener" value="updateDepartment" name="'+ response[i].id + '" name="' + response[i].id + '">Update</button>')))
                     .append($('<td>').append($('<button onclick="this.showAllEmployees(event);" name="' + response[i].id + '">Employees</button>')))
             );
             //$('.updateDepartmentButton').addEventListener("click",this.updateDepartment(event));
@@ -92,7 +96,8 @@ class DepartmentController {
         }
         table.append($('<tr>')
             .append($('<td>')
-                .append($('<button class="listen" onclick="this.addDepartment(event);">Add</button>')))
+            //.append($('<button class="listen" onclick="this.addDepartment(event);">Add</button>')))
+                .append($('<button class="listener" value="addDepartment" >Add</button>')))
         );
         body.append(table);
     };
@@ -113,12 +118,12 @@ class DepartmentController {
                         )
                         .append($('<tr>')
                             .append($('<td>')
-                                .append($('<input type="submit" value="Save"/>'))
+                                .append($('<button class="listener" type="submit" value="saveDepartment">Save</button>'))
                             )
                         )
                 )
         );
-        this.validateDepartment();
+        //this.validateDepartment();
     };
 
     validateDepartment() {

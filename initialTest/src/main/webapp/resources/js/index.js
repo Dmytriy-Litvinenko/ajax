@@ -3,62 +3,24 @@ import jQuery from "jquery";
 //const User = require('./user.js');
 const DepartmentController = require('./departments/depControllerOOP.js');
 window.$ = window.jQuery = jQuery;
-/*let user = new User();
- user.setName("Max");
- console.log(user.getName());*/
-/*let depController = new DepartmentController();
- window.departmentController = depController;
- window.startShowing = function () {
- //window.departmentController =
- depController.showAllDepartments();
- };*/
+//window.document = document;
+$(document).ready(function () {
 
-class Main {
-    static main(){
-        let depController = new DepartmentController();
-        depController.showAllDepartments();
+    let departmentController = new DepartmentController();
+    let dispatcher = new Map();
+    dispatcher.set('showAllDepartments',()=>departmentController.showAllDepartments());
+    dispatcher.set('deleteDepartment',()=>departmentController.deleteDepartment(event));
+    dispatcher.set('addDepartment',()=>departmentController.addDepartment(event));
+    dispatcher.set('updateDepartment',()=>departmentController.updateDepartment(event));
+    dispatcher.set('saveDepartment',()=>departmentController.saveDepartment(event));
+    //dispatcher.set('showAllDepartments',()=>departmentController.showAllDepartments());
 
-        $('#page').on('click','.listen',function (event) {
-            let value = $(this).attr('value');
-            //dispatcher[value](event);
-            //$(document).ready(function () {});
-            depController.addDepartment();
-        });
-    }
-}
-window.Main = Main;
-
-/*
-class Main {
-
-    startShowing = function () {
-        let page = document.getElementById("page");
-        page.innerHTML = "<p>Hello JS SPA</p>" +
-            "<button class='listen' value='DepAll'>All Department</button>";
-    };
-
-    static main() {
-        let departmentController = new DepartmentController();
-
-        let dispatcher = {
-            departments: function () {
-                departmentController.showAllDepartments();
-            },
-            DelDep: function () {
-                departmentController.deleteDepartment(event);
-            },
-            AddDep: function () {
-                departmentController.addDepartment();
-            }
-        };
-
-        $('#page').on("click", ".listen", function (event) {
-            let value = $(this).attr('value');
-            dispatcher[value](event);
-            //$(document).ready(function () {});
-        });
-    };
-}*/
+    $('body').on('click', '.listener',(event)=> {//
+        //let value = $(this).attr('value');
+        let valueFromEvent=event.target.value;
+        dispatcher.get(valueFromEvent)(event);
+    });
+});
 
 
 /*
