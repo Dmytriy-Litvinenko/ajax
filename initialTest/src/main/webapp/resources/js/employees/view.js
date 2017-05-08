@@ -1,9 +1,6 @@
 'use strict';
 import jQuery from "jquery";
-//import jqueryValidation from 'jquery-validation';
-//const DepartmentService = require('./departmentService.js');
 import "jquery-validation";
-//const departmentService = new DepartmentService();
 window.$ = window.jQuery = jQuery;
 
 
@@ -142,7 +139,6 @@ export default class EmployeeView {
                 }
             },
             submitHandler: () => {
-                //this.saveEmployee();
                 $("#saveEmployee").addClass('listener').trigger('click');
             }
         });

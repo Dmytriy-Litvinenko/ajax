@@ -1,7 +1,6 @@
 package testtask.controller.departments;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,6 @@ import testtask.exception.DAOException;
 import testtask.exception.ValidationException;
 import testtask.model.Department;
 import testtask.service.impl.DepartmentServiceImpl;
-import testtask.util.JsonObject;
 import testtask.util.db.StringFormatter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +56,7 @@ public class DepartmentController {
     public List<Department> saveDepartment(@RequestBody Department department) throws DAOException {
 
         //JsonObject jsonObject = new JsonObject();JsonObject
-       // ResponseEntity responseEntity = null;// = new ResponseEntity();
+        // ResponseEntity responseEntity = null;// = new ResponseEntity();
 
         Integer departmentId = department.getId();
         try {
@@ -84,79 +82,16 @@ public class DepartmentController {
         //return jsonObject;//department;
         return departmentService.getAll();
     }
-/*
-    public ResponseEntity(T body, MultiValueMap<String, String> headers, HttpStatus status) {
-        super(body, headers);
-        Assert.notNull(status, "HttpStatus must not be null");
-        this.statusCode = status;
-    }
 
-    private ResponseEntity(T body, MultiValueMap<String, String> headers, Object statusCode) {
-        super(body, headers);
-        this.statusCode = statusCode;
-    }*/
-    /*@RequestMapping(value = "/depSaveOrUpdate", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonResponse addNewOne(@RequestBody Department department) throws SQLException {
-        JsonResponse result = new JsonResponse();
-        try {
-            depServ.saveOrUpdate(department);
-            result.setStatus("SUCCESS");
-            result.setDepartment(depServ.findAll());
 
-        } catch (ValidationException e) {
-            Map<String, String> error = e.getError();
-            result.setError(error);
-            result.setStatus("FAIL");
-
-        }
-        return result;
-    }*/
-
-    //@ResponseBody
     @PostMapping("/uniqueName")
-//void@RequestParam(required = false) Integer id, @RequestParam(required = false) String name
     public void validate(HttpServletRequest request, HttpServletResponse response) throws DAOException, IOException {
         String name = request.getParameter("name");
         String value = request.getParameter("id");
         Integer id = null;
-        if (!value.equals("")) id = StringFormatter.stringToInteger(value);//Integer.parseInt(value);
+        if (!value.equals("")) id = StringFormatter.stringToInteger(value);
         Department department = departmentService.getByName(name);
-        Boolean result;
-        /*if (name.equals(department.getName())) {
-            if (id == null) {
-                result = false;
-            } else if (id != department.getId().intValue()) {
-                result = false;
-            } else result = true;
-        } else result = true;*/
-        result = !name.equals(department.getName()) || id != null && id == department.getId().intValue();
-        //return
+        Boolean result = !name.equals(department.getName()) || id != null && id == department.getId().intValue();
         response.getWriter().write(result.toString());
-        //return result;
     }
-
-    /*
-
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String name = request.getParameter("name");
-        String value = request.getParameter("id");
-        Integer id = null      ;
-        if (!value.equals("")) {
-            id = Integer.parseInt(value);
-        }
-
-        Department dep = departmentService.getByName(name);
-
-        if(name.equals(dep.getName())){
-            if(id == null){
-                response.getWriter().write("false");
-            }else if(id != dep.getId().intValue()){
-                response.getWriter().write("false");
-            } else response.getWriter().write("true");
-        } else response.getWriter().write("true");
-    }
-     */
 }

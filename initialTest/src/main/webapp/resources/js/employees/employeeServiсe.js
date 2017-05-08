@@ -1,5 +1,4 @@
-//import saveEmployee from '../route/employees';
-
+/*
 
 let displayEmployees = function (response, departmentId) {
     let body = $('body');
@@ -137,4 +136,4 @@ let validateEmployee = function () {
             saveEmployee();
         }
     });
-};
+};*/

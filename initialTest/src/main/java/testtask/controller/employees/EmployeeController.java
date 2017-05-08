@@ -71,11 +71,10 @@ public class EmployeeController {
             if (employeeId == null) employeeService.addEmpl(employee);
             else employeeService.updateEmpl(employee);
         } catch (ValidationException exception) {
-            ModelAndView modelAndView = new ModelAndView("/employees/update");
+            /*ModelAndView modelAndView = new ModelAndView("/employees/update");
             Map<String, String> map = exception.getMapError();
             modelAndView.addObject("errors", map);
-            //modelAndView.addObject("departmentId", departmentId);
-            modelAndView.addObject("employee", employee);
+            modelAndView.addObject("employee", employee);*/
         }
         return employeeService.getAll(departmentId);//employee;//new ModelAndView("redirect:/employees?departmentId=" + departmentId);
     }

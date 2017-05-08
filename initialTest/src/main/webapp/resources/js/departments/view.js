@@ -6,8 +6,6 @@ window.$ = window.jQuery = jQuery;
 export default class DepartmentView {
 
     displayDepartments = (response) => {
-        //this;
-        //let body = $('body');
         let body = $('#page');
         body.text('');
         let table = $('<table>');
@@ -45,7 +43,7 @@ export default class DepartmentView {
                         .append($('<tr>')
                             .append($('<td>')
                                 .append($('<button type="submit" id="saveDepartment" value="saveDepartment">Save</button>'))
-                            )//class="listener"
+                            )
                         )
                 )
         );
